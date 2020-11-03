@@ -1,16 +1,17 @@
 # TAJMA_OUM
-Profiling System
+Profiling System where students of OUM will take questionaire to determine traits of personality
 
 
 ## Clone repository
-1. Download github desktop
-2. Sign in 
-2. File -> Clone repository
-3. Enter url https://github.com/ZaimAndTaufiq/TAJMA_OUM.git
+- Download github desktop
+- Sign in 
+- File -> Clone repository
+- Enter url https://github.com/ZaimAndTaufiq/TAJMA_OUM.git
 
-2. In the visual code terminal terminal
+## Run system
+- In the visual code terminal terminal
 ```
 flask run
 ```
 
-3. View url in the browser
+- View url in the browser
