@@ -15,3 +15,6 @@ flask run
 ```
 
 - View url in the browser
+
+## Warning
+Only commit changes to your branch only (Taufiq)
