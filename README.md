@@ -2,7 +2,7 @@
 Profiling System
 
 
-##Clone repository
+## Clone repository
 1. Download github desktop
 2. Sign in 
 2. File -> Clone repository
