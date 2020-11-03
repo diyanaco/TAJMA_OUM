@@ -1,0 +1,7 @@
+pip install virtualenv
+virtualenv oum
+oum\Scripts\activate
+-In PowerShell
+	$env:FLASK_APP="main.py"
+
+flask run
