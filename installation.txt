@@ -2,6 +2,6 @@ pip install virtualenv
 virtualenv oum
 oum\Scripts\activate
 -In PowerShell
-	$env:FLASK_APP="main.py"
+	$env:FLASK_APP="main.py" (Only if the main file is not app.py) otherwise can run with flask run directly
 
 flask run
