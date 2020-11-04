@@ -9,6 +9,10 @@ Profiling System where students of OUM will take questionaire to determine trait
 - Enter url https://github.com/ZaimAndTaufiq/TAJMA_OUM.git
 
 ## Run system
+- Activate virtualenv
+```
+oum\Scripts\activate
+```
 - In the visual code terminal terminal
 ```
 flask run
