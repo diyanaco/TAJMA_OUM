@@ -13,7 +13,7 @@ Profiling System where students of OUM will take questionaire to determine trait
 ```
 oum\Scripts\activate
 ```
-- In the visual code terminal terminal
+- In the visual code terminal 
 ```
 flask run
 ```
