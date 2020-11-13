@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/dyn-quest.css') }}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
+        <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script> -->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/dyn-quest.js') }}"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="col-sm-12">
+                <div class="mm-survey">
+
+                    <div class="mm-survey-progress">
+                        <div class="mm-survey-progress-bar mm-progress"></div>
+                    </div>
+
+                    <div class="mm-survey-results">
+                        <div class="mm-survey-results-container">
+                            <p class="mm-survey-results-score">Great job! Thanks for submitting a quote to WebDevlopr, you should be receiving an email soon.</p>
+                            <ul class="mm-survey-results-list"></ul>
+                        </div>
+                        <div class="mm-survey-results-controller">
+                            <div class="mm-back-btn">
+                                <button>Back</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mm-survey-bottom">
+                        <div class="mm-survey-container"></div>
+                        <div class="mm-survey-controller">
+                            <div class="mm-prev-btn">
+                                <button>Prev</button>
+                            </div>
+                            <div class="mm-next-btn">
+                                <button disabled="true">Next</button>
+                            </div>
+                            <div class="mm-finish-btn">
+                                <button>Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
