@@ -42,21 +42,21 @@
 }
 
 .mm-back-btn {
-	display: inline-block;
+	display: flex;
     position: relative;
-    float: left;
+    float: left; 
 }
 
 .mm-prev-btn {
-	display: inline-block;
+	display: flex
     position: relative;
-    float: left;
+    float: left; 
 }
 
 .mm-next-btn {
-	display: inline-block;
+	display: flex
     position: relative;
-    float: right;
+    float: right; 
 }
 
 .mm-finish-btn {
