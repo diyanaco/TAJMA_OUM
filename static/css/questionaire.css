@@ -48,13 +48,13 @@
 }
 
 .mm-prev-btn {
-	display: flex
+	display: flex;
     position: relative;
     float: left; 
 }
 
 .mm-next-btn {
-	display: flex
+	display: flex;
     position: relative;
     float: right; 
 }
