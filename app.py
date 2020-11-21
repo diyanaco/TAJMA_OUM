@@ -49,7 +49,7 @@ def login():
 @app.route("/questionaire", methods=["GET","POST"])
 def questionaire():
     hello = "Hello"
-    return render_template("questionaire.html", value=myresult , hello=hello)
+    return render_template("questionaire-me.html", value=myresult , hello=hello)
 
 @app.route("/test", methods=["GET","POST"])
 def test():
