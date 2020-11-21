@@ -1,29 +1,39 @@
 import os
 from flask import Flask
 from flask import render_template
-from flask import request
+from flask_sqlalchemy import SQLAlchemy 
+import sqlalchemy as db
+import mysql.connector
+from flask_debugtoolbar import DebugToolbarExtension
 
-# from flask_sqlalchemy import SQLAlchemy 
-# import sqlalchemy as db
+#Database config
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="miazocool1503",
+  database="tajma",
+  #auth_plugin='mysql_native_password'
+)
 
-# engine = db.create_engine('mysql://root:miazocool1503@localhost/crud')
+mycursor = mydb.cursor()
+mycursor.execute("SELECT * FROM ques")
+myresult = mycursor.fetchall()
+
+# engine = db.create_engine('mysql://root:miazocool1503@localhost/tajma')
 # connection = engine.connect()
 # metadata = db.MetaData()
-# census = db.Table('student', metadata, autoload=True, autoload_with=engine)
-
-# project_dir = os.path.dirname(os.path.abspath(__file__))
-# database_file = "sqlite:///{}".format(os.path.join(project_dir, "bookdatabase.db"))
 
 app = Flask(__name__)
-# app.config["SQLALCHEMY_DATABASE_URI"] = database_file
+#-for flask_mysql(library) connection
+# app.config['MYSQL_HOST'] = 'localhost'
+# app.config['MYSQL_USER'] = 'root'
+# app.config['MYSQL_PASSWORD'] = 'miazocool1503'
+# app.config['MYSQL_DB'] = 'tajma'
+#app.config["SQLALCHEMY_DATABASE_URI"] = database_file
 
-# db = SQLAlchemy(app)
+app.config['SECRET_KEY'] = 'zaim'
 
-# class Book(db.Model):
-#     title = db.Column(db.String(80), unique=True, nullable=False, primary_key=True)
-
-#     def __repr__(self):
-#         return "<Title: {}>".format(self.title)
+toolbar = DebugToolbarExtension(app)
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -38,7 +48,12 @@ def login():
 
 @app.route("/questionaire", methods=["GET","POST"])
 def questionaire():
-    return render_template("questionaire.html")
+    hello = "Hello"
+    return render_template("questionaire.html", value=myresult , hello=hello)
+
+@app.route("/test", methods=["GET","POST"])
+def test():
+    return render_template("test.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

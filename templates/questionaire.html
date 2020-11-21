@@ -1,49 +1,75 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/questionaire.css') }}">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
-        <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script> -->
-        <script type="text/javascript" src="{{ url_for('static', filename='js/questionaire.js') }}"></script>
-    </head>
-    <body>
-        <div class="container">
-            <div class="col-sm-12">
-                <div class="mm-survey">
 
-                    <div class="mm-survey-progress">
-                        <div class="mm-survey-progress-bar mm-progress"></div>
-                    </div>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/questionaire.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/questionaire.js') }}"></script>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/img/favicon.ico') }}" />
+</head>
 
-                    <div class="mm-survey-results">
-                        <div class="mm-survey-results-container">
-                            <p class="mm-survey-results-score">Great job! Thanks for submitting a quote to WebDevlopr, you should be receiving an email soon.</p>
-                            <ul class="mm-survey-results-list"></ul>
+
+<body>
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="mm-survey">
+
+                <div class="mm-survey-progress">
+                    <div class="mm-survey-progress-bar mm-progress"></div>
+                    <p>{{hello}}</p>
+                </div>
+
+                <div class="mm-survey-results">
+                    <div class="mm-survey-results-container">
+                        {% for num, ques in value %}
+                        <div class="mm-survey-page mm-survey-page-' {{num}}'" data-page="'{{num}}'">
+                            <div class="mm-survery-content">
+                                <div class="mm-survey-question">
+                                    <p>{{ques}}</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="mm-survey-results-controller">
-                            <div class="mm-back-btn">
-                                <button>Back</button>
-                            </div>
+                        {% endfor %}
+                        <!-- <p class="mm-survey-results-score">Great job! Thanks for submitting a quote to WebDevlopr, you
+                            should be receiving an email soon.</p>
+                        <ul class="mm-survey-results-list"></ul> -->
+                    </div>
+                    <div class="mm-survey-results-controller">
+                        <div class="mm-back-btn">
+                            <button>Back</button>
                         </div>
                     </div>
+                </div>
 
-                    <div class="mm-survey-bottom">
-                        <div class="mm-survey-container"></div>
-                        <div class="mm-survey-controller">
-                            <div class="mm-prev-btn">
-                                <button>Prev</button>
+                <div class="mm-survey-bottom">
+                    <div class="mm-survey-container">
+                        {% for num, ques in value %}
+                        <div class="mm-survey-page mm-survey-page-' {{num}}'" data-page="'{{num}}'">
+                            <div class="mm-survery-content">
+                                <div class="mm-survey-question">
+                                    <p>{{ques}}</p>
+                                </div>
                             </div>
-                            <div class="mm-next-btn">
-                                <button disabled="true">Next</button>
-                            </div>
-                            <div class="mm-finish-btn">
-                                <button>Submit</button>
-                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="mm-survey-controller">
+                        <div class="mm-prev-btn">
+                            <button>Prev</button>
+                        </div>
+                        <div class="mm-next-btn">
+                            <button disabled="true">Next</button>
+                        </div>
+                        <div class="mm-finish-btn">
+                            <button>Submit</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>
