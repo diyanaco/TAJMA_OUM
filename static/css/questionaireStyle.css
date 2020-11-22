@@ -12,3 +12,7 @@
     background-color: aquamarine;
     text-align: center;
 }
+
+.active{
+    background-color: beige;
+}
