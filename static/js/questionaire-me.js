@@ -9,45 +9,45 @@
 //     });
 //   });
 
-$(document).ready(function () {
-  $(window).scroll(function () {
-    $('.question').each(function(){
-      if ($(this).scrollTop() > 100) {
-        $(this).addClass("active")
-    // });
-    // if ($(this).scrollTop() > 100) {
-    //   // $('.question').each(function (index) {
-    //   //   if (index == 0) {
-    //   //     $(this).addClass("active")
-    //   //   }
-    //   // });
-    //   $('.question').each(function() {
-    //       $(this).addClass("active")
-    //   });
-    //   // $(".question").css({"opacity" : "0"})
-    // }
-    // else {
-    //   $(".question").css({ "opacity": "1" })
-    }});
-})
+// $(document).ready(function () {
+//   $(window).scroll(function () {
+//     $('.question').each(function(){
+//       if ($(this).scrollTop() > 100) {
+//         $(this).addClass("active")
+//     // });
+//     // if ($(this).scrollTop() > 100) {
+//     //   // $('.question').each(function (index) {
+//     //   //   if (index == 0) {
+//     //   //     $(this).addClass("active")
+//     //   //   }
+//     //   // });
+//     //   $('.question').each(function() {
+//     //       $(this).addClass("active")
+//     //   });
+//     //   // $(".question").css({"opacity" : "0"})
+//     // }
+//     // else {
+//     //   $(".question").css({ "opacity": "1" })
+//     }});
+// })
 
-  // $(window).on("scroll", function() {
-  //   $(container).find(".question").each(function() {
-  //     var etop = $(this).offset().top;
-  //     var diff = etop - $(window).scrollTop();
+  $(window).on("scroll", function() {
+    $(".question").each(function() {
+      var etop = $(this).offset().top;
+      var diff = etop - $(window).scrollTop();
 
-  //     if (diff > 100 && diff < 300) {
-  //       reinitState(this);
-  //     }
-  //   });
-  // });
+      if (diff > 100 && diff < 300) {
+        reinitState(this);
+      }
+    });
+  });
 
-  // function reinitState(e) {
-  //   $(container).find(".ques").removeClass("active");
+  function reinitState(e) {
+    $(".question").removeClass("active");
 
-  //   $(container).find(".ques").each(function() {
-  //     $(this).blur();
-  //   });
-  //   $(e).addClass("active");
-  //   /*$(e).find('input').focus();*/
-  // }
+    $(".question").each(function() {
+      $(this).blur();
+    });
+    $(e).addClass("active");
+    /*$(e).find('input').focus();*/
+  }
