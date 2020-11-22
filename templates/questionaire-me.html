@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <!-- Material Design Bootstrap -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/mdb.min.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/questionaire-me.js') }}"></script>
+    
 </head>
 
 <body>
@@ -31,7 +34,7 @@
         <div class="question">
             <div class="row">
                 <div class="col">
-                    <p>{{ques}}</p>
+                    <h2>{{ques}}</h2>
                 </div>
             </div>
             <div class="row">

@@ -1,0 +1,14 @@
+.form{
+    margin: auto;
+    width: 700px;
+    border-style: solid;
+    border-color: aquamarine;
+    border-width: 10px;
+    padding: 10px 10px 10px 10px;
+}
+.question{
+    padding-top: 10%;
+    opacity: 0.1;
+    background-color: aquamarine;
+    text-align: center;
+}
