@@ -8,9 +8,16 @@
 }
 .question{
     padding-top: 10%;
-    opacity: 0.1;
-    background-color: aquamarine;
+}
+
+.answer{
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+.block {
+    opacity: 0.2;
     text-align: center;
+    background-color: beige;
 }
 
 .active{

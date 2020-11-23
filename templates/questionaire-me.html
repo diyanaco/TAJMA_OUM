@@ -27,42 +27,20 @@
     <!-- jquery plugin -->
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.5.1.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/questionaire-me.js') }}"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
 </head>
 
 <body>
     <div class="form">
         <h1>The title</h1>
         {% for num, ques in value %}
-        <div class="question">
-            <div class="row">
+        <div class="block">
+            <div class="row question">
                 <div class="col">
                     <h2>{{ques}}</h2>
                 </div>
             </div>
-            <!-- <div class="row">
-                <div class="col-sm input-radio">
-                    <input type="radio" name="editList" value="One">1
-                </div>
-                <div class="col-sm input-radio">
-                    <input type="radio" name="editList" value="Two">2
-                </div>
-                <div class="col-sm input-radio">
-                    <input type="radio" name="editList" value="Three">3
-                </div>
-                <div class="col-sm input-radio">
-                    <input type="radio" name="editList" value="Four">4
-                </div>
-                <div class="col-sm input-radio">
-                    <input type="radio" name="editList" value="Five">5
-                </div>
-            </div> -->
             <div class="row answer">
-                <!-- <form name="formA" id="my_radio_box">
-                    <input type="radio" name="myradio" value="option 1" id="hello"> Option 1
-                    <input type="radio" name="myradio" value="option 2"> Option 2
-                    <input type="radio" name="myradio" value="option 3"> Option 3
-                </form> -->
                 <div class="col-sm input-radio">
                     <input type="radio" name="editList" value="One">1
                     <input type="radio" name="editList" value="Two">2
@@ -71,14 +49,8 @@
                     <input type="radio" name="editList" value="Five">5
                 </div>
             </div>
-            <!-- <form name = "formA" id="my_radio_box">
-                <input type="radio" name="myradio" value="option 1" id ="hello"> Option 1
-                <input type="radio" name="myradio" value="option 2"> Option 2
-                <input type="radio" name="myradio" value="option 3"> Option 3
-            </form> -->
         </div>
         {% endfor %}
-
     </div>
 </body>
 
