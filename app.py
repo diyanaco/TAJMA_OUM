@@ -19,20 +19,8 @@ mycursor = mydb.cursor()
 mycursor.execute("SELECT * FROM ques")
 myresult = mycursor.fetchall()
 
-# engine = db.create_engine('mysql://root:miazocool1503@localhost/tajma')
-# connection = engine.connect()
-# metadata = db.MetaData()
-
 app = Flask(__name__)
-#-for flask_mysql(library) connection
-# app.config['MYSQL_HOST'] = 'localhost'
-# app.config['MYSQL_USER'] = 'root'
-# app.config['MYSQL_PASSWORD'] = 'miazocool1503'
-# app.config['MYSQL_DB'] = 'tajma'
-#app.config["SQLALCHEMY_DATABASE_URI"] = database_file
-
 app.config['SECRET_KEY'] = 'zaim'
-
 toolbar = DebugToolbarExtension(app)
 
 @app.route("/", methods=["GET", "POST"])
