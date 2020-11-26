@@ -10141,8 +10141,8 @@ img::-moz-selection {
   }
 }
 header.masthead {
-  padding-top: 10.5rem;
-  padding-bottom: 6rem;
+  /* padding-top: 10.5rem;
+  padding-bottom: 6rem; */
   text-align: center;
   color: #fff;
   background-image: url("../assets/img/header-bg.jpg");
@@ -10513,6 +10513,6 @@ section#contact form#contactForm :-ms-input-placeholder {
 
 .coverpage{
   height: 470px;
-  width: 100%;
+  width: 70%;
   margin: auto;
 }
