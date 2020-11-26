@@ -5915,7 +5915,7 @@ a.close.disabled {
   width: 15%;
   color: black;
   text-align: center;
-  opacity: 0.5;
+  opacity: 1;
   transition: opacity 0.15s ease;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -5935,12 +5935,10 @@ a.close.disabled {
 
 .carousel-control-prev {
   left: 0;
-  color: #000;
 }
 
 .carousel-control-next {
   right: 0;
-  background-color: #000;
 }
 
 .carousel-control-prev-icon,
@@ -5948,8 +5946,7 @@ a.close.disabled {
   display: inline-block;
   width: 20px;
   height: 20px;
-  background: no-repeat 50%/100% 100%;
-  background-color: #000;
+  background: no-repeat 50% / 100% 100%;
 }
 
 .carousel-control-prev-icon {
@@ -5966,6 +5963,7 @@ a.close.disabled {
   bottom: 0;
   left: 0;
   z-index: 15;
+  display: -ms-flexbox;
   display: flex;
   justify-content: center;
   padding-left: 0;
@@ -10183,7 +10181,7 @@ header.masthead .masthead-heading {
     font-size: 4.5rem;
     font-weight: 700;
     line-height: 4.5rem;
-    margin-bottom: 4rem;
+    margin-bottom: 2.5rem;
   }
 }
 #portfolio .portfolio-item {
