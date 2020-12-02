@@ -516,30 +516,6 @@ mark,
     height: auto;
 }
 
-@media (min-width: 360px) {
-    .img-fluid {
-        max-width: 100px;
-    }
-}
-
-@media (min-width: 768px) {
-    .img-fluid {
-        max-width: 300px;
-    }
-}
-
-@media (min-width: 992px) {
-    .img-fluid {
-        max-width: 600px;
-    }
-}
-
-@media (min-width: 1200px) {
-    .img-fluid {
-        max-width: 1140px;
-    }
-}
-
 .img-thumbnail {
     padding: 0.25rem;
     background-color: #fff;
@@ -6484,9 +6460,10 @@ a.close.disabled {
 
 .carousel-inner {
     position: relative;
-    width: 100%;
+    width: 900px;
     height: 500px;
     overflow: hidden;
+    margin: auto;
 }
 
 .carousel-inner::after {
@@ -10197,24 +10174,10 @@ img::-moz-selection {
 }
 
 .btn-xl {
-    padding: 1.25rem 2.5rem;
+    padding: 1rem 1rem;
     font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-size: 1.125rem;
     font-weight: 700;
-}
-
-@media (min-width: 360px) {
-    .btn-xl {
-        font-size: 0.9rem;
-        padding: 0.4rem 0.6rem;
-    }
-}
-
-@media (min-width: 900px) {
-    .btn-xl {
-        font-size: 1.125rem;
-        padding: 1.25rem 2.5rem;
-    }
 }
 
 .btn-social {
@@ -10333,31 +10296,10 @@ header.masthead .masthead-heading {
     font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-@media (min-width: 360px) {
-    header.masthead {
-        padding-top: 7rem;
-        background-image: url("../assets/img/header-bg-sml.jpg");
-        background-size: 100% 97%;
-    }
-    header.masthead .masthead-subheading {
-        font-size: 1.25rem;
-        font-style: italic;
-        line-height: 1.25rem;
-        margin-bottom: 2rem;
-    }
-    header.masthead .masthead-heading {
-        font-size: 2rem;
-        font-weight: 700;
-        line-height: 2.5rem;
-        margin-bottom: 2.5rem;
-    }
-}
-
 @media (min-width: 768px) {
     header.masthead {
         padding-top: 13rem;
         padding-bottom: 10rem;
-        background-image: url("../assets/img/header-bg.jpg");
     }
     header.masthead .masthead-subheading {
         font-size: 2.25rem;
@@ -10751,4 +10693,8 @@ section#contact form#contactForm :-ms-input-placeholder {
     height: 470px;
     width: 70%;
     margin: auto;
+}
+
+.item2 {
+    padding-top: 50px;
 }
