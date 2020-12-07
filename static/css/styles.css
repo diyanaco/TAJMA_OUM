@@ -10280,7 +10280,7 @@ img::-moz-selection {
         transition: font-size 0.3s ease-in-out;
     }
     #mainNav .navbar-brand img {
-        height: 2rem;
+        height: 3.5rem;
         transition: height 0.3s ease-in-out;
     }
     #mainNav.navbar-shrink {
@@ -10312,7 +10312,7 @@ header.masthead {
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center bottom;
-    background-size: 100% 95%;
+    background-size: 100% 100%;
     background-position-y: top;
     /* object-fit: cover; */
 }
@@ -10358,6 +10358,7 @@ header.masthead .masthead-heading {
         padding-top: 13rem;
         padding-bottom: 10rem;
         background-image: url("../assets/img/header-bg.jpg");
+        background-size: 100% 95%;
     }
     header.masthead .masthead-subheading {
         font-size: 2.25rem;
