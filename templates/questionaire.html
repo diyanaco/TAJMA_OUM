@@ -1,74 +1,56 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/questionaire.css') }}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-scrollTo/2.1.2/jquery.scrollTo.min.js"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/questionaire.js') }}"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>TAJMA TP+</title>
+    <!-- <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" /> -->
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/img/favicon.ico') }}" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
+        type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <!-- <link href="css/styles.css" rel="stylesheet" /> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/questionaireStyle.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Material Design Bootstrap -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/mdb.min.css') }}"> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+
+    <!-- jquery plugin -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.5.1.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/questionaire-me.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
 </head>
 
-
 <body>
-    <div class="container">
-        <div class="col-sm-12">
-            <div class="mm-survey">
-
-                <div class="mm-survey-progress">
-                    <div class="mm-survey-progress-bar mm-progress"></div>
-                    <p>{{hello}}</p>
+    <div class="form">
+        <h1>The title</h1>
+        {% for num, ques in value %}
+        <div class="block">
+            <div class="row question">
+                <div class="col">
+                    <h2>{{ques}}</h2>
                 </div>
-
-                <div class="mm-survey-results">
-                    <div class="mm-survey-results-container">
-                        {% for num, ques in value %}
-                        <div class="mm-survey-page mm-survey-page-' {{num}}'" data-page="'{{num}}'">
-                            <div class="mm-survery-content">
-                                <div class="mm-survey-question">
-                                    <p>{{ques}}</p>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                        <!-- <p class="mm-survey-results-score">Great job! Thanks for submitting a quote to WebDevlopr, you
-                            should be receiving an email soon.</p>
-                        <ul class="mm-survey-results-list"></ul> -->
-                    </div>
-                    <div class="mm-survey-results-controller">
-                        <div class="mm-back-btn">
-                            <button>Back</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="mm-survey-bottom">
-                    <div class="mm-survey-container">
-                        {% for num, ques in value %}
-                        <div class="mm-survey-page mm-survey-page-' {{num}}'" data-page="'{{num}}'">
-                            <div class="mm-survery-content">
-                                <div class="mm-survey-question">
-                                    <p>{{ques}}</p>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <div class="mm-survey-controller">
-                        <div class="mm-prev-btn">
-                            <button>Prev</button>
-                        </div>
-                        <div class="mm-next-btn">
-                            <button disabled="true">Next</button>
-                        </div>
-                        <div class="mm-finish-btn">
-                            <button>Submit</button>
-                        </div>
-                    </div>
+            </div>
+            <div class="row answer">
+                <div class="col-sm input-radio">
+                    <input type="radio" name="editList" value="One">1
+                    <input type="radio" name="editList" value="Two">2
+                    <input type="radio" name="editList" value="Three">3
+                    <input type="radio" name="editList" value="Four">4
+                    <input type="radio" name="editList" value="Five">5
                 </div>
             </div>
         </div>
+        {% endfor %}
     </div>
 </body>
 
