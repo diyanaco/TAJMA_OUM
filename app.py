@@ -34,9 +34,9 @@ def home():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        if form.email.data =='admin"blog.com' and form.password.data =='password':
+        if form.email.data =='admin@blog.com' and form.password.data =='password':
             flash('You have been logged in', 'success')
-            return render_template('user_dashboard.html')
+            return render_template('dashboard.html')
     return render_template("login.html", form=form)
 
 @app.route("/questionaire", methods=["GET","POST"])
