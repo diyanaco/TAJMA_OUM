@@ -1,10 +1,10 @@
 import os
-from flask import Flask
-from flask import render_template
+from flask import Flask, render_template, url_for, flash, redirect
 from flask_sqlalchemy import SQLAlchemy 
 import sqlalchemy as db
 import mysql.connector
 from flask_debugtoolbar import DebugToolbarExtension
+from login import LoginForm
 
 #Database config
 mydb = mysql.connector.connect(
@@ -32,12 +32,17 @@ def home():
 
 @app.route("/login", methods=["GET","POST"])
 def login():
-    return render_template("login.html")
+    form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data =='admin"blog.com' and form.password.data =='password':
+            flash('You have been logged in', 'success')
+            return render_template('user_dashboard.html')
+    return render_template("login.html", form=form)
 
 @app.route("/questionaire", methods=["GET","POST"])
 def questionaire():
     hello = "Hello"
-    return render_template("questionaire-me.html", value=myresult , hello=hello)
+    return render_template("questionaire.html", value=myresult , hello=hello)
 
 @app.route("/test", methods=["GET","POST"])
 def test():
