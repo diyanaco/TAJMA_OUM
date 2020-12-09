@@ -1,5 +1,5 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/loginStyle.css') }}">
 <!------ Include the above in your HEAD tag ---------->
@@ -13,12 +13,12 @@
             <img src="static/assets/img/tajma-logo.jpg" id="icon" alt="User Icon" />
         </div>
 
-        <!-- Login Form -->
+        <!-- Register Form -->
         <form method="POST" action="">
             <!--security-->
             {{form.hidden_tag()}}
             <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Log In</legend>
+                <legend class="border-bottom mb-4">Register</legend>
                 <div class="form-group">
                     {{ form.email.label(class="form-control-label") }}
                     {% if form.email.errors %} 
@@ -34,24 +34,15 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    {{ form.password.label(class="form-control-label") }} 
-                    {% if form.password.errors %}
-                    {{ form.password(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.password.errors %}
-                        <span>{{ error }}</span> 
-                        {% endfor %}
-                    </div>
-                    {% else %} 
-                    {{ form.password(class="form-control form-control-lg") }} 
-                    {% endif %}
+                    {{ form.register(class="btn btn-outline-info") }}
                 </div>
-                <div class="form-check">
-                    {{ form.remember(class="form-check-input") }} {{ form.remember.label(class="form-check-label") }}
-                </div>
-                <div class="form-group">
-                    {{ form.submit(class="btn btn-outline-info") }}
-                </div>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                <p style="text-align:left ; margin-left:10px; margin-right: 10px;">{{ message }}</p>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
             </fieldset>
             <!-- <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
             <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
