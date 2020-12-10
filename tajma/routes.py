@@ -2,7 +2,6 @@ from flask import render_template, url_for, flash, redirect
 from tajma import app
 from tajma.login import LoginForm
 from tajma.register import RegistrationForm
-from tajma.models import User
 
 ##Temporary question
 myresult = [(1,'Hello'), (2,'Hehe'),(3,'Hello'), (4,'Hehe'),(5,'Hello'), (6,'Hehe')]
@@ -18,9 +17,10 @@ def home():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        if form.email.data =='admin@blog.com' and form.password.data =='password':
-            flash('You have been logged in', 'success')
+        if form.check() == True:
             return render_template('dashboard.html')
+        else :
+            flash("You are not registered, please register first")
     return render_template("login.html", form=form)
 
 @app.route("/questionaire", methods=["GET","POST"])

@@ -1,7 +1,7 @@
 from flask import flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
-from tajma.models import User
+from tajma.models import Student
 from wtforms.validators import DataRequired, Email
 
 class RegistrationForm(FlaskForm):
@@ -9,13 +9,13 @@ class RegistrationForm(FlaskForm):
     register = SubmitField('Register')
 
     def check(self):
-        for u in User.query.all() :
+        #student = Student.query.filter_by(Student.data).first()
+        for u in Student.query.all() :
             if self.email.data == u.email:
                 flash("We found your email")
                 return True
-            else :
-                flash("Email not found")   
-                return False         
+        flash("Email not found")   
+        return False         
            
         
         

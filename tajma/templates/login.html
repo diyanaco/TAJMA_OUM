@@ -52,6 +52,13 @@
                 <div class="form-group">
                     {{ form.submit(class="btn btn-outline-info") }}
                 </div>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                <p style="text-align:left ; margin-left:10px; margin-right: 10px;">{{ message }}</p>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
             </fieldset>
             <!-- <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
             <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
