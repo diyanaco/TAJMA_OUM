@@ -3,36 +3,54 @@ from tajma import app
 from tajma.login import LoginForm
 from tajma.register import RegistrationForm
 
-##Temporary question
-myresult = [(1,'Hello'), (2,'Hehe'),(3,'Hello'), (4,'Hehe'),(5,'Hello'), (6,'Hehe')]
+# Temporary question
+myresult = [(1, 'Hello'), (2, 'Hehe'), (3, 'Hello'),
+            (4, 'Hehe'), (5, 'Hello'), (6, 'Hehe')]
+
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-#     if request.form:
-#         print(request.form)  
+    #     if request.form:
+    #         print(request.form)
     return render_template("index.html")
-    #return "Hello World Kih"
+    # return "Hello World Kih"
 
-@app.route("/login", methods=["GET","POST"])
+
+@app.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
         if form.check() == True:
             return render_template('dashboard.html')
-        else :
+        else:
             flash("You are not registered, please register first")
     return render_template("login.html", form=form)
 
-@app.route("/questionaire", methods=["GET","POST"])
-def questionaire():
-    return render_template("questionaire.html", value=myresult)
 
-@app.route("/register",methods=["GET","POST"])
+# @app.route("/questionaire", methods=["GET", "POST"])
+# def questionaire():
+#     return render_template("questionaire.html", value=myresult)
+
+
+@app.route("/register", methods=["GET", "POST"])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         if form.check() == True:
-            flash('A confirmation email has been sent, please verify first, then continue with the registration')
+            flash(
+                'A confirmation email has been sent, please verify first, then continue with the registration')
         else:
             flash('You are not elligible to register, please verify with OUM')
     return render_template("register.html", form=form)
+
+@app.route("/attitude", methods=["GET", "POST"])
+def attitude():
+    return render_template("tpAttitude.html")
+
+@app.route("/learner", methods=["GET", "POST"])
+def learner():
+    return render_template("tpLearner.html")
+
+@app.route("/elearning", methods=["GET", "POST"])
+def elearning():
+    return render_template("tpElearning.html")
