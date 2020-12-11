@@ -16,26 +16,31 @@
 {%block sidebar%}
 <!-- Nav Item - Pages Collapse Menu -->
 <li class="nav-item">
-    <a class="nav-link collapsed" style="background-color: aqua;" href="#">
+    <a class="nav-link collapsed" style="background-color: #602fdf;" href="learner">
         <span>OUM Learners Personality Profile</span>
     </a>
 </li>
 
 <!-- Nav Item - Utilities Collapse Menu -->
 <li class="nav-item">
-    <a class="nav-link collapsed"  href="#" aria-expanded="true" aria-controls="collapseUtilities">
+    <a class="nav-link collapsed"  href="elearning" >
         <span>E-Learning Styles</span>
     </a>
 </li>
 
 <li class="nav-item">
-    <a class="nav-link collapsed" href="#" aria-expanded="true" aria-controls="collapseUtilities">
+    <a class="nav-link collapsed" href="attitude">
         <span>Life-long Learning Attitude</span>
     </a>
 </li>
 {%endblock%}
 
 {%block body%}
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">OUM Learner Personality Profile</h1>
+</div>
+
 <div class="form">
     <h1>The title</h1>
     {% for num, ques in value %}

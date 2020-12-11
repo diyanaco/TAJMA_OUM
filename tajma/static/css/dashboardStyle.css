@@ -10275,7 +10275,7 @@ a:focus {
 }
 
 .topbar.navbar-light .navbar-nav .nav-item .nav-link {
-  color: #7e55de;
+  color: black;
 }
 
 .topbar.navbar-light .navbar-nav .nav-item .nav-link:hover {
@@ -10441,7 +10441,7 @@ a:focus {
 
 .sidebar .sidebar-heading {
   text-align: center;
-  padding: 0 1rem;
+  padding: 0.5rem 1rem;
   font-weight: 800;
   font-size: 0.65rem;
 }
