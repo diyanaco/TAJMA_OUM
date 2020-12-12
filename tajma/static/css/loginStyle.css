@@ -1,14 +1,15 @@
 /* BASIC */
 
-html {
+/* html {
     background-color: #56baed;
-}
+} */
 
 body {
     font-family: "Poppins", sans-serif;
     height: 100vh;
     background-image: url("../assets/img/login-bg.jpg");
     background-size: 100% 100%;
+    background-attachment: fixed;
 }
 
 a {
@@ -39,6 +40,9 @@ h2 {
     width: 100%;
     min-height: 100%;
     padding: 20px;
+    /* background-image: url(../assets/img/login-bg.jpg);
+    background-attachment: fixed;
+    background-size: 100% 100%; */
 }
 
 #formContent {
