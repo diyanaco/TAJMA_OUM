@@ -14,12 +14,21 @@ class User(db.Model):
         return f"User('{self.email}', '{self.password}')"
 
 #inserting data
-if not User.query.all():
-    user_1 = User(userID='01', firstName='Zaim', lastName='Saha', email='zaim@demo.com', password='password')
-    user_2 = User(userID='02', firstName='Joyce', lastName='Yong', email='joyce@demo.com', password='password')
-    db.session.add(user_1)
-    db.session.add(user_2)
-    db.session.commit()
+if db.engine.dialect.has_table(db.engine, "user"):
+    if not User.query.all():
+#if SQLAlchemy.inspect(db.engine).get_table_names():
+        user_1 = User(userID='01', firstName='Zaim', lastName='Saha', email='zaim@demo.com', password='password')
+        user_2 = User(userID='02', firstName='Joyce', lastName='Yong', email='joyce@demo.com', password='password')
+        db.session.add(user_1)
+        db.session.add(user_2)
+        db.session.commit()
+
+# if not User.query.all():
+#     user_1 = User(userID='01', firstName='Zaim', lastName='Saha', email='zaim@demo.com', password='password')
+#     user_2 = User(userID='02', firstName='Joyce', lastName='Yong', email='joyce@demo.com', password='password')
+#     db.session.add(user_1)
+#     db.session.add(user_2)
+#     db.session.commit()
 
 class Student(db.Model):
     studentID = db.Column(db.Integer, primary_key=True)
@@ -32,25 +41,100 @@ class Student(db.Model):
         return f"Student('{self.email}', '{self.firstName}')"
 
 #inserting data
-if not Student.query.all():
-    student_1 = Student(studentID='01', firstName='Zaim', lastName='Saha', email='zaim@demo.com')
-    student_2 = Student(studentID='02', firstName='Joyce', lastName='Yong', email='joyce@demo.com')
-    student_3 = Student(studentID='03', firstName='Taufiq', lastName='Yusup', email='taufiq@demo.com')
-    student_4 = Student(studentID='04', firstName='Haziq', lastName='Isma', email='haziq@demo.com')
-    db.session.add(student_1)
-    db.session.add(student_2)
-    db.session.add(student_3)
-    db.session.add(student_4)
-    db.session.commit()
+if db.engine.dialect.has_table(db.engine, "student"):
+    if not Student.query.all():
+        student_1 = Student(studentID='01', firstName='Zaim', lastName='Saha', email='zaim@demo.com')
+        student_2 = Student(studentID='02', firstName='Joyce', lastName='Yong', email='joyce@demo.com')
+        student_3 = Student(studentID='03', firstName='Taufiq', lastName='Yusup', email='taufiq@demo.com')
+        student_4 = Student(studentID='04', firstName='Haziq', lastName='Isma', email='haziq@demo.com')
+        db.session.add(student_1)
+        db.session.add(student_2)
+        db.session.add(student_3)
+        db.session.add(student_4)
+        db.session.commit()
 
 class Question(db.Model):
-    instruCode = db.Column(db.Integer, primary_key=True)
+    instruCode = db.Column(db.String(10), primary_key=True)
     question = db.Column(db.String(50), unique=True, nullable=False)
-    label = db.Column(db.String(10), nullable=False)
 
     def __repr__(self):
-        return f"Question('{self.question}', '{self.code}')"
+        return f"Question('{self.question}', '{self.instruCode}')"
+#check table exist
+if db.engine.dialect.has_table(db.engine, "question"):
+    #check row empty
+    if not Question.query.all():
+        db.session.add_all([
+            Question(instruCode='0101', question='TP11 : How are you?'),
+            Question(instruCode='0102', question='TP12 : How fine are you?'),
+            Question(instruCode='0103', question='TP13 : How good are you?'),
+            Question(instruCode='0104', question='TP14 : How bulky are you?'),
+            Question(instruCode='0105', question='TP15 : How anxious are you?'),
+            Question(instruCode='0106', question='TP16 : How cool are you?'),
+            Question(instruCode='0107', question='TP17 : How tall are you?'),
+            Question(instruCode='0108', question='TP18 : How cool are you?'),
+            Question(instruCode='0109', question='TP19 : How cool are you?'),
+            Question(instruCode='0110', question='TP20 : How cool are you?'),
+            
+            Question(instruCode='0201', question='TP21 : How much you love?'),
+            Question(instruCode='0202', question='TP22 : How dare are you?'),
+            Question(instruCode='0203', question='TP23 : How famous are you?'),
+            Question(instruCode='0204', question='TP24 : How smelly are you?'),
+            Question(instruCode='0205', question='TP25 : How low are you?'),
+            Question(instruCode='0206', question='TP26 : How high are you?'),
+            Question(instruCode='0207', question='TP27 : How smelly are you?'),
+            Question(instruCode='0208', question='TP28 : How smelly are you?'),
+            Question(instruCode='0209', question='TP29 : How smelly are you?'),
+            Question(instruCode='0210', question='TP30 : How smelly are you?'),
 
+            Question(instruCode='0301', question='TP31 : How happy are you?'),
+            Question(instruCode='0302', question='TP32 : How satisfied are you?'),
+            Question(instruCode='0303', question='TP33 : How sad are you?'),
+            Question(instruCode='0304', question='Tp34 : How excited are you?'),
+            Question(instruCode='0305', question='Tp35 : How excited are you?'),
+            Question(instruCode='0306', question='Tp36 : How excited are you?'),
+            Question(instruCode='0307', question='Tp37 : How excited are you?'),
+            Question(instruCode='0308', question='Tp38 : How excited are you?'),
+            Question(instruCode='0309', question='Tp39 : How excited are you?'),
+            Question(instruCode='0310', question='Tp40 : How excited are you?')
+        ])
+        db.session.commit()
+    # db.session.add_all([
+    #     question_1 = Question(instruCode='0101', question='TP1: How are you?')
+    #     question_2 = Question(instruCode='0102', question='TP1 : How fine are you?')
+    #     question_3 = Question(instruCode='0103', question='TP2 : How good are you?')
+    #     question_4 = Question(instruCode='0104', question='TP1 : How bulky are you?')
+    #     question_5 = Question(instruCode='0105', question='TP1 : How anxious are you?')
+    #     question_6 = Question(instruCode='0106', question='TP1 : How cool are you?')
+    #     question_7 = Question(instruCode='0107', question='TP1 : How tall are you?')
+    #     question_8 = Question(instruCode='0108', question='TP1 : How cool are you?')
+    #     question_9 = Question(instruCode='0109', question='TP1 : How cool are you?')
+    #     question_10 = Question(instruCode='0110', question='TP1 : How cool are you?')
+        
+    #     question_11 = Question(instruCode='0201', question='TP2 : How much you love?')
+    #     question_12 = Question(instruCode='0202', question='TP2 : How dare are you?')
+    #     question_13 = Question(instruCode='0203', question='TP2 : How famous are you?')
+    #     question_14 = Question(instruCode='0204', question='TP2 : How smelly are you?')
+    #     question_15 = Question(instruCode='0205', question='TP2 : How smelly are you?')
+    #     question_16 = Question(instruCode='0206', question='TP2 : How smelly are you?')
+    #     question_17 = Question(instruCode='0207', question='TP2 : How smelly are you?')
+    #     question_18 = Question(instruCode='0208', question='TP2 : How smelly are you?')
+    #     question_19 = Question(instruCode='0209', question='TP2 : How smelly are you?')
+    #     question_20 = Question(instruCode='0210', question='TP2 : How smelly are you?')
+
+    #     question_21 = Question(instruCode='0301', question='TP3 : How happy are you?')
+    #     question_22 = Question(instruCode='0302', question='TP3 : How satisfied are you?')
+    #     question_23 = Question(instruCode='0303', question='TP3 : How sad are you?')
+    #     question_24 = Question(instruCode='0304', question='Tp3 : How excited are you?')
+    #     question_25 = Question(instruCode='0305', question='Tp3 : How excited are you?')
+    #     question_26 = Question(instruCode='0306', question='Tp3 : How excited are you?')
+    #     question_27 = Question(instruCode='0307', question='Tp3 : How excited are you?')
+    #     question_28 = Question(instruCode='0308', question='Tp3 : How excited are you?')
+    #     question_29 = Question(instruCode='0309', question='Tp3 : How excited are you?')
+    #     question_30 = Question(instruCode='0310', question='Tp3 : How excited are you?')
+    # ])
+    # for i in range(1,31):
+    #     question = "question"+ str(i)
+    #     db.session.add(question) 
 
 class Result(db.Model):
     resultID = db.Column(db.Integer(), primary_key=True, nullable=False)
