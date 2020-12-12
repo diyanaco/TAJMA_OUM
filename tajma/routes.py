@@ -2,10 +2,11 @@ from flask import render_template, url_for, flash, redirect
 from tajma import app
 from tajma.login import LoginForm
 from tajma.register import RegistrationForm
+from tajma.models import Question
 
 # Temporary question
-myresult = [(1, 'Hello'), (2, 'Hehe'), (3, 'Hello'),
-            (4, 'Hehe'), (5, 'Hello'), (6, 'Hehe')]
+# myresult = [(1, 'Hello'), (2, 'Hehe'), (3, 'Hello'),
+#             (4, 'Hehe'), (5, 'Hello'), (6, 'Hehe')]
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -45,12 +46,18 @@ def register():
 
 @app.route("/attitude", methods=["GET", "POST"])
 def attitude():
-    return render_template("tpAttitude.html")
+    ques = Question.query.filter(Question.instruCode.like('01%')).all()
+    ques_value = [q.question for q in ques]
+    return render_template("tpAttitude.html", value=ques_value)
 
 @app.route("/learner", methods=["GET", "POST"])
 def learner():
-    return render_template("tpLearner.html")
+    ques = Question.query.filter(Question.instruCode.like('02%')).all()
+    ques_value = [q.question for q in ques]
+    return render_template("tpLearner.html",value=ques_value)
 
 @app.route("/elearning", methods=["GET", "POST"])
 def elearning():
-    return render_template("tpElearning.html")
+    ques = Question.query.filter(Question.instruCode.like('03%')).all()
+    ques_value = [q.question for q in ques]
+    return render_template("tpElearning.html", value=ques_value)
