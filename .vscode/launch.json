@@ -17,6 +17,23 @@
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:5000",
             "webRoot": "${workspaceFolder}"
-        }
+        },    
+        {
+            "name": "Python: Flask",
+            "type": "python",
+            "request": "launch",
+            "module": "flask",
+            "env": {
+                "FLASK_APP": "run.py",
+                "FLASK_ENV": "development",
+                "FLASK_DEBUG": "1"
+            },
+            "args": [
+                "run",
+                //"--no-debugger",
+                //"--no-reload"
+            ],
+            "jinja": true
+        },
     ]
 }

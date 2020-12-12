@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect
+from flask import render_template, url_for, flash, redirect, request, has_request_context
 from tajma import app
 from tajma.login import LoginForm
 from tajma.register import RegistrationForm
@@ -22,7 +22,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         if form.check() == True:
-            return render_template('dashboard.html')
+            return redirect(url_for('dashboard'))
         else:
             flash("You are not registered, please register first")
     return render_template("login.html", form=form)
@@ -44,20 +44,18 @@ def register():
             flash('You are not elligible to register, please verify with OUM')
     return render_template("register.html", form=form)
 
-@app.route("/attitude", methods=["GET", "POST"])
-def attitude():
-    ques = Question.query.filter(Question.instruCode.like('01%')).all()
-    ques_value = [q.question for q in ques]
-    return render_template("tpAttitude.html", value=ques_value)
-
-@app.route("/learner", methods=["GET", "POST"])
-def learner():
-    ques = Question.query.filter(Question.instruCode.like('02%')).all()
-    ques_value = [q.question for q in ques]
-    return render_template("tpLearner.html",value=ques_value)
-
-@app.route("/elearning", methods=["GET", "POST"])
-def elearning():
-    ques = Question.query.filter(Question.instruCode.like('03%')).all()
-    ques_value = [q.question for q in ques]
-    return render_template("tpElearning.html", value=ques_value)
+@app.route("/dashboard", methods=["GET", "POST"])
+def dashboard():
+    #if has_request_context():
+    tpType = request.args.get('type')
+    if tpType is None :
+        return render_template("dashboard.html")
+    else:
+        if tpType == '1':
+            ques = Question.query.filter(Question.instruCode.like('01%')).all()
+        if tpType == '2':
+            ques = Question.query.filter(Question.instruCode.like('02%')).all()
+        if tpType == '3':
+            ques = Question.query.filter(Question.instruCode.like('03%')).all()
+        ques_value = [q.question for q in ques]
+        return render_template("dashboard.html", value=ques_value)
