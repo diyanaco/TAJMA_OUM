@@ -1,6 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, has_request_context, session
 from tajma import app
 from tajma.form import LoginForm, RegistrationForm, VerificationForm
+from tajma.models import Question
 
 # Temporary question
 # myresult = [(1, 'Hello'), (2, 'Hehe'), (3, 'Hello'),
