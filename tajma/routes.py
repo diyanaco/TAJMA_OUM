@@ -1,8 +1,6 @@
-from flask import render_template, url_for, flash, redirect, request, has_request_context
+from flask import render_template, url_for, flash, redirect, request, has_request_context, session
 from tajma import app
-from tajma.login import LoginForm
-from tajma.register import RegistrationForm
-from tajma.models import Question
+from tajma.form import LoginForm, RegistrationForm, VerificationForm
 
 # Temporary question
 # myresult = [(1, 'Hello'), (2, 'Hehe'), (3, 'Hello'),
@@ -33,16 +31,25 @@ def login():
 #     return render_template("questionaire.html", value=myresult)
 
 
+@app.route("/verify", methods=["GET", "POST"])
+def verify():
+    form = VerificationForm()
+    if form.validate_on_submit():
+        if form.check() == True:
+            flash('A confirmation email has been sent, please verify first, then continue with the registration')
+            session["email"] = form.email.data
+            return redirect(url_for('register'))      
+        else:
+            flash('You are not elligible to register, please verify with OUM')
+    return render_template("verify.html", form=form)
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     form = RegistrationForm()
+    fn, ln = form.retrieve_data()
     if form.validate_on_submit():
-        if form.check() == True:
-            flash(
-                'A confirmation email has been sent, please verify first, then continue with the registration')
-        else:
-            flash('You are not elligible to register, please verify with OUM')
-    return render_template("register.html", form=form)
+        return redirect(url_for('dashboard'))
+    return render_template("register.html", form=form, fn=fn, ln=ln, em=session.get("email") )
 
 @app.route("/dashboard", methods=["GET", "POST"])
 def dashboard():
