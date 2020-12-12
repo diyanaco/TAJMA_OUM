@@ -17,6 +17,9 @@
     <!-- Custom styles for this template-->
     <link rel='stylesheet' href="{{ url_for('static', filename='css/dashboardStyle.css')}}">
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.5.1.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/questionaire.js') }}"></script>
+    <!--Adding scrollTo javascript function-->
+    <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
     {%block head%}
     {%endblock%}
 </head>
@@ -65,20 +68,20 @@
             {%block sidebar%}
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="learner">
+                <a class="nav-link collapsed" href="{{url_for('dashboard', type='1')}}">
                     <span>OUM Learners Personality Profile</span>
                 </a>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="elearning">
+                <a class="nav-link collapsed" href="{{url_for('dashboard', type='2')}}">
                     <span>E-Learning Styles</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="attitude">
+                <a class="nav-link collapsed" href="{{url_for('dashboard', type='3')}}">
                     <span>Life-long Learning Attitude</span>
                 </a>
             </li>
@@ -108,13 +111,35 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    {%block body%}
-                    {%endblock%}
-
+                    {% if value is defined %}
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Life-long Learning Attitude</h1>
+                    </div>
+                    <div class="form">
+                        <h1>The title</h1>
+                        {% for ques in value %}
+                        <div class="block">
+                            <div class="row question">
+                                <div class="col">
+                                    <h2>{{ques}}</h2>
+                                </div>
+                            </div>
+                            <div class="row answer">
+                                <div class="col-sm input-radio">
+                                    <input type="radio" name="editList" value="One">1
+                                    <input type="radio" name="editList" value="Two">2
+                                    <input type="radio" name="editList" value="Three">3
+                                    <input type="radio" name="editList" value="Four">4
+                                    <input type="radio" name="editList" value="Five">5
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
                 </div>
                 <!-- /.container-fluid -->
-
             </div>
             <!-- End of Main Content -->
 
