@@ -1,7 +1,7 @@
 $(document).ready(function () {
   
   var container = $(this).find(".form");
-
+  highlighMenu(this)
   $(container)
     .find(".input-radio")
     .not(".input-block input")
@@ -44,4 +44,21 @@ $(document).ready(function () {
   function moveNext(e) {
     $(e).parent().parent().parent().next().click();
   }
+
+  function highlighMenu(e) {
+    // this will get the full URL at the address bar
+    var url = window.location.href; 
+    $(".nav-item").each(function() {
+            // checks if its the same on the address bar
+        if(url.indexOf("?type=1") > -1) { 
+          document.getElementById("One").style.backgroundColor= "#9177cc";
+        }
+        if(url.indexOf("?type=2") > -1) { 
+          document.getElementById("Two").style.backgroundColor = "#9177cc";
+        }
+        if(url.indexOf("?type=3") > -1) { 
+        document.getElementById("Three").style.backgroundColor = "#9177cc";
+      }
+    });
+  };
 });
