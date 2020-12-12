@@ -64,7 +64,7 @@ if db.engine.dialect.has_table(db.engine, "question"):
     #check row empty
     if not Question.query.all():
         db.session.add_all([
-            Question(instruCode='0101', question='TP11 : How are you?'),
+            Question(instruCode='0101', question='TP11 : How are you truely?'),
             Question(instruCode='0102', question='TP12 : How fine are you?'),
             Question(instruCode='0103', question='TP13 : How good are you?'),
             Question(instruCode='0104', question='TP14 : How bulky are you?'),
@@ -157,3 +157,5 @@ class Result(db.Model):
 class Code(db.Model):
     code = db.Column(db.Integer(), nullable=False, primary_key=True)
     desc = db.Column(db.String(50), nullable=False)
+
+db.create_all()

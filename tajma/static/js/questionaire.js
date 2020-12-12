@@ -51,13 +51,13 @@ $(document).ready(function () {
     $(".nav-item").each(function() {
             // checks if its the same on the address bar
         if(url.indexOf("?type=1") > -1) { 
-          document.getElementById("One").style.backgroundColor= "#9177cc";
+          document.getElementById("tpOne").style.backgroundColor= "#9177cc";
         }
         if(url.indexOf("?type=2") > -1) { 
-          document.getElementById("Two").style.backgroundColor = "#9177cc";
+          document.getElementById("tpTwo").style.backgroundColor = "#9177cc";
         }
         if(url.indexOf("?type=3") > -1) { 
-        document.getElementById("Three").style.backgroundColor = "#9177cc";
+          document.getElementById("tpThree").style.backgroundColor = "#9177cc";
       }
     });
   };
