@@ -1,14 +1,29 @@
-from tajma import db
+from tajma import db, login_manager
+from flask_login import UserMixin
 #from __init__ import db
 
+db.drop_all()
 
-class User(db.Model):
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+def db_insert_data(model):
+    db.session.add(model)
+    db.session.commit()
+
+class User(db.Model, UserMixin):
     userID = db.Column(db.Integer, primary_key=True)
+    userName = db.Column(db.String(10), nullable=True)
     firstName = db.Column(db.String(50), nullable=True)
     lastName = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(50), nullable=False)
     profPic = db.Column(db.String(20), nullable=False, default='default.jpg')
+
+    #override get_id method from UserMixin
+    def get_id(self):
+        return self.userID
 
     def __repr__(self):
         return f"User('{self.email}', '{self.password}')"
@@ -17,8 +32,8 @@ class User(db.Model):
 if db.engine.dialect.has_table(db.engine, "user"):
     if not User.query.all():
 #if SQLAlchemy.inspect(db.engine).get_table_names():
-        user_1 = User(userID='01', firstName='Zaim', lastName='Saha', email='zaim@demo.com', password='password')
-        user_2 = User(userID='02', firstName='Joyce', lastName='Yong', email='joyce@demo.com', password='password')
+        user_2 = User(userID='03',userName=taufiq, firstName='Taufiq', lastName='Yusup', email='taufiq@demo.com', password='$2b$12$gtSd6v3IT3fZHk5OjY5cHergOjygyLujz.y0cFsWM/ppGF7CRezai')
+
         db.session.add(user_1)
         db.session.add(user_2)
         db.session.commit()
