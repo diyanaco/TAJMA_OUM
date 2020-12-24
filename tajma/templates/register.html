@@ -1,0 +1,123 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/loginStyle.css') }}">
+
+<div class="wrapper fadeInDown">
+
+    <div id="formContent">
+    <!-- Modal -->
+
+        <!-- Tabs Titles -->
+
+        <!-- Icon -->
+        <div class="fadeIn first">
+            <img src="static/assets/img/tajma-logo.jpg" id="icon" alt="User Icon" />
+        </div>
+
+        <!-- Register Form -->
+        <form method="POST" action="">
+            <!--security-->
+            {{form.hidden_tag()}}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Register</legend>
+
+                <div class="form-group">
+                    {{ form.userName.label(class="form-control-label") }}
+                    {% if form.userName.errors %} 
+                    {{ form.userName(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.userName.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <br>
+                    {{ form.userName(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label(class="form-control-label") }}
+                    {% if form.password.errors %} 
+                    {{ form.password(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <br>
+                    {{ form.password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.firstName.label(class="form-control-label") }}
+                    {% if form.firstName.errors %} 
+                    {{ form.firstName(class="form-control form-control-lg is-invalid", value=fn) }}
+                    <div class="invalid-feedback">
+                        {% for error in form.firstName.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <br>
+                    {{ form.firstName(class="form-control form-control-lg", value=fn) }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.lastName.label(class="form-control-label") }}
+                    {% if form.lastName.errors %} 
+                    {{ form.lastName(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.lastName.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <br>
+                    {{ form.lastName(class="form-control form-control-lg", value=ln) }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.email.label(class="form-control-label") }}
+                    {% if form.email.errors %} 
+                    {{ form.email(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <br>
+                    {{ form.email(class="form-control form-control-lg", value=em) }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.register(class="btn btn-outline-info") }}
+                </div>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                {% for message in messages %}
+                <p style="text-align:left ; margin-left:10px; margin-right: 10px;">{{ message }}</p>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+            </fieldset>
+            <!-- <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+            <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
+            <input type="submit" class="fadeIn fourth" value="Log In"> -->
+        </form>
+
+        <!-- Remind Passowrd -->
+        <div id="formFooter">
+            <div class="row">
+                <div class="col">
+                    <a class="underlineHover" href="#">Forgot Password?</a>
+                </div>
+                <div class="col">
+                    <a class="underlineHover" href="/">Home</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
