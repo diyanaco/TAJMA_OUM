@@ -1,6 +1,7 @@
 from flask import flash, session
 from tajma import app, bcrypt
 from flask_wtf import FlaskForm
+from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from tajma.models import User, Student, db_insert_data
@@ -41,6 +42,7 @@ class VerificationForm(FlaskForm):
 class RegistrationForm(FlaskForm):
     userName = StringField("Username")
     password = StringField('Password')
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     firstName = StringField('First Name')
     lastName = StringField('Last Name')
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -53,11 +55,12 @@ class RegistrationForm(FlaskForm):
         return(fn.firstName, fn.lastName)
 
     #check insert
-    def chin_usernameLOGIN(self):
+    def check_credentials(self):
         if User.query.filter_by(userName=self.userName.data).first():
             raise ValidationError("Username already taken")
             return False
         else:
+            #if username not taken, then insert data
             hashed_password = bcrypt.generate_password_hash(self.password.data).decode('utf-8')
             x, y = self.retrieve_data()
             #ISSUE 2 increment the username
@@ -66,3 +69,12 @@ class RegistrationForm(FlaskForm):
             #Add user to session
             login_user(user)
             return True
+
+class UpdateAccountForm(FlaskForm):
+    userName = StringField("Username")
+    firstName = StringField('First Name')
+    lastName = StringField('Last Name')
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    update = SubmitField('Update')
+
+
