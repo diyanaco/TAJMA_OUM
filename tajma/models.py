@@ -14,17 +14,36 @@ def db_insert_data(model):
 
 class User(db.Model, UserMixin):
     userID = db.Column(db.Integer, primary_key=True)
-    userName = db.Column(db.String(10), nullable=True)
     firstName = db.Column(db.String(50), nullable=True)
     lastName = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(50), nullable=False)
+    gender = db.Column(db.String(10), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
     profPic = db.Column(db.String(20), nullable=False, default='default.jpg')
+    IC = db.Column(db.String(20), nullable=False)
+    race = db.Column(db.String(15), nullable=False)
+    mobile = db.Column(db.String(15), nullable=False)
+    
 
     #override get_id method from UserMixin
     def get_id(self):
         return self.userID
-
+    def get_email(self):
+        return self.email
+    def get_gender(self):
+        return self.gender
+    def get_age(self):
+        return self.age
+    def get_profPic(self):
+        return self.profPic
+    def get_IC(self):
+        return self.IC
+    def get_race(self):
+        return self.race
+    def get_mobile(self):
+        return self.mobile
+        
     def __repr__(self):
         return f"User('{self.email}', '{self.password}')"
 
@@ -32,10 +51,8 @@ class User(db.Model, UserMixin):
 if db.engine.dialect.has_table(db.engine, "user"):
     if not User.query.all():
 #if SQLAlchemy.inspect(db.engine).get_table_names():
-        user_2 = User(userID='03',userName=taufiq, firstName='Taufiq', lastName='Yusup', email='taufiq@demo.com', password='$2b$12$gtSd6v3IT3fZHk5OjY5cHergOjygyLujz.y0cFsWM/ppGF7CRezai')
-
-        db.session.add(user_1)
-        db.session.add(user_2)
+        user = User(userID='03', firstName='Taufiq', lastName='Yusup', email='taufiq@demo.com', password='$2b$12$gtSd6v3IT3fZHk5OjY5cHergOjygyLujz.y0cFsWM/ppGF7CRezai', gender="MALE", age="22", IC="910321035515",race="Malay", mobile="0179163956")
+        db.session.add(user)
         db.session.commit()
 
 # if not User.query.all():
@@ -104,7 +121,7 @@ if db.engine.dialect.has_table(db.engine, "question"):
             Question(instruCode='0301', question='TP31 : How happy are you?'),
             Question(instruCode='0302', question='TP32 : How satisfied are you?'),
             Question(instruCode='0303', question='TP33 : How sad are you?'),
-            Question(instruCode='0304', question='Tp34 : How excited are you?'),
+            Question(instruCode='0304', question='Tp34 : How stupid are you?'),
             Question(instruCode='0305', question='Tp35 : How excited are you?'),
             Question(instruCode='0306', question='Tp36 : How excited are you?'),
             Question(instruCode='0307', question='Tp37 : How excited are you?'),
