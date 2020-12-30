@@ -63,7 +63,7 @@ def register():
     form = RegistrationForm()
     fn, ln = form.retrieve_data()
     if form.validate_on_submit():
-        form.chin_usernameLOGIN()
+        form.check_credentials()
         #ISSUE 3 create function first time login
         #flash("Succesfully Register, please login")
         return redirect(url_for('dashboard'))
@@ -76,15 +76,30 @@ def dashboard():
     tpType = request.args.get('type')
     if tpType is None :
         return render_template("dashboard.html")
+    elif tpType =='prof':
+        prof ={
+            "fullname" : "Taufiq Usup",
+            "gender" : current_user.get_gender(),
+            "age" : current_user.get_age(),
+            "IC" : current_user.get_IC(),
+            "race" : current_user.get_race(),
+            "mobile" : current_user.get_mobile(),
+            "email" : current_user.get_email(),
+            "image" : url_for('static', filename='assets/img/profile_pics/' + current_user.profPic)
+        }
+        return render_template("dashboard.html", prof=prof)
     else:
         if tpType == '1':
             ques = Question.query.filter(Question.instruCode.like('01%')).all()
+            title = "OUM Learners Personality Profile"
         if tpType == '2':
             ques = Question.query.filter(Question.instruCode.like('02%')).all()
+            title = "E-Learning Styles"
         if tpType == '3':
             ques = Question.query.filter(Question.instruCode.like('03%')).all()
+            title = "Life-long Learning Attitude"
         ques_value = [q.question for q in ques]
-        return render_template("dashboard.html", value=ques_value)
+        return render_template("dashboard.html", value=ques_value, title=title)
 
 @app.route("/logout")
 def logout():
