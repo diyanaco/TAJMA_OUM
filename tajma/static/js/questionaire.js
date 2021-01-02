@@ -1,13 +1,15 @@
 $(document).ready(function () {
-  
+
   var container = $(this).find(".form");
   highlighMenu(this)
+  hideButton(this)
+
   $(container)
     .find(".input-radio")
     .not(".input-block input")
     .on("click", function () {
       rescroll(this);
-    });  
+    });
 
   $(window).on("scroll", function () {
     $(".block").each(function () {
@@ -24,7 +26,7 @@ $(document).ready(function () {
   $('.answer').find('.input-radio input[type="radio"]').change(function (e) {
     moveNext(this);
   });
-  
+
   function reinitState(e) {
     $(".block").removeClass("active");
 
@@ -47,18 +49,25 @@ $(document).ready(function () {
 
   function highlighMenu(e) {
     // this will get the full URL at the address bar
-    var url = window.location.href; 
-    $(".nav-item").each(function() {
-            // checks if its the same on the address bar
-        if(url.indexOf("?type=1") > -1) { 
-          document.getElementById("tpOne").style.backgroundColor= "#9177cc";
-        }
-        if(url.indexOf("?type=2") > -1) { 
-          document.getElementById("tpTwo").style.backgroundColor = "#9177cc";
-        }
-        if(url.indexOf("?type=3") > -1) { 
-          document.getElementById("tpThree").style.backgroundColor = "#9177cc";
+    var url = window.location.href;
+    $(".nav-item").each(function () {
+      // checks if its the same on the address bar
+      if (url.indexOf("?type=1") > -1) {
+        document.getElementById("tpOne").style.backgroundColor = "#9177cc";
+      }
+      if (url.indexOf("?type=2") > -1) {
+        document.getElementById("tpTwo").style.backgroundColor = "#9177cc";
+      }
+      if (url.indexOf("?type=3") > -1) {
+        document.getElementById("tpThree").style.backgroundColor = "#9177cc";
       }
     });
   };
+  function hideButton(e) {
+    // this will get the full URL at the address bar
+    var url = window.location.href;
+    if (url.indexOf("?type=mod") > -1) {
+      document.getElementById("buttonUpdate").style.display = "none";
+    }
+  }
 });
