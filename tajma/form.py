@@ -1,6 +1,7 @@
 from flask import flash, session
 from tajma import app, bcrypt
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
@@ -41,7 +42,7 @@ class VerificationForm(FlaskForm):
 
 class RegistrationForm(FlaskForm):
     userName = StringField("Username")
-    password = StringField('Password')
+    password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     firstName = StringField('First Name')
     lastName = StringField('Last Name')
@@ -52,29 +53,26 @@ class RegistrationForm(FlaskForm):
     @staticmethod
     def retrieve_data():
         fn = Student.query.filter_by(email=session.get("email")).first()
-        return(fn.firstName, fn.lastName)
+        return(fn.firstName, fn.lastName, )
 
     #check insert
     def check_credentials(self):
-        if User.query.filter_by(userName=self.userName.data).first():
-            raise ValidationError("Username already taken")
-            return False
-        else:
-            #if username not taken, then insert data
-            hashed_password = bcrypt.generate_password_hash(self.password.data).decode('utf-8')
-            x, y = self.retrieve_data()
-            #ISSUE 2 increment the username
-            user = User(userID='04',userName=self.userName.data, firstName=x, lastName=y,email=self.email.data, password=hashed_password)
-            db_insert_data(user)
-            #Add user to session
-            login_user(user)
-            return True
+        # if User.query.filter_by(userName=self.userName.data).first():
+        #     raise ValidationError("Username already taken")
+        #     return False
+        # else:
+        #if username not taken, then insert data
+        hashed_password = bcrypt.generate_password_hash(self.password.data).decode('utf-8')
+        x, y = self.retrieve_data()
+        #ISSUE 2 increment the username
+        user = User(userID='04', firstName=x, lastName=y,email=self.email.data, password=hashed_password)
+        db_insert_data(user)
+        #Add user to session
+        login_user(user)
+        return True
 
 class UpdateAccountForm(FlaskForm):
-    userName = StringField("Username")
-    firstName = StringField('First Name')
-    lastName = StringField('Last Name')
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
+    #email = StringField('Email', validators=[DataRequired(), Email()])
     update = SubmitField('Update')
-
 
