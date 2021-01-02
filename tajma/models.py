@@ -68,6 +68,7 @@ class Student(db.Model):
     lastName = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     profPic = db.Column(db.String(20), nullable=False, default='default.jpg')
+    
 
     def __repr__(self):
         return f"Student('{self.email}', '{self.firstName}')"

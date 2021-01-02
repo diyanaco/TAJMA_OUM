@@ -1,6 +1,8 @@
+import os
+import secrets
 from flask import render_template, url_for, flash, redirect, request, has_request_context, session
-from tajma import app
-from tajma.form import LoginForm, RegistrationForm, VerificationForm
+from tajma import app, db
+from tajma.form import LoginForm, RegistrationForm, VerificationForm, UpdateAccountForm
 from tajma.models import Question
 from flask_login import current_user, logout_user, login_required
 
@@ -52,7 +54,7 @@ def verify():
             session["email"] = form.email.data
             return redirect(url_for('register'))
         else:
-            flash('You are not elligible to register, please verify with OUM')
+            flash('You are not elligible to register, please verify with OUM', 'success')
     return render_template("verify.html", form=form)
 
 @app.route("/register", methods=["GET", "POST"])
@@ -69,15 +71,21 @@ def register():
         return redirect(url_for('dashboard'))
     return render_template("register.html", form=form, fn=fn, ln=ln, em=session.get("email") )
 
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/assets/img/profile_pics', picture_fn)
+    form_picture.save(picture_path)
+    return picture_fn
+
+
 @app.route("/dashboard", methods=["GET", "POST"])
 @login_required
 def dashboard():
     #if has_request_context():
     tpType = request.args.get('type')
-    if tpType is None :
-        return render_template("dashboard.html")
-    elif tpType =='prof':
-        prof ={
+    prof ={
             "fullname" : "Taufiq Usup",
             "gender" : current_user.get_gender(),
             "age" : current_user.get_age(),
@@ -87,7 +95,22 @@ def dashboard():
             "email" : current_user.get_email(),
             "image" : url_for('static', filename='assets/img/profile_pics/' + current_user.profPic)
         }
+    if tpType is None :
+        return render_template("dashboard.html")
+        
+    elif tpType =='prof':
         return render_template("dashboard.html", prof=prof)
+
+    elif tpType=='mod':
+        form=UpdateAccountForm()
+        if form.validate_on_submit():
+            if form.picture.data:
+                picture_data = save_picture(form.picture.data)
+                current_user.profPic = picture_data
+                db.session.commit()
+                flash('Your account has been updated', 'success')
+                return redirect(url_for('dashboard', type='prof'))
+        return render_template("dashboard.html", prof=prof, form=form)
     else:
         if tpType == '1':
             ques = Question.query.filter(Question.instruCode.like('01%')).all()
