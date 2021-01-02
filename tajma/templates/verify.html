@@ -1,18 +1,32 @@
+{%extends 'base.html'%}
+{%block head%}
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script> -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/loginStyle.css') }}">
 <!------ Include the above in your HEAD tag ---------->
+{%endblock%}
 
+{%block body%}
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <!-- Tabs Titles -->
-
+        
         <!-- Icon -->
         <div class="fadeIn first">
             <img src="static/assets/img/tajma-logo.jpg" id="icon" alt="User Icon" />
         </div>
-
+        <div id='message'>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
         <!-- Register Form -->
         <form method="POST" action="">
             <!--security-->
@@ -36,13 +50,13 @@
                 <div class="form-group">
                     {{ form.verify(class="btn btn-outline-info") }}
                 </div>
-                {% with messages = get_flashed_messages() %}
+                <!-- {% with messages = get_flashed_messages() %}
                 {% if messages %}
                 {% for message in messages %}
                 <p style="text-align:left ; margin-left:10px; margin-right: 10px;">{{ message }}</p>
                 {% endfor %}
                 {% endif %}
-                {% endwith %}
+                {% endwith %} -->
             </fieldset>
             <!-- <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
             <input type="text" id="password" class="fadeIn third" name="login" placeholder="password">
@@ -63,3 +77,4 @@
 
     </div>
 </div>
+{%endblock%}
