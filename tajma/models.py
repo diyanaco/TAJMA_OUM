@@ -29,6 +29,10 @@ class User(db.Model, UserMixin):
     #override get_id method from UserMixin
     def get_id(self):
         return self.userID
+    def get_first_name(self):
+        return self.firstName
+    def get_last_name(self):
+        return self.lastName
     def get_email(self):
         return self.email
     def get_gender(self):
@@ -48,12 +52,12 @@ class User(db.Model, UserMixin):
         return f"User('{self.email}', '{self.password}')"
 
 #inserting data
-if db.engine.dialect.has_table(db.engine, "user"):
-    if not User.query.all():
+# if db.engine.dialect.has_table(db.engine, "user"):
+#     if not User.query.all():
 #if SQLAlchemy.inspect(db.engine).get_table_names():
-        user = User(userID='03', firstName='Taufiq', lastName='Yusup', email='taufiq@demo.com', password='$2b$12$gtSd6v3IT3fZHk5OjY5cHergOjygyLujz.y0cFsWM/ppGF7CRezai', gender="MALE", age="22", IC="910321035515",race="Malay", mobile="0179163956")
-        db.session.add(user)
-        db.session.commit()
+        # user = User(userID='03', firstName='Taufiq', lastName='Yusup', email='taufiq@demo.com', password='$2b$12$gtSd6v3IT3fZHk5OjY5cHergOjygyLujz.y0cFsWM/ppGF7CRezai', gender="MALE", age="22", IC="910321035515",race="Malay", mobile="0179163956")
+        # db.session.add(user)
+        # db.session.commit()
 
 # if not User.query.all():
 #     user_1 = User(userID='01', firstName='Zaim', lastName='Saha', email='zaim@demo.com', password='password')
@@ -68,6 +72,12 @@ class Student(db.Model):
     lastName = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     profPic = db.Column(db.String(20), nullable=False, default='default.jpg')
+    gender = db.Column(db.String(50), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    IC = db.Column(db.String(50), nullable=False)
+    race = db.Column(db.String(50), nullable=False)
+    mobile = db.Column(db.String(50), nullable=False)
+
     
 
     def __repr__(self):
@@ -76,10 +86,10 @@ class Student(db.Model):
 #inserting data
 if db.engine.dialect.has_table(db.engine, "student"):
     if not Student.query.all():
-        student_1 = Student(studentID='01', firstName='Zaim', lastName='Saha', email='zaim@demo.com')
-        student_2 = Student(studentID='02', firstName='Joyce', lastName='Yong', email='joyce@demo.com')
-        student_3 = Student(studentID='03', firstName='Taufiq', lastName='Yusup', email='taufiq@demo.com')
-        student_4 = Student(studentID='04', firstName='Haziq', lastName='Isma', email='haziq@demo.com')
+        student_1 = Student(studentID='01', firstName='Zaim', lastName='Saha', email='zaim@demo.com', gender='Male', age='29', IC=910321035515, race='Malay', mobile= '0179163956')
+        student_2 = Student(studentID='02', firstName='Joyce', lastName='Yong', email='joyce@demo.com', gender='Female', age='28', IC=920315031234, race='Chinese', mobile= '01791678965')
+        student_3 = Student(studentID='03', firstName='Taufiq', lastName='Yusup', email='taufiq@demo.com', gender='Male', age='32', IC=9103610376515, race='Malay', mobile= '01791364956')
+        student_4 = Student(studentID='04', firstName='Haziq', lastName='Isma', email='haziq@demo.com',gender='Male', age='14', IC=910326375515, race='Malay', mobile= '0179097956')
         db.session.add(student_1)
         db.session.add(student_2)
         db.session.add(student_3)
