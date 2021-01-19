@@ -1,5 +1,6 @@
 import os
 import secrets
+from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, has_request_context, session
 from tajma import app, db
 from tajma.form import LoginForm, RegistrationForm, VerificationForm, UpdateAccountForm
@@ -63,7 +64,7 @@ def register():
         return redirect(url_for('dashboard'))
 
     form = RegistrationForm()
-    fn, ln = form.retrieve_data()
+    fn, ln, gender, age, IC, race, mobile = form.retrieve_data()
     if form.validate_on_submit():
         form.check_credentials()
         #ISSUE 3 create function first time login
@@ -76,7 +77,11 @@ def save_picture(form_picture):
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
     picture_path = os.path.join(app.root_path, 'static/assets/img/profile_pics', picture_fn)
-    form_picture.save(picture_path)
+    #resize the image
+    output_size = (300, 300)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
     return picture_fn
 
 
@@ -86,7 +91,7 @@ def dashboard():
     #if has_request_context():
     tpType = request.args.get('type')
     prof ={
-            "fullname" : "Taufiq Usup",
+            "fullname" : current_user.get_first_name() +" "+ current_user.get_last_name(),
             "gender" : current_user.get_gender(),
             "age" : current_user.get_age(),
             "IC" : current_user.get_IC(),
