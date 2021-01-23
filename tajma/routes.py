@@ -120,12 +120,15 @@ def dashboard():
         if tpType == '1':
             ques = Question.query.filter(Question.instruCode.like('01%')).all()
             title = "OUM Learners Personality Profile"
-        if tpType == '2':
+        elif tpType == '2':
             ques = Question.query.filter(Question.instruCode.like('02%')).all()
             title = "E-Learning Styles"
-        if tpType == '3':
+        elif tpType == '3':
             ques = Question.query.filter(Question.instruCode.like('03%')).all()
             title = "Life-long Learning Attitude"
+        else :
+            ques =[]
+            title =""
         ques_value = [q.question for q in ques]
         return render_template("dashboard.html", value=ques_value, title=title)
 
