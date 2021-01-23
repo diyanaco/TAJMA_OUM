@@ -17,6 +17,7 @@
   <link rel='stylesheet' href="{{ url_for('static', filename='css/dashboardStyle.css')}}">
   <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.5.1.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/questionaire.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/pop.js') }}"></script>
   <!--Adding scrollTo javascript function-->
   <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
   {%block head%}
@@ -65,14 +66,18 @@
         Psychometric Tests
       </div>
       {%block sidebar%}
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item " id="tpOne">
+      <li class="nav-item " id="menu1">
+        <a class="nav-link collapsed" href="{{url_for('dashboard', type='wel')}}">
+          <p>Take Test</p>
+        </a>
+      </li>
+      <!-- Side bar -->
+      <!-- <li class="nav-item " id="tpOne">
         <a class="nav-link collapsed" href="{{url_for('dashboard', type='1')}}">
           <span>OUM Learners Personality Profile</span>
         </a>
       </li>
 
-      <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item" id="tpTwo">
         <a class="nav-link collapsed" href="{{url_for('dashboard', type='2')}}">
           <span>E-Learning Styles</span>
@@ -83,7 +88,7 @@
         <a class="nav-link collapsed" href="{{url_for('dashboard', type='3')}}">
           <span>Life-long Learning Attitude</span>
         </a>
-      </li>
+      </li> -->
       {%endblock%}
 
     </ul>
@@ -112,35 +117,46 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
+        <!-- Questionaire section -->
         <div class="container-fluid">
           {% if value is defined %}
-          <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">{{ title }}</h1>
+          <!-- Timer pop up -->
+          <div id="popup_box">
+            <!-- OUR PopupBox DIV-->
+            <a id="popupBoxClose">Close</span></a>
+            <h3>Your Test Starts In...</h3>
+            <h1 class ="center"id="countDown"></h1>
           </div>
-          <div class="form">
-            {% for ques in value %}
-            <div class="block">
-              <div class="row question">
-                <div class="col">
-                  <h2>{{ques}}</h2>
-                </div>
-              </div>
-              <div class="row answer">
-                <div class="col-sm input-radio">
-                  <input type="radio" name="editList" value="One">1
-                  <input type="radio" name="editList" value="Two">2
-                  <input type="radio" name="editList" value="Three">3
-                  <input type="radio" name="editList" value="Four">4
-                  <input type="radio" name="editList" value="Five">5
-                </div>
-              </div>
+
+          <div id="container">
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+              <h1 class="h3 mb-0 text-gray-800">{{ title }}</h1>
             </div>
-            {% endfor %}
+            <div class="form">
+              {% for ques in value %}
+              <div class="block">
+                <div class="row question">
+                  <div class="col">
+                    <h2>{{ques}}</h2>
+                  </div>
+                </div>
+                <div class="row answer">
+                  <div class="col-sm input-radio">
+                    <input type="radio" name="editList" value="One">1
+                    <input type="radio" name="editList" value="Two">2
+                    <input type="radio" name="editList" value="Three">3
+                    <input type="radio" name="editList" value="Four">4
+                    <input type="radio" name="editList" value="Five">5
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
           </div>
           {% endif %}
         </div>
-        <!-- profile page -->
+        <!-- profile section -->
         <div class="container-fluid">
           {% if prof is defined %}
           <!-- Page Heading -->
@@ -172,22 +188,22 @@
                     <form method="POST" action="" enctype="multipart/form-data">
                       {{form.hidden_tag()}}
                       <fieldset class="form-group">
-                      <div class="form-group">
-                        {{ form.picture.label(class="text-dark center") }}
-                        {{ form.picture(class="form-control-file") }}
-                        {% if form.picture.errors %}
+                        <div class="form-group">
+                          {{ form.picture.label(class="text-dark center") }}
+                          {{ form.picture(class="form-control-file") }}
+                          {% if form.picture.errors %}
                           {% for error in form.picture.errors %}
                           <span class="text-danger">{{ error }}</span></br>
                           {% endfor %}
-                        {% endif %}
-                      </div>
-                      
-                      <div class="form-group center">
-                        {{ form.update(class="btn btn-primary") }}
-                      </div>
+                          {% endif %}
+                        </div>
+
+                        <div class="form-group center">
+                          {{ form.update(class="btn btn-primary") }}
+                        </div>
                       </fieldset>
-                    <form>
-                    {%endif%}
+                      <form>
+                        {%endif%}
 
                   </div>
 
@@ -257,7 +273,7 @@
                           {{prof.email}}
                         </div>
                       </div>
-                      
+
                     </div>
                   </div>
                 </div>
@@ -266,8 +282,77 @@
           </div>
           {% endif %}
         </div>
-        <!-- /.container-fluid -->
+        <!-- Welcome questionaire section -->
+        <div class="container-fluid">
+          {% if welcome is defined %}
+          <h1>Choose your test</h1>
+          <div class="container-fluid" style="padding-top: 150px">
+            <div class="row" style="padding-bottom : 20px">
+              <div class="col-md-4">
+                <h2 class="center">
+                  OUM Learners Personality Profile
+                </h2>
+              </div>
+              <div class="col-md-4">
+                <h2 class="center">
+                  E-Learning Styles
+                </h2>
+              </div>
+              <div class="col-md-4">
+                <h2 class="center">
+                  Life-long Learning Attitude
+                </h2>
+              </div>
+            </div>
+            <div class="row" style="padding-bottom: 20px;">
+
+              <div class="col-md-4">
+                <p>
+                  Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                  mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+                  mollis euismod. Donec sed odio dui.
+                </p>
+              </div>
+              <div class="col-md-4">
+                <p>
+                  Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                  mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+                  mollis euismod. Donec sed odio dui.
+                </p>
+              </div>
+              <div class="col-md-4">
+                <p>
+                  Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor
+                  mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
+                  mollis euismod. Donec sed odio dui.
+                </p>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <p>
+                  <a class="btn-primary btn-lg" href="{{url_for('dashboard', type='1')}}">Take Test »</a>
+                </p>
+              </div>
+              <div class="col-md-4">
+                <p>
+                  <a class="btn-primary btn-lg" href="{{url_for('dashboard', type='1')}}">Take Test »</a>
+                </p>
+              </div>
+              <div class="col-md-4">
+                <p>
+                  <a class="btn-primary btn-lg" href="{{url_for('dashboard', type='1')}}">Take Test »</a>
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        {% endif %}
       </div>
+
       <!-- End of Main Content -->
 
       <!-- Footer -->

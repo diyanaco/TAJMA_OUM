@@ -52,14 +52,8 @@ $(document).ready(function () {
     var url = window.location.href;
     $(".nav-item").each(function () {
       // checks if its the same on the address bar
-      if (url.indexOf("?type=1") > -1) {
-        document.getElementById("tpOne").style.backgroundColor = "#9177cc";
-      }
-      if (url.indexOf("?type=2") > -1) {
-        document.getElementById("tpTwo").style.backgroundColor = "#9177cc";
-      }
-      if (url.indexOf("?type=3") > -1) {
-        document.getElementById("tpThree").style.backgroundColor = "#9177cc";
+      if (url.indexOf("?type=1") > -1 || url.indexOf("?type=2") > -1 || url.indexOf("?type=3") > -1){
+        document.getElementById("menu1").style.display = "none";
       }
     });
   };

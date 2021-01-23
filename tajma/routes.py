@@ -116,6 +116,9 @@ def dashboard():
                 flash('Your account has been updated', 'success')
                 return redirect(url_for('dashboard', type='prof'))
         return render_template("dashboard.html", prof=prof, form=form)
+    elif tpType=='wel':
+        wel = ''
+        return render_template("dashboard.html", welcome=wel)
     else:
         if tpType == '1':
             ques = Question.query.filter(Question.instruCode.like('01%')).all()
