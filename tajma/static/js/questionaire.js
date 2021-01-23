@@ -53,7 +53,7 @@ $(document).ready(function () {
     $(".nav-item").each(function () {
       // checks if its the same on the address bar
       if (url.indexOf("?type=1") > -1 || url.indexOf("?type=2") > -1 || url.indexOf("?type=3") > -1){
-        document.getElementById("menu1").style.display = "none";
+        //document.getElementById("menu1").style.display = "none";
       }
     });
   };
