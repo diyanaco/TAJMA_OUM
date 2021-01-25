@@ -3,8 +3,8 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, has_request_context, session
 from tajma import app, db
-from tajma.form import LoginForm, RegistrationForm, VerificationForm, UpdateAccountForm
-from tajma.models import Question
+from tajma.form import LoginForm, QuestionaireForm, RegistrationForm, VerificationForm, UpdateAccountForm
+from tajma.models import Question, Result
 from flask_login import current_user, logout_user, login_required
 
 # Temporary question
@@ -120,6 +120,15 @@ def dashboard():
         wel = ''
         return render_template("dashboard.html", welcome=wel)
     else:
+        form = QuestionaireForm()
+        if form.validate_on_submit():
+            results = []
+            for idx, data in enumerate(form.answer.data):
+                results.append(data)
+        #for i in range(form.answer)
+        if request.method == 'POST':
+            answer = request.form.getlist('answer')
+            #answer = form.answer.data
         if tpType == '1':
             ques = Question.query.filter(Question.instruCode.like('01%')).all()
             title = "OUM Learners Personality Profile"
@@ -133,7 +142,7 @@ def dashboard():
             ques =[]
             title =""
         ques_value = [q.question for q in ques]
-        return render_template("dashboard.html", value=ques_value, title=title)
+        return render_template("dashboard.html", value=ques_value,form=form, title=title)
 
 @app.route("/logout")
 def logout():
