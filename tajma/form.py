@@ -1,9 +1,11 @@
 from flask import flash, session
+from wtforms.fields.core import FieldList, FormField
+from wtforms.form import Form
 from tajma import app, bcrypt
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from tajma.models import User, Student, db_insert_data
 from flask_login import login_user
@@ -82,4 +84,16 @@ class UpdateAccountForm(FlaskForm):
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
     #email = StringField('Email', validators=[DataRequired(), Email()])
     update = SubmitField('Update')
+
+class AnswerForm(Form):
+    #answer = SelectField("Answer", choices=[("One", "1"), ("Two", "2"),("Three", "3")])
+    answer = RadioField('Answer', choices=[('1','One')])
+    #answer = BooleanField()
+
+
+class QuestionaireForm(FlaskForm):
+    submit = SubmitField("Submit")
+    #answer = RadioField('Label', choices=[('1','One'),('2','two')])
+    answer = FieldList(FormField(AnswerForm), min_entries=5, max_entries=5)
+
 
