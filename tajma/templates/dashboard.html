@@ -125,7 +125,7 @@
             <!-- OUR PopupBox DIV-->
             <a id="popupBoxClose" href="#">Close</a>
             <h3>Your Test Starts In...</h3>
-            <h1 class ="center"id="countDown"></h1>
+            <h1 class="center" id="countDown"></h1>
           </div>
 
           <div id="container">
@@ -133,26 +133,46 @@
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
               <h1 class="h3 mb-0 text-gray-800">{{ title }}</h1>
             </div>
-            <div class="form">
+            <form method="POST" action="">
+              <div class="form"  id="ques-ans">
+              {{form.hidden_tag()}}
               {% for ques in value %}
-              <div class="block">
+              <div class="block" id="block">
                 <div class="row question">
                   <div class="col">
                     <h2>{{ques}}</h2>
                   </div>
                 </div>
-                <div class="row answer">
+                <div class="row answer" id="answer">
                   <div class="col-sm input-radio">
-                    <input type="radio" name="editList" value="One">1
-                    <input type="radio" name="editList" value="Two">2
-                    <input type="radio" name="editList" value="Three">3
-                    <input type="radio" name="editList" value="Four">4
-                    <input type="radio" name="editList" value="Five">5
+                    {% for nested in form.answer %}
+                      <!-- {{ nested.label }}{{ nested }} -->
+                      {{nested()}}
+                    {% endfor %}
+                    <!-- {% for subfield in form.answer %}
+                    <tr>
+                      <td>{{ subfield }}</td>
+                      <td>{{ subfield.label }}</td>
+                    </tr>
+                    {% endfor %} -->
+                    <!-- <input type="radio" name="answer" value="One">1</input>
+                    <input type="radio" name="answer" value="Two">2</input>
+                    <input type="radio" name="answer" value="Three">3</input>
+                    <input type="radio" name="answer" value="Four">4</input>
+                    <input type="radio" name="answer" value="Five">5</input> -->
                   </div>
                 </div>
               </div>
               {% endfor %}
-            </div>
+                <fieldset>
+                  <div class="form-group center">
+                    {{ form.submit(class="btn btn-outline-info") }}
+                  </div>
+                </fieldset>
+
+              </div>
+
+            </form>
           </div>
           {% endif %}
         </div>
