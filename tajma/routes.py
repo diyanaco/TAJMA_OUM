@@ -3,9 +3,10 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, has_request_context, session
 from tajma import app, db
-from tajma.form import LoginForm, QuestionaireForm, RegistrationForm, VerificationForm, UpdateAccountForm
+from tajma.form import Elearning, LoginForm, RegistrationForm, VerificationForm, UpdateAccountForm, AnswerElearningTrait3Form, AnswerElearningTrait2Form, AnswerElearningTrait1Form
 from tajma.models import Question, Result
 from flask_login import current_user, logout_user, login_required
+import numpy as np
 
 # Temporary question
 # myresult = [(1, 'Hello'), (2, 'Hehe'), (3, 'Hello'),
@@ -120,11 +121,23 @@ def dashboard():
         wel = ''
         return render_template("dashboard.html", welcome=wel)
     else:
-        form = QuestionaireForm()
+        form = Elearning()
         if form.validate_on_submit():
-            results = []
-            for idx, data in enumerate(form.answer.data):
-                results.append(data)
+            trait1 = [form.answer1.data, form.answer2.data,
+                    form.answer3.data, form.answer4.data,
+                    form.answer5.data, form.answer6.data,
+                    form.answer7.data, form.answer8.data,
+                    form.answer9.data]
+            trait1 = np.mean(trait1)
+
+            trait2 = [form.answer10.data, form.answer11.data,
+                    form.answer12.data, form.answer13.data,
+                    form.answer14.data, form.answer15.data,
+                    form.answer16.data, form.answer17.data,
+                    form.answer18.data, form.answer19.data,
+                    form.answer20.data, form.answer21.data]
+            trait2 = np.mean(trait2)
+
         #for i in range(form.answer)
         if request.method == 'POST':
             answer = request.form.getlist('answer')
