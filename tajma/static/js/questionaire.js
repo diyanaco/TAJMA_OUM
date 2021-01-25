@@ -28,6 +28,13 @@ $(document).ready(function () {
     moveNext(this);
   });
 
+  var cards = $(".block");
+  for (var i = 0; i < cards.length; i++) {
+    var target = Math.floor(Math.random() * cards.length - 1) + 1;
+    var target2 = Math.floor(Math.random() * cards.length - 1) + 1;
+    cards.eq(target).before(cards.eq(target2));
+  }
+
   function reinitState(e) {
     $(".block").removeClass("active");
 
@@ -75,10 +82,10 @@ $(document).ready(function () {
       val = $('input[name=answer]:checked').val();
       console.log(element);
       console.log(val);
-      });
-      // var answer = (this).getElementById('answer')
-      // var answer = []
-      // answer.push(childDivs) 
+    });
+    // var answer = (this).getElementById('answer')
+    // var answer = []
+    // answer.push(childDivs) 
     // var childDivs = document.getElementById('answer')//.getElementsByTagName('div');
     // console.log(childDivs)
   };
