@@ -3,6 +3,7 @@ $(document).ready(function () {
   var container = $(this).find(".form");
   highlighMenu(this)
   hideButton(this)
+  retAnswer(this)
 
   $(container)
     .find(".input-radio")
@@ -52,7 +53,7 @@ $(document).ready(function () {
     var url = window.location.href;
     $(".nav-item").each(function () {
       // checks if its the same on the address bar
-      if (url.indexOf("?type=1") > -1 || url.indexOf("?type=2") > -1 || url.indexOf("?type=3") > -1){
+      if (url.indexOf("?type=1") > -1 || url.indexOf("?type=2") > -1 || url.indexOf("?type=3") > -1) {
         //document.getElementById("menu1").style.display = "none";
       }
     });
@@ -63,5 +64,23 @@ $(document).ready(function () {
     if (url.indexOf("?type=mod") > -1) {
       document.getElementById("buttonUpdate").style.display = "none";
     }
-  }
+  };
+  function retAnswer(e) {
+    $("#ques-ans").children('#block').each(function () {
+      // var innerDivId = $(this).attr('id');
+      // var childDivs = document.getElementById('answer');
+      var element = $(this).children()
+      // var element = $(this).children('#answer').each(function(){
+      //   var element_ans = $(this).prop('outerHTML')
+      val = $('input[name=answer]:checked').val();
+      console.log(element);
+      console.log(val);
+      });
+      // var answer = (this).getElementById('answer')
+      // var answer = []
+      // answer.push(childDivs) 
+    // var childDivs = document.getElementById('answer')//.getElementsByTagName('div');
+    // console.log(childDivs)
+  };
+
 });
