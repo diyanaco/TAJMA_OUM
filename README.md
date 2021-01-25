@@ -23,5 +23,5 @@ flask run
 ## Warning
 Only commit changes to your branch only (Taufiq)
 
-## Version 2
-Enhance the questionaire to flow one direction
+## Version 3
+Enhance the questionaire to flow one direction and hardcode the questionaire and answer inside templates
