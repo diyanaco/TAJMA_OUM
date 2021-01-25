@@ -11369,7 +11369,7 @@ body.sidebar-toggled footer.sticky-footer {
   margin: -15px -15px 10px -15px;
   display: block;
   position: relative;
-  text-align: center;
+  text-align: right;
 }
 #popupBoxClose #countDown {
   position: absolute;
