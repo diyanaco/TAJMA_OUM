@@ -7,7 +7,7 @@ from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from tajma.models import User, Student, db_insert_data
+from tajma.models import Role, User, Student, db_insert_data
 from flask_login import login_user
 
 
@@ -24,7 +24,14 @@ class LoginForm(FlaskForm):
             return True
         else:
             return False
+    
 
+    def check_role(self):
+        user = User.query.filter_by(email=self.email.data).first()
+        if user.roles:
+            return user.roles[0].name
+        else :
+            return "normal"
     def check_registered(self):
         if User.query.filter_by(email=self.email.data).first():
             return True
@@ -79,6 +86,11 @@ class RegistrationForm(FlaskForm):
         #Add user to session
         login_user(user)
         return True
+
+    def assign_admin(self):
+        user = User.query.filter_by(email=self.email.data).first()
+        user.roles.append(Role(name="Admin"))
+        db_insert_data(user)
 
 class UpdateAccountForm(FlaskForm):
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])

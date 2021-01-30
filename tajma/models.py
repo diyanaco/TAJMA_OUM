@@ -1,5 +1,6 @@
 from tajma import db, login_manager
 from flask_login import UserMixin
+from flask_user import UserMixin
 #from __init__ import db
 
 db.drop_all()
@@ -13,7 +14,7 @@ def db_insert_data(model):
     db.session.commit()
 
 class User(db.Model, UserMixin):
-    userID = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     firstName = db.Column(db.String(50), nullable=True)
     lastName = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
@@ -24,7 +25,9 @@ class User(db.Model, UserMixin):
     IC = db.Column(db.String(20), nullable=False)
     race = db.Column(db.String(15), nullable=False)
     mobile = db.Column(db.String(15), nullable=False)
-    
+    roles = db.relationship('Role', secondary='user_roles')
+    active = db.Column('is_active', db.Boolean(), nullable=False, server_default='1')
+    email_confirmed_at = db.Column(db.DateTime())
 
     #override get_id method from UserMixin
     def get_id(self):
@@ -50,6 +53,16 @@ class User(db.Model, UserMixin):
         
     def __repr__(self):
         return f"User('{self.email}', '{self.password}')"
+
+class Role(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+    name = db.Column(db.String(50), unique=True)
+
+class UserRoles(db.Model):
+    __tablename__ = 'user_roles'
+    id = db.Column(db.Integer(), primary_key=True)
+    user_id = db.Column(db.Integer(), db.ForeignKey('user.id', ondelete='CASCADE'))
+    role_id = db.Column(db.Integer(), db.ForeignKey('role.id', ondelete='CASCADE'))
 
 #inserting data
 # if db.engine.dialect.has_table(db.engine, "user"):
@@ -77,8 +90,6 @@ class Student(db.Model):
     IC = db.Column(db.String(50), nullable=False)
     race = db.Column(db.String(50), nullable=False)
     mobile = db.Column(db.String(50), nullable=False)
-
-    
 
     def __repr__(self):
         return f"Student('{self.email}', '{self.firstName}')"

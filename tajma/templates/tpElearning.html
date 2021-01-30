@@ -36,31 +36,410 @@
 {%endblock%}
 
 {%block body%}
-<!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">E-Learning Style</h1>
-</div>
-<div class="form">
-    <h1>The title</h1>
-    {% for ques in value %}
-    <div class="block">
-        <div class="row question">
-            <div class="col">
-                <h2>{{ques}}</h2>
-            </div>
-        </div>
-        <div class="row answer">
-            <div class="col-sm input-radio">
-                <input type="radio" name="editList" value="One">1
-                <input type="radio" name="editList" value="Two">2
-                <input type="radio" name="editList" value="Three">3
-                <input type="radio" name="editList" value="Four">4
-                <input type="radio" name="editList" value="Five">5
-            </div>
-        </div>
+<div class="container-fluid">
+    <!-- Timer pop up -->
+    <div id="popup_box">
+      <!-- OUR PopupBox DIV-->
+      <a id="popupBoxClose">Close</span></a>
+      <h3>Your Test Starts In...</h3>
+      <h1 class="center" id="countDown"></h1>
     </div>
-    {% endfor %}
-</div>
-</body>
+
+    <div id="container">
+      <!-- Page Heading -->
+      <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">{{ title }}</h1>
+      </div>
+      <form method="POST" action="">
+        <div class="form"  id="ques-ans">
+        <div class="block" id="t1q1a1">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya tahu untuk mencari pelbagai maklumat pembelajaran di Internet </h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer1 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t1q2a2">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya boleh membuat penilaian maklumat yang dikumpulkan dari Internet  </h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer2 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t1q3a3">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya boleh memastikan bahan yang saya baca di Internet adalah sahih </h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer3 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t1q4a4">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya dapat menghasilkan tugasan yang lebih kreatif berdasarkan bahan yang saya peroleh di Internet </h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer4 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t1q5a5">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya mampu mengintegrasikan maklumat daripada internet dengan kursus pembelajaran saya </h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer5 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t1q6a6">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya dapat mencari bahan pembelajaran di Internet dengan cepat </h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer6 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t1q7a7">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya menggunakan masa saya dengan cekap dalam menyelesaikan tugasan  </h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer7 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t1q8a8">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya menggunakan masa saya dengan cekap dalam menyelesaikan tugasan  </h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer8 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t1q9a9">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya mempunyai masa untuk aktiviti riadah lain selain daripada belajar </h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer9 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t2q1a10">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya mahir menggunakan sistem e-portal pembelajaran secara dalam talian  </h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer10 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t2q2a11">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya mahir memuat turun dan menyimpan fail yang dilampirkan di portal e-mel pembelajaran untuk tujuan akademik</h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer11 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t2q3a12">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya tahu cara melampirkan fail (PDF, Word, Image) melalui e-mel portal pembelajaran dan kemudian menghantarnya kepada pihak penerima</h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer12 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t2q4a13">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya mahir menggunakan sistem emel</h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer13 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t2q5a14">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya yakin cara membaca mesej yang disiarkan pada sistem persidangan segerak/tidak segerak</h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer14 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t2q6a15">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya mahir mencari bahan jurnal di internet </h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer15 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t2q7a16">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya mahir menggunakan pelbagai sistem pangkalan data untuk mencari bahan pembelajaran</h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer16 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t2q8a17">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya mahir mencari bahan pembelajaran di internet</h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer17 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t2q9a18">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya mahir menggunakan sistem emel</h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer18 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t2q10a19">
+          <div class="row question">
+            <div class="col">
+              <h2>Semasa mampu mengeluarkan pendapat saya dalam perbincangan e-forum</h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer19 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t2q11a20">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya boleh menulis pandangan saya di platform e-forum dengan baik</h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer20 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t2q121">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya mempunyai kemahiran literasi komputer yang baik (Contoh, Microsoft Word, Excel, PowerPoint, dll.)</h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer21 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+          <fieldset>
+            <div class="form-group center">
+              {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+          </fieldset>
+
+        </div>
+
+      </form>
+    </div>
+  </div>
 
 {%endblock%}
