@@ -4,23 +4,18 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, has_request_context, session
 from tajma import app, db
 from tajma.form import Elearning, LoginForm, RegistrationForm, VerificationForm, UpdateAccountForm, AnswerElearningTrait3Form, AnswerElearningTrait2Form, AnswerElearningTrait1Form
-from tajma.models import Question, Result
+from tajma.models import User
 from flask_login import current_user, logout_user, login_required
-from flask_user import roles_required
 import numpy as np
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-    #     if request.form:
-    #         print(request.form)
     return render_template("index.html")
-    # return "Hello World Kih"
-
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('dashboard'))
+    # if current_user.is_authenticated:
+    #     return redirect(url_for('dashboard'))
     form = LoginForm()
     if form.validate_on_submit():
         if form.check_credentialsLOGIN() == True:
@@ -56,16 +51,22 @@ def verify():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('dashboard'))
+    #reroute the user to dashboard if its already sign in
+    # if current_user.is_authenticated:
+    #     return redirect(url_for('dashboard'))
     form = RegistrationForm()
     fn, ln, gender, age, IC, race, mobile = form.retrieve_data()
     if form.validate_on_submit():
         #check credentials then insert data
         form.check_credentials()
-        if session.get("email")== "admin@demo.com":
+        #issue4 temporary used only, the assignment of role will be done front end by superAdmin
+        #after normal user register, will route to the main dashboard
+        #superAdmin will then assign them admin role later after registration
+        #after that, the user with admin role will route to admin page after login
+        if session.get("email") == "admin@demo.com":
             form.assign_admin()
-        # ISSUE 3 create function first time login
+            return redirect(url_for('admin'))
+        #ISSUE 3 create function first time login
         #flash("Succesfully Register, please login")
         return redirect(url_for('dashboard'))
     return render_template("register.html", form=form, fn=fn, ln=ln, em=session.get("email"))
@@ -91,11 +92,13 @@ def dashboard():
     welcome = True
     return render_template("dashboard.html", value=welcome)
 
-
 @app.route('/admin')
-@roles_required('Admin')
 def admin():
-    return render_template("admin.html")
+    user = User.query.filter_by(email = current_user.get_email()).first()
+    if user.roles and user.roles[0].name == 'Admin':
+            return render_template("admin.html")
+    else :
+            return redirect(url_for('login'))
 
 @app.route("/profile", methods=["GET", "POST"])
 @login_required

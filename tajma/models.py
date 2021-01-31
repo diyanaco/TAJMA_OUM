@@ -1,7 +1,5 @@
 from tajma import db, login_manager
 from flask_login import UserMixin
-from flask_user import UserMixin
-#from __init__ import db
 
 db.drop_all()
 
@@ -31,7 +29,7 @@ class User(db.Model, UserMixin):
 
     #override get_id method from UserMixin
     def get_id(self):
-        return self.userID
+        return self.id
     def get_first_name(self):
         return self.firstName
     def get_last_name(self):
@@ -50,7 +48,7 @@ class User(db.Model, UserMixin):
         return self.race
     def get_mobile(self):
         return self.mobile
-        
+
     def __repr__(self):
         return f"User('{self.email}', '{self.password}')"
 
@@ -101,10 +99,13 @@ if db.engine.dialect.has_table(db.engine, "student"):
         student_2 = Student(studentID='02', firstName='Joyce', lastName='Yong', email='joyce@demo.com', gender='Female', age='28', IC=920315031234, race='Chinese', mobile= '01791678965')
         student_3 = Student(studentID='03', firstName='Taufiq', lastName='Yusup', email='taufiq@demo.com', gender='Male', age='32', IC=9103610376515, race='Malay', mobile= '01791364956')
         student_4 = Student(studentID='04', firstName='Haziq', lastName='Isma', email='haziq@demo.com',gender='Male', age='14', IC=910326375515, race='Malay', mobile= '0179097956')
+        student_5 = Student(studentID='05', firstName='Normal', lastName='Admin', email='admin@demo.com',gender='Male', age='14', IC=910326375515, race='Malay', mobile= '0179097956')
+        
         db.session.add(student_1)
         db.session.add(student_2)
         db.session.add(student_3)
         db.session.add(student_4)
+        db.session.add(student_5)
         db.session.commit()
 
 class Question(db.Model):

@@ -6,7 +6,7 @@ from tajma.models import Student, User
 from wtforms.validators import DataRequired, Email
 
 class RegistrationForm(FlaskForm):
-    userID = StringField(" User ID")
+    userID = StringField("User ID")
     firstName = StringField('First Name')
     lastName = StringField('Last Name')
     email = StringField('Email', validators=[DataRequired(), Email()])

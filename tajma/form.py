@@ -74,14 +74,14 @@ class RegistrationForm(FlaskForm):
         hashed_password = bcrypt.generate_password_hash(self.password.data).decode('utf-8')
         a, b, c, d, e, f, g= self.retrieve_data()
         #increment the username
-        topUserID = User.query.order_by(User.userID.desc()).first()
+        topUserID = User.query.order_by(User.id.desc()).first()
         #If first user sign up, then assign UserID 1
         if topUserID is None:
-            user = User(userID=1, firstName=a, lastName=b,email=self.email.data, password=hashed_password, gender=c, age=d, IC=e, race=f, mobile=g)
+            user = User(id=1, firstName=a, lastName=b,email=self.email.data, password=hashed_password, gender=c, age=d, IC=e, race=f, mobile=g)
             db_insert_data(user)
         #Else increment the userID by 1
         else :
-            user = User(userID=(topUserID.userID + 1), firstName=a, lastName=b,email=self.email.data, password=hashed_password, gender=c, age=d, IC=e, race=f, mobile=g)
+            user = User(id=(topUserID.id + 1), firstName=a, lastName=b,email=self.email.data, password=hashed_password, gender=c, age=d, IC=e, race=f, mobile=g)
             db_insert_data(user)
         #Add user to session
         login_user(user)
