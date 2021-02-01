@@ -61,12 +61,12 @@
           <div class="row answer" id="answer">
             <div class="col-sm input-radio">
               {{form.hidden_tag()}}
-              {% for subfield in form.answer1 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
-              </tr>
-              {% endfor %}
+                {% for subfield in form.answer1 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>                  
+                </tr>
+                {% endfor %}
             </div>
           </div>
         </div>
@@ -82,7 +82,7 @@
               {% for subfield in form.answer2 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button")}}</td>
               </tr>
               {% endfor %}
             </div>
@@ -100,7 +100,7 @@
               {% for subfield in form.answer3 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
@@ -118,7 +118,7 @@
               {% for subfield in form.answer4 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
@@ -136,7 +136,7 @@
               {% for subfield in form.answer5 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
@@ -154,7 +154,7 @@
               {% for subfield in form.answer6 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
@@ -172,7 +172,7 @@
               {% for subfield in form.answer7 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
@@ -190,7 +190,7 @@
               {% for subfield in form.answer8 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
@@ -208,7 +208,7 @@
               {% for subfield in form.answer9 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
@@ -226,7 +226,7 @@
               {% for subfield in form.answer10 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
@@ -244,7 +244,7 @@
               {% for subfield in form.answer11 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
@@ -262,7 +262,7 @@
               {% for subfield in form.answer12 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
@@ -280,7 +280,7 @@
               {% for subfield in form.answer13 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
@@ -298,7 +298,7 @@
               {% for subfield in form.answer14 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
@@ -316,7 +316,7 @@
               {% for subfield in form.answer15 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
@@ -334,7 +334,7 @@
               {% for subfield in form.answer16 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
@@ -352,7 +352,7 @@
               {% for subfield in form.answer17 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
@@ -370,7 +370,7 @@
               {% for subfield in form.answer18 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
@@ -388,7 +388,7 @@
               {% for subfield in form.answer19 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
@@ -406,13 +406,13 @@
               {% for subfield in form.answer20 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
           </div>
         </div>
-        <div class="block" id="t2q121">
+        <div class="block" id="t2q12a21">
           <div class="row question">
             <div class="col">
               <h2>Saya mempunyai kemahiran literasi komputer yang baik (Contoh, Microsoft Word, Excel, PowerPoint, dll.)</h2>
@@ -424,12 +424,175 @@
               {% for subfield in form.answer21 %}
               <tr>
                 <td>{{ subfield }}</td>
-                <td>{{ subfield.label }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
               </tr>
               {% endfor %}
             </div>
           </div>
         </div>
+        <div class="block" id="t3q1a22">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya dapat menyelesaikan masalah pembelajaran dengan baik</h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer22 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t3q2a23">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya dapat menyelesaikannya tugasan sebelum tarikh akhir penghantaran</h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer23 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t3q3a24">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya bersedia meminta pertolongan daripada rakan kursus atau pensyarah untuk menyelesaikan masalah pembelajaran </h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer24 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t3q4a25">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya dapat mengenalpasti isu atau masalah pada tugasan yang sedang saya jalankan</h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer25 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t3q5a26">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya dapat mencari pelbagai jalan penyelesaian alternatif dalam menyelesaikan isu pembelajaran</h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer26 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t3q6a27">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya boleh bekerjasama dengan baik dengan rakan kursus dalam tugasan kumpulan</h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer27 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t3q7a28">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya boleh mengintegrasikan idea bersama rakan sekursus dalam pembelajaran secara dalam talian</h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer28 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t3q8a29">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya selalu menawarkan diri untuk menjadi ketua dalam tugasan kumpulan</h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer29 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="block" id="t3q9a30">
+          <div class="row question">
+            <div class="col">
+              <h2>Saya boleh memimpin ahli kumpulan tugasan dengan baik</h2>
+            </div>
+          </div>
+          <div class="row answer" id="answer">
+            <div class="col-sm input-radio">
+              {{form.hidden_tag()}}
+              {% for subfield in form.answer30 %}
+              <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label(class_="radio-button") }}</td>
+              </tr>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
           <fieldset>
             <div class="form-group center">
               {{ form.submit(class="btn btn-outline-info") }}

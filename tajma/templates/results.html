@@ -1,0 +1,95 @@
+{%extends 'dashboard.html'%}
+
+{%block body%}
+<div class="row">
+    <div class="col">
+        <!-- E-Learning Styles -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">E-Learning Styles</h6>
+            </div>
+            <div class="card-body">
+                <h4 class="small font-weight-bold">Kemahiran Belajar <span
+                        class="float-right">{{result.kb}}</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{result.kb}}%"
+                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <h4 class="small font-weight-bold">Kemahiran Literasi<span
+                        class="float-right">{{result.kl}}</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{result.kl}}%"
+                        aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <h4 class="small font-weight-bold">Kemahiran Hidup <span
+                        class="float-right">{{result.kh}}</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar" role="progressbar" style="width: {{result.kh}}%"
+                        aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <!-- OUM Learners Personality Profile -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">OUM Learners Personality Profile</h6>
+            </div>
+            <div class="card-body">
+                <h4 class="small font-weight-bold">Kemahiran Belajar <span
+                        class="float-right">{{result.kb}}</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{result.kb}}%"
+                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <h4 class="small font-weight-bold">Kemahiran Literasi<span
+                        class="float-right">{{result.kl}}</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{result.kl}}%"
+                        aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <h4 class="small font-weight-bold">Kemahiran Hidup <span
+                        class="float-right">{{result.kh}}</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar" role="progressbar" style="width: {{result.kh}}%"
+                        aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <!-- Life-long Learning Attitude -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Life-long Learning Attitude</h6>
+            </div>
+            <div class="card-body">
+                <h4 class="small font-weight-bold">Kemahiran Belajar <span
+                        class="float-right">{{result.kb}}</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{result.kb}}%"
+                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <h4 class="small font-weight-bold">Kemahiran Literasi<span
+                        class="float-right">{{result.kl}}</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{result.kl}}%"
+                        aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <h4 class="small font-weight-bold">Kemahiran Hidup <span
+                        class="float-right">{{result.kh}}</span></h4>
+                <div class="progress mb-4">
+                    <div class="progress-bar" role="progressbar" style="width: {{result.kh}}%"
+                        aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <h1>This is overal result</h1>
+    </div>
+</div>
+{%endblock%}

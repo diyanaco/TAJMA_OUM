@@ -1,6 +1,87 @@
 {%extends 'dashboard.html' %}
+
+{%block sidebar%}
+<!-- Nav Item - Dashboard -->
+<li class="nav-item">
+    <a class="nav-link" href="{{url_for('admin')}}">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Search Results</span></a>
+    </li>
+    
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+    
+{%endblock%}
 {%block body%}
 
-<h1>This is analysis</h1>
+
+<form method="POST" action="">
+{{form.hidden_tag()}}
+    <div>
+        <div class="row">
+            <div class="col">
+                {{form.selectfield.label}}
+                {{form.selectfield}}  
+                {% if form.selectfield.errors %} 
+                    <div class="invalid-feedback">
+                        {% for error in form.selectfield.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div> 
+                {%endif%}   
+            </div>
+            <div class="col-6">
+                {{form.searchfield.label}}
+                {{form.searchfield}}
+                {% if form.searchfield.errors %} 
+                    <div class="invalid-feedback">
+                        {% for error in form.searchfield.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {%endif%}
+            </div>
+            <div class="col">
+                {{form.search.label}}
+                {{form.search}}
+                {% if form.search.errors %} 
+                <div class="invalid-feedback">
+                    {% for error in form.search.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">ID</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Result</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in userSearch %}    
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{row.id}}</td>
+            <td>{{row.firstName}}</td>
+            <td>{{row.lastName}}</td>
+            <!-- <td><a href = "#result?id={{row.id}}"> View Result</a></td> -->
+            <td><a href = "{{url_for('results', id=row.id, fn=row.firstName)}}"> View Result</a></td>
+        </tr>
+        <br>
+        {% endfor %}
+    </tbody>
+</table>
+
+<section id = "result">
+    <h1>{{hello}}</h1>
+</section>
 
 {%endblock%}

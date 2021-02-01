@@ -191,23 +191,35 @@ if db.engine.dialect.has_table(db.engine, "question"):
     #     question = "question"+ str(i)
     #     db.session.add(question) 
 
-class Result(db.Model):
-    resultID = db.Column(db.Integer(), primary_key=True, nullable=False)
-    instruCode = db.Column(db.String(10), nullable=False)
-    SB = db.Column(db.Float(), nullable=False)
-    PM = db.Column(db.Float(), nullable=False)
-    PT = db.Column(db.Float(), nullable=False)
-    AN = db.Column(db.Float(), nullable=False)
-    PN = db.Column(db.Float(), nullable=False)
-    AS = db.Column(db.Float(), nullable=False)
-    PN = db.Column(db.Float(), nullable=False)
-    JD = db.Column(db.Float(), nullable=False)
-    IG = db.Column(db.Float(), nullable=False)
-    KP = db.Column(db.Float(), nullable=False)
-    KD = db.Column(db.Float(), nullable=False)
-    KS = db.Column(db.Float(), nullable=False)
-    KC = db.Column(db.Float(), nullable=False)
-
+class Elearning(db.Model):
+    # resultID = db.Column(db.Integer(), primary_key=True, nullable=False)
+    # instruCode = db.Column(db.String(10), nullable=False)
+    # SB = db.Column(db.Float(), nullable=False)
+    # PM = db.Column(db.Float(), nullable=False)
+    # PT = db.Column(db.Float(), nullable=False)
+    # AN = db.Column(db.Float(), nullable=False)
+    # PN = db.Column(db.Float(), nullable=False)
+    # AS = db.Column(db.Float(), nullable=False)
+    # PN = db.Column(db.Float(), nullable=False)
+    # JD = db.Column(db.Float(), nullable=False)
+    # IG = db.Column(db.Float(), nullable=False)
+    # KP = db.Column(db.Float(), nullable=False)
+    # KD = db.Column(db.Float(), nullable=False)
+    # KS = db.Column(db.Float(), nullable=False)
+    # KC = db.Column(db.Float(), nullable=False)
+    id = db.Column(db.Integer(),primary_key=True, nullable=False)
+    #kemahiran belajar
+    kb = db.Column(db.Float(), nullable=True)
+    #kemahiran literasi
+    kl = db.Column(db.Float(), nullable=True)
+    #kemahiran hidup
+    kh = db.Column(db.Float(), nullable=True)
+    userID = db.Column(db.Integer(), nullable=True)
+# class ElearningUser(db.Model):
+#     __tablename__ = 'elearning_user'
+#     id = db.Column(db.Integer(), primary_key=True)
+#     user_id = db.Column(db.Integer(), db.ForeignKey('user.id', ondelete='CASCADE'))
+#     elearning_id = db.Column(db.Integer(), db.ForeignKey('elearning.id', ondelete='CASCADE'))
 
 class Code(db.Model):
     code = db.Column(db.Integer(), nullable=False, primary_key=True)

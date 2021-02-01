@@ -166,7 +166,7 @@ a {
 
 a:hover {
   color: #224abe;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }
 
 a:not([href]):not([class]) {
@@ -294,6 +294,19 @@ input[type="radio"],
 input[type="checkbox"] {
   box-sizing: border-box;
   padding: 0;
+  /* display: none; */
+  /* background: url('../assets/img/radio-button.png') no-repeat left center; */
+}
+input[type="radio"]:checked + label{
+  background-color: black;
+  border:2px dashed #444
+}
+input[type="radio"]:hover + label{
+  background-color: black;
+}
+input[type="radio"]:focus + label{
+  background-color: black;
+  border:2px dashed #444
 }
 
 textarea {
@@ -2354,7 +2367,7 @@ fieldset:disabled a.btn {
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #2e59d9;
+  background-color: #424653;
   border-color: #2653d4;
 }
 
@@ -11385,4 +11398,12 @@ body.sidebar-toggled footer.sticky-footer {
   font-size: 14px;
   font-weight: bold;
 }
+/* Radio button style on questionaire */
+.radio-button{
+  border-radius: 10%;
+  width: 70px;
+  background-color: #a394c6;
+  color:white;
+  margin-right: 20px;
 
+}

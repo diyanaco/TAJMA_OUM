@@ -48,7 +48,6 @@ class VerificationForm(FlaskForm):
         else:
             return False
 
-
 class RegistrationForm(FlaskForm):
     userName = StringField("Username")
     password = PasswordField('Password', validators=[DataRequired()])
@@ -97,57 +96,51 @@ class UpdateAccountForm(FlaskForm):
     #email = StringField('Email', validators=[DataRequired(), Email()])
     update = SubmitField('Update')
 
-class Elearning(FlaskForm):
+class ElearningAnswer(FlaskForm):
     #trait 1 Kemahiran Belajar
-    answer1 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer2 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer3 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer4 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer5 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer6 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer7 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer8 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer9 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer1 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer2 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer3 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer4 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer5 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer6 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer7 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer8 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer9 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
 
     #trait 2 Kemahiran Literasi
-    answer10 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer11 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer12 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer13 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer14 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer15 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer16 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer17 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer18 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer19 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer20 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer21 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer10 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer11 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer12 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer13 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer14 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer15 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer16 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer17 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer18 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer19 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer20 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer21 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
 
     #trait 3 Kemahiran Hidup
+    answer22 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer23 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer24 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer25 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer26 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer27 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer28 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer29 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+    answer30 = RadioField('', choices=[(1,'One'),(2,'Two'),(3,'Three'),(4,'Four'),(5,'Five')])
+
+
 
     submit = SubmitField("Submit")
 
-
-class AnswerElearningTrait1Form(FlaskForm):
-    answer1 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer2 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    submit = SubmitField("Submit")
-    desc = "Kemahiran Belajar"
-
-class AnswerElearningTrait2Form(FlaskForm):
-    answer1 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer2 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    submit = SubmitField("Submit")
-    desc = "Kemahiran Literasi"
-
-class AnswerElearningTrait3Form(FlaskForm):
-    answer1 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    answer2 = RadioField('', choices=[(1,'One'),(2,'two'),(3,'Three'),(4,'Four'),(5,'Five')])
-    submit = SubmitField("Submit")
-    desc = "Kemahiran Hidup"
-
-
-
+class SearchForm(FlaskForm):
+    selectfield = SelectField('Type', choices=[('id', 'User ID'), ('firstName', 'First Name'), ('email','Email')])
+    searchfield = StringField('Search')
+    search = SubmitField('Search')
 
 
 

@@ -1,13 +1,15 @@
 .form{
     margin: auto;
-    width: 700px;
+    width: 1000px;
     border-style: solid;
-    border-color: aquamarine;
+    border-color: white;
     border-width: 10px;
     padding: 10px 10px 10px 10px;
 }
 .question{
     padding-top: 10%;
+    font-weight: bold;
+    color: black;
 }
 
 .answer{
@@ -21,6 +23,7 @@
 }
 
 .active{
-    background-color: rgb(240, 240, 13);
+    background-color: rgb(252, 252, 213);
     opacity: 1;
+    border-radius: 30%;
 }

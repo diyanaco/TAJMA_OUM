@@ -2,11 +2,34 @@ import os
 import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, has_request_context, session
+from sqlalchemy.orm import relation
 from tajma import app, db
-from tajma.form import Elearning, LoginForm, RegistrationForm, VerificationForm, UpdateAccountForm, AnswerElearningTrait3Form, AnswerElearningTrait2Form, AnswerElearningTrait1Form
-from tajma.models import User
+from tajma.form import ElearningAnswer, LoginForm, RegistrationForm, SearchForm, VerificationForm, UpdateAccountForm, SearchForm
+from tajma.models import User, Elearning, db_insert_data
 from flask_login import current_user, logout_user, login_required
 import numpy as np
+
+#Veify if user admin or not
+def isAdmin():
+    userAdmin = User.query.filter_by(email = current_user.get_email()).first()
+    if userAdmin.roles and userAdmin.roles[0].name == 'Admin':
+        return True
+    else:
+        return False
+
+#Save picture
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(
+        app.root_path, 'static/assets/img/profile_pics', picture_fn)
+    # resize the image
+    output_size = (300, 300)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+    return picture_fn
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -48,7 +71,6 @@ def verify():
             flash('You are not elligible to register, please verify with OUM', 'success')
     return render_template("verify.html", form=form)
 
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
     #reroute the user to dashboard if its already sign in
@@ -71,34 +93,50 @@ def register():
         return redirect(url_for('dashboard'))
     return render_template("register.html", form=form, fn=fn, ln=ln, em=session.get("email"))
 
-
-def save_picture(form_picture):
-    random_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_picture.filename)
-    picture_fn = random_hex + f_ext
-    picture_path = os.path.join(
-        app.root_path, 'static/assets/img/profile_pics', picture_fn)
-    # resize the image
-    output_size = (300, 300)
-    i = Image.open(form_picture)
-    i.thumbnail(output_size)
-    i.save(picture_path)
-    return picture_fn
-
-
 @app.route("/dashboard", methods=["GET", "POST"])
 @login_required
 def dashboard():
-    welcome = True
-    return render_template("dashboard.html", value=welcome)
+    return render_template("dashboard.html")
 
-@app.route('/admin')
+@app.route('/admin', methods=["GET", "POST"])
 def admin():
-    user = User.query.filter_by(email = current_user.get_email()).first()
-    if user.roles and user.roles[0].name == 'Admin':
-            return render_template("admin.html")
+    if isAdmin():
+        form = SearchForm()
+        if form.validate_on_submit():
+            #selectData = form.selectfield.data
+            #searchData = form.searchfield.data
+            kwargs = {
+                form.selectfield.data : form.searchfield.data
+            }
+            userSearch = User.query.filter_by(**kwargs).all()
+            
+            return render_template('admin.html', form=form, userSearch=userSearch)
+        #need to fix this
+        if request.args.get('type') :
+                hello = "Hello"
+                return render_template('admin.html', form= form, hello=hello)
+        return render_template("admin.html", form=form)
     else :
-            return redirect(url_for('login'))
+        return redirect(url_for('login'))
+
+#View results
+@app.route("/admin/results/<id>/<fn>", methods=["GET"])
+@login_required
+def results(id, fn):
+    if isAdmin():
+        elearning = Elearning.query.filter_by(userID=id).first()
+        if elearning is None:
+            message="The user has not taken any test yet"
+            return redirect(url_for('error', error=message))
+        result = {
+            "kb" : round(elearning.kb/5*100,1),
+            "kh" : round(elearning.kh/5*100, 1),
+            "kl" : round(elearning.kl/5*100, 1)
+        }
+        #fn = request.args.get('fn')
+        return render_template('results.html', result=result)
+    else :
+        return redirect(url_for('login'))
 
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
@@ -126,17 +164,16 @@ def profile():
         return render_template("profile.html", prof=prof, form=form)
     return render_template("profile.html", prof=prof)        
 
-@app.route("/elearning")
+@app.route("/elearning", methods=["GET","POST"])
 @login_required
 def elearning():
-    form = Elearning()
+    form = ElearningAnswer()
     if form.validate_on_submit():
         trait1 = [form.answer1.data, form.answer2.data,
                   form.answer3.data, form.answer4.data,
                   form.answer5.data, form.answer6.data,
                   form.answer7.data, form.answer8.data,
                   form.answer9.data]
-        trait1 = np.mean(trait1)
 
         trait2 = [form.answer10.data, form.answer11.data,
                   form.answer12.data, form.answer13.data,
@@ -144,7 +181,20 @@ def elearning():
                   form.answer16.data, form.answer17.data,
                   form.answer18.data, form.answer19.data,
                   form.answer20.data, form.answer21.data]
-        trait2 = np.mean(trait2)
+
+        trait3 = [form.answer22.data, form.answer23.data,
+            form.answer24.data, form.answer25.data,
+            form.answer26.data, form.answer27.data,
+            form.answer28.data, form.answer29.data,
+            form.answer30.data]
+
+        trait1 = np.mean(list(map(int, trait1)))
+        trait2 = np.mean(list(map(int, trait2)))
+        trait3 = np.mean(list(map(int, trait3)))
+
+        result = Elearning(kb = trait1, kl=trait2, kh=trait3, userID=current_user.get_id())
+        db_insert_data(result)
+        return render_template("success.html")
     return render_template("tpElearning.html", form=form)
 
 @app.route("/attitude")
@@ -162,3 +212,7 @@ def learner():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+@app.route("/error/M/<error>")
+def error(error):
+    return render_template('error.html', error=error)
