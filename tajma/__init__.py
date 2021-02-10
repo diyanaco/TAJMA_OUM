@@ -7,7 +7,12 @@ from flask_login import LoginManager
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '1d66b518598641b6d88a3f0115780daf'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tajma.db'
-
+#increase timeout in case database locked
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    'connect_args': {
+        'timeout': 15
+    }
+}
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 

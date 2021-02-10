@@ -11,6 +11,10 @@ def db_insert_data(model):
     db.session.add(model)
     db.session.commit()
 
+def db_update_data():
+    db.session.commit()
+
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     firstName = db.Column(db.String(50), nullable=True)
@@ -26,6 +30,10 @@ class User(db.Model, UserMixin):
     roles = db.relationship('Role', secondary='user_roles')
     active = db.Column('is_active', db.Boolean(), nullable=False, server_default='1')
     email_confirmed_at = db.Column(db.DateTime())
+    elearningTaken = db.Column(db.Boolean(), nullable =True, server_deafult=False)
+    learnerTaken = db.Column(db.Boolean(), nullable =True, server_deafult=False)
+    attitudeTaken = db.Column(db.Boolean(), nullable =True, server_deafult=False)
+
 
     #override get_id method from UserMixin
     def get_id(self):
@@ -192,21 +200,6 @@ if db.engine.dialect.has_table(db.engine, "question"):
     #     db.session.add(question) 
 
 class Elearning(db.Model):
-    # resultID = db.Column(db.Integer(), primary_key=True, nullable=False)
-    # instruCode = db.Column(db.String(10), nullable=False)
-    # SB = db.Column(db.Float(), nullable=False)
-    # PM = db.Column(db.Float(), nullable=False)
-    # PT = db.Column(db.Float(), nullable=False)
-    # AN = db.Column(db.Float(), nullable=False)
-    # PN = db.Column(db.Float(), nullable=False)
-    # AS = db.Column(db.Float(), nullable=False)
-    # PN = db.Column(db.Float(), nullable=False)
-    # JD = db.Column(db.Float(), nullable=False)
-    # IG = db.Column(db.Float(), nullable=False)
-    # KP = db.Column(db.Float(), nullable=False)
-    # KD = db.Column(db.Float(), nullable=False)
-    # KS = db.Column(db.Float(), nullable=False)
-    # KC = db.Column(db.Float(), nullable=False)
     id = db.Column(db.Integer(),primary_key=True, nullable=False)
     #kemahiran belajar
     kb = db.Column(db.Float(), nullable=True)
@@ -215,11 +208,19 @@ class Elearning(db.Model):
     #kemahiran hidup
     kh = db.Column(db.Float(), nullable=True)
     userID = db.Column(db.Integer(), nullable=True)
-# class ElearningUser(db.Model):
-#     __tablename__ = 'elearning_user'
-#     id = db.Column(db.Integer(), primary_key=True)
-#     user_id = db.Column(db.Integer(), db.ForeignKey('user.id', ondelete='CASCADE'))
-#     elearning_id = db.Column(db.Integer(), db.ForeignKey('elearning.id', ondelete='CASCADE'))
+
+# class Learner(db.Model):
+#     trait1 = db.Column(db.Integer(),primary_key=True, nullable=False)
+#     trait2 = db.Column(db.Float(), nullable=True)
+#     trait3 = db.Column(db.Float(), nullable=True)
+#     userID = db.Column(db.Integer(), nullable=True)
+
+# class Attitude(db.Model):
+#     id = db.Column(db.Integer(),primary_key=True, nullable=False)
+#     trait1 = db.Column(db.Float(), nullable=True)
+#     trait2 = db.Column(db.Float(), nullable=True)
+#     trait3 = db.Column(db.Float(), nullable=True)
+#     userID = db.Column(db.Integer(), nullable=True)
 
 class Code(db.Model):
     code = db.Column(db.Integer(), nullable=False, primary_key=True)

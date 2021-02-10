@@ -96,6 +96,9 @@
         {%block body%}
         <div class="container-fluid">
           <h1>Welcome To TAJMA, to start, choose your test</h1>
+          <div class="d-flex justify-content-center" style="margin-top:20px">
+              <a class="btn-primary btn-lg" href="{{url_for('elearning')}}">Take Test »</a>
+          </div>
           <div class="container-fluid" style="padding-top: 150px">
             <div class="row" style="padding-bottom : 20px">
               <div class="col-md-4">
@@ -139,24 +142,38 @@
               </div>
 
             </div>
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-md-4">
-                <p>
-                  <a class="btn-primary btn-lg" href="{{url_for('learner')}}">Take Test »</a>
-                </p>
+                {%if testTaken.learner %}
+                <a class="btn-primary btn-lg noHover">Test Already Taken</a>
+                {%else%}
+                  <p>
+                    <a class="btn-danger btn-lg noHover">Test not taken</a>
+                  </p>
+                {%endif%}
               </div>
               <div class="col-md-4">
+                {%if testTaken.elearning %}
                 <p>
-                  <a class="btn-primary btn-lg" href="{{url_for('elearning')}}">Take Test »</a>
+                  <a class="btn-primary btn-lg noHover">Test Already Taken</a>
                 </p>
+                {%else%}
+                <p>
+                  <a class="btn-danger btn-lg noHover">Test not taken</a>
+                </p>
+                {%endif%}
               </div>
               <div class="col-md-4">
+                {%if testTaken.attitude %}
+                <a class="btn-primary btn-lg noHover">Test Already Taken</a>
+                {%else%}
                 <p>
-                  <a class="btn-primary btn-lg" href="{{url_for('attitude')}}">Take Test »</a>
+                  <a class="btn-danger btn-lg noHover">Test not taken</a>
                 </p>
-              </div>
+                {%endif%}
+              </div> 
 
-            </div>
+            </div>-->
           </div>
         </div>
         {%endblock%}

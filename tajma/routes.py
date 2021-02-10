@@ -5,9 +5,10 @@ from flask import render_template, url_for, flash, redirect, request, has_reques
 from sqlalchemy.orm import relation
 from tajma import app, db
 from tajma.form import ElearningAnswer, LoginForm, RegistrationForm, SearchForm, VerificationForm, UpdateAccountForm, SearchForm
-from tajma.models import User, Elearning, db_insert_data
+from tajma.models import User, Elearning, db_insert_data, db_update_data
 from flask_login import current_user, logout_user, login_required
 import numpy as np
+from random import randint
 
 #Veify if user admin or not
 def isAdmin():
@@ -96,15 +97,18 @@ def register():
 @app.route("/dashboard", methods=["GET", "POST"])
 @login_required
 def dashboard():
-    return render_template("dashboard.html")
+    testTaken = {
+        "elearning" : User.query.filter_by(id = current_user.get_id()).first().elearningTaken,
+        "learner" : User.query.filter_by(id = current_user.get_id()).first().learnerTaken,
+        "attitude" : User.query.filter_by(id = current_user.get_id()).first().attitudeTaken
+    }
+    return render_template("dashboard.html", testTaken=testTaken)
 
 @app.route('/admin', methods=["GET", "POST"])
 def admin():
     if isAdmin():
         form = SearchForm()
         if form.validate_on_submit():
-            #selectData = form.selectfield.data
-            #searchData = form.searchfield.data
             kwargs = {
                 form.selectfield.data : form.searchfield.data
             }
@@ -120,21 +124,61 @@ def admin():
         return redirect(url_for('login'))
 
 #View results
-@app.route("/admin/results/<id>/<fn>", methods=["GET"])
+@app.route("/admin/results/<id>", methods=["GET"])
 @login_required
-def results(id, fn):
+def results(id):
     if isAdmin():
+        #Retrieve elearning result
         elearning = Elearning.query.filter_by(userID=id).first()
         if elearning is None:
             message="The user has not taken any test yet"
             return redirect(url_for('error', error=message))
         result = {
-            "kb" : round(elearning.kb/5*100,1),
+            "kb" : round(elearning.kb/5*100, 1),
             "kh" : round(elearning.kh/5*100, 1),
             "kl" : round(elearning.kl/5*100, 1)
         }
+
+        # #Retrieve Learner result
+        # learner = Learner.query.filter_by(userID=id).first()
+        # if learner is None:
+        #     message="The user has not taken any test yet"
+        #     return redirect(url_for('error', error=message))
+        # result2 = {
+        #     "trait1" : round(learner.trait1/5*100, 1),
+        #     "trait2" : round(learner.trait2/5*100, 1),
+        #     "trait3" : round(learner.trait3/5*100, 1)
+        # }
+
+        # #Retrieve Attitude result
+        # attitude = Attitude.query.filter_by(userID=id).first()
+        # if attitude is None:
+        #     message="The user has not taken any test yet"
+        #     return redirect(url_for('error', error=message))
+        # result3 = {
+        #     "trait1" : round(attitude.trait1/5*100, 1),
+        #     "trait2" : round(attitude.trait2/5*100, 1),
+        #     "trait3" : round(attitude.trait3/5*100, 1)
+        # }
+        # #Merging dictionary
+        # result={**result1,**result2,**result3}
+        # #Declare empty list
+        # labels= []
+        # values=[]
+        # for k,v in result.items():
+        #     labels.append(k)
+        #     values.append(v)
+        #get the user info
+        labels=["TR1", "TR2", "TR3", "TR4", "TR5", "TR6", "TR7", "TR8", "TR9", "TR10"]
+        valuesIndividual=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
+        valuesGroup=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
+        
+        userProf = User.query.filter_by(id=id).first()
         #fn = request.args.get('fn')
-        return render_template('results.html', result=result)
+        # return render_template('results.html',values=values, labels=labels,result=result, 
+        #                         result1=result1,result2=result2,result3=result3, userProf=userProf)
+        return render_template('results.html',valuesIndividual=valuesIndividual,valuesGroup=valuesGroup, labels=labels,result=result,userProf=userProf)
+ 
     else :
         return redirect(url_for('login'))
 
@@ -188,13 +232,16 @@ def elearning():
             form.answer28.data, form.answer29.data,
             form.answer30.data]
 
-        trait1 = np.mean(list(map(int, trait1)))
-        trait2 = np.mean(list(map(int, trait2)))
-        trait3 = np.mean(list(map(int, trait3)))
+        trait1 = round(np.mean(list(map(int, trait1))), 2)
+        trait2 = round(np.mean(list(map(int, trait2))),2)
+        trait3 = round(np.mean(list(map(int, trait3))), 2)
 
         result = Elearning(kb = trait1, kl=trait2, kh=trait3, userID=current_user.get_id())
         db_insert_data(result)
-        return render_template("success.html")
+        user = User.query.filter_by(id = current_user.get_id()).update(dict(elearningTaken = True))
+        #Update the user table where test is taken 
+        db_update_data()
+        return redirect(url_for("attitude"))
     return render_template("tpElearning.html", form=form)
 
 @app.route("/attitude")
@@ -205,6 +252,7 @@ def attitude():
 @app.route("/learner")
 @login_required
 def learner():
+
     return render_template("tpLearner.html")
 
 @app.route("/logout")
