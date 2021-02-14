@@ -30,9 +30,9 @@ class User(db.Model, UserMixin):
     roles = db.relationship('Role', secondary='user_roles')
     active = db.Column('is_active', db.Boolean(), nullable=False, server_default='1')
     email_confirmed_at = db.Column(db.DateTime())
-    elearningTaken = db.Column(db.Boolean(), nullable =True, server_deafult=False)
-    learnerTaken = db.Column(db.Boolean(), nullable =True, server_deafult=False)
-    attitudeTaken = db.Column(db.Boolean(), nullable =True, server_deafult=False)
+    elearningTaken = db.Column(db.Boolean(), nullable =True)
+    learnerTaken = db.Column(db.Boolean(), nullable =True)
+    attitudeTaken = db.Column(db.Boolean(), nullable =True)
 
 
     #override get_id method from UserMixin
