@@ -11,9 +11,19 @@
 <script type="text/javascript" src="{{ url_for('static', filename='js/questionaire.js') }}"></script>
 <!--Adding scrollTo javascript function-->
 <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
 {%endblock%}
 
 {%block sidebar%}
+<li class="nav-item">
+  <a class="nav-link collapsed" style="background-color: #602fdf;" href="elearning">
+      <span>E-Learning Styles</span>
+  </a>
+</li>
+
 <!-- Nav Item - Pages Collapse Menu -->
 <li class="nav-item">
     <a class="nav-link collapsed"  href="learner">
@@ -22,11 +32,7 @@
 </li>
 
 <!-- Nav Item - Utilities Collapse Menu -->
-<li class="nav-item">
-    <a class="nav-link collapsed" style="background-color: #602fdf;" href="elearning">
-        <span>E-Learning Styles</span>
-    </a>
-</li>
+
 
 <li class="nav-item">
     <a class="nav-link collapsed" href="attitude">
@@ -37,13 +43,41 @@
 
 {%block body%}
 <div class="container-fluid">
+
+  
+
     <!-- Timer pop up -->
     <div id="popup_box">
-      <!-- OUR PopupBox DIV-->
       <a id="popupBoxClose">Close</span></a>
       <h3>Your Test Starts In...</h3>
       <h1 class="center" id="countDown"></h1>
     </div>
+    <script>
+      $(document).ready(function(){
+        $("#myInstru").modal('show');
+      });
+    </script>
+    <div id="myInstru" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Instructions</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+               <ul>
+                 <li>The questionaire contains 50 items</li>
+                 <li>Please answer all the questions with honesty and sincerity </li>
+                 <li>There is no correct or wrong answer</li>
+                 <li>The first answer that come through your mind is the most accurate</li>
+                 <li>Good luck</li>
+
+               </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+        
 
     <div id="container">
       <!-- Page Heading -->

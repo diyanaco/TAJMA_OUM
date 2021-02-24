@@ -1,16 +1,21 @@
 $(document).ready(function () {
-
+  // trigger a scroll functtion
+  window.scrollTo(1,1);
   var container = $(this).find(".form");
   highlighMenu(this)
   hideButton(this)
   retAnswer(this)
 
+  // var first = $("#ques-ans").children().first();
+  // $(first).addClass("active");
+
   $(container)
-    .find(".input-radio")
+    .find(".radio-button")
     .not(".input-block input")
     .on("click", function () {
       rescroll(this);
     });
+  
 
   $(window).on("scroll", function () {
     $(".block").each(function () {
@@ -28,6 +33,7 @@ $(document).ready(function () {
     moveNext(this);
   });
 
+  // to randomize the questions
   var cards = $(".block");
   for (var i = 0; i < cards.length; i++) {
     var target = Math.floor(Math.random() * cards.length - 1) + 1;

@@ -9,10 +9,11 @@ function popup(popup,container) {
     
     var thisPopup = this,            
         timer,
-        counter = 5,
+        counter = 10,
         countDown = $("#countDown").text(counter.toString());
     
-    thisPopup.load = function() {            
+    $(document).on('hide.bs.modal','#myInstru', function (){
+    // thisPopup.load = function() {            
         
         container.animate({
             "opacity": "0.3"  
@@ -36,7 +37,7 @@ function popup(popup,container) {
                 countDown.text(counter.toString());
             }
         }, 1000);            
-    }       
+    })       
     
     thisPopup.unload = function() {            
         
