@@ -14,78 +14,105 @@
 
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
+
 {%endblock%}
 
 {%block sidebar%}
 <li class="nav-item">
-  <a class="nav-link collapsed" style="background-color: #602fdf;" href="elearning">
-      <span>E-Learning Styles</span>
+  <a class="nav-link collapsed" style="background-color: #602fdf; color: #fff;">
+    <span>E-Learning Styles</span>
+  </a>
+</li>
+
+<li class="nav-item">
+  <a class="nav-link collapsed" style="color: #fff;" >
+    <span>Life-long Learning Attitude</span>
   </a>
 </li>
 
 <!-- Nav Item - Pages Collapse Menu -->
 <li class="nav-item">
-    <a class="nav-link collapsed"  href="learner">
-        <span>OUM Learners Personality Profile</span>
-    </a>
+  <a class="nav-link collapsed" style="color: #fff;" >
+    <span>OUM Learners Personality Profile</span>
+  </a>
 </li>
 
 <!-- Nav Item - Utilities Collapse Menu -->
 
 
-<li class="nav-item">
-    <a class="nav-link collapsed" href="attitude">
-        <span>Life-long Learning Attitude</span>
-    </a>
-</li>
+
 {%endblock%}
 
 {%block body%}
-<div class="container-fluid">
-
-  
-
-    <!-- Timer pop up -->
-    <div id="popup_box">
-      <a id="popupBoxClose">Close</span></a>
-      <h3>Your Test Starts In...</h3>
-      <h1 class="center" id="countDown"></h1>
-    </div>
-    <script>
-      $(document).ready(function(){
-        $("#myInstru").modal('show');
+<!-- Confirmation popup -->
+<script>
+  $(document).ready(function () {
+      $('#btnSubmit').click(function () {
+          $('#myCongrats').modal('show');
+          event.preventDefault();
+          return false;
       });
-    </script>
-    <div id="myInstru" class="modal fade">
+  });
+</script>
+ <!-- Timer pop up -->
+ <div id="popup_box">
+  <a id="popupBoxClose">Close</span></a>
+  <h3>Your Test Starts In...</h3>
+  <h1 class="center" id="countDown"></h1>
+</div>
+
+<!-- Instruction pop up -->
+<script>
+  $(document).ready(function () {
+    $("#myInstru").modal('show');
+  });
+</script>
+
+<div id="myInstru" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Instructions</h5>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li>The questionaire contains 50 items</li>
+          <li>Please answer all the questions with honesty and sincerity </li>
+          <li>There is no correct or wrong answer</li>
+          <li>The first answer that come through your mind is the most accurate</li>
+          <li>Good luck</li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<div class="container-fluid">
+  <div id="container">
+    <form method="POST" action="">
+      <!-- Confirmation pop up -->
+      <div id="myCongrats" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Instructions</h5>
+                    <h5 class="modal-title">Congratulations</h5>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
-               <ul>
-                 <li>The questionaire contains 50 items</li>
-                 <li>Please answer all the questions with honesty and sincerity </li>
-                 <li>There is no correct or wrong answer</li>
-                 <li>The first answer that come through your mind is the most accurate</li>
-                 <li>Good luck</li>
-
-               </ul>
+                    <h5>Are you sure you want to submit?</h3><br>
+                    <h6>You will be redirected to the next questionaire after confirmation of submission</h6>
+                </div>
+                <div class="modal-footer">
+                    {{ form.submit(class="btn btn-outline-info") }}
+                    <!-- <a href="#" target="_top" data-dismiss="modal" aria-hidden="true" class="btn confirm" id="btnYes">Yes</a> -->
+                    <a href="#" data-dismiss="modal" aria-hidden="true" class="btn btn-outline-info">No</a>
                 </div>
             </div>
         </div>
     </div>
-        
-
-    <div id="container">
-      <!-- Page Heading -->
-      <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">{{ title }}</h1>
-      </div>
-      <form method="POST" action="">
-        <div class="form"  id="ques-ans">
+      <div class="form" id="ques-ans">
         <div class="block" id="t1q1a1">
           <div class="row question">
             <div class="col">
@@ -94,36 +121,36 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
-              {{form.hidden_tag()}}
+              <div class="col-sm input-radio">
+                {{form.hidden_tag()}}
                 {% for subfield in form.answer1 %}
                 <tr>
                   <td>{{ subfield }}</td>
-                  <td>{{ subfield.label(class_="radio-button") }}</td>                  
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
                 </tr>
                 {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
           </div>
         </div>
         <div class="block" id="t1q2a2">
           <div class="row question">
             <div class="col">
-              <h2>Saya boleh membuat penilaian maklumat yang dikumpulkan dari Internet  </h2>
+              <h2>Saya boleh membuat penilaian maklumat yang dikumpulkan dari Internet </h2>
             </div>
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
-              {{form.hidden_tag()}}
-              {% for subfield in form.answer2 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button")}}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
+              <div class="col-sm input-radio">
+                {{form.hidden_tag()}}
+                {% for subfield in form.answer2 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button")}}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
           </div>
         </div>
         <div class="block" id="t1q3a3">
@@ -134,37 +161,38 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
-              {{form.hidden_tag()}}
-              {% for subfield in form.answer3 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+              <div class="col-sm input-radio">
+                {{form.hidden_tag()}}
+                {% for subfield in form.answer3 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t1q4a4">
           <div class="row question">
             <div class="col">
-              <h2>Saya dapat menghasilkan tugasan yang lebih kreatif berdasarkan bahan yang saya peroleh di Internet </h2>
+              <h2>Saya dapat menghasilkan tugasan yang lebih kreatif berdasarkan bahan yang saya peroleh di Internet
+              </h2>
             </div>
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
-              {{form.hidden_tag()}}
-              {% for subfield in form.answer4 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+              <div class="col-sm input-radio">
+                {{form.hidden_tag()}}
+                {% for subfield in form.answer4 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t1q5a5">
           <div class="row question">
@@ -174,17 +202,17 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
-              {{form.hidden_tag()}}
-              {% for subfield in form.answer5 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+              <div class="col-sm input-radio">
+                {{form.hidden_tag()}}
+                {% for subfield in form.answer5 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t1q6a6">
           <div class="row question">
@@ -194,57 +222,57 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
-              {{form.hidden_tag()}}
-              {% for subfield in form.answer6 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+              <div class="col-sm input-radio">
+                {{form.hidden_tag()}}
+                {% for subfield in form.answer6 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t1q7a7">
           <div class="row question">
             <div class="col">
-              <h2>Saya menggunakan masa saya dengan cekap dalam menyelesaikan tugasan  </h2>
+              <h2>Saya menggunakan masa saya dengan cekap dalam menyelesaikan tugasan </h2>
             </div>
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
-              {{form.hidden_tag()}}
-              {% for subfield in form.answer7 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+              <div class="col-sm input-radio">
+                {{form.hidden_tag()}}
+                {% for subfield in form.answer7 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t1q8a8">
           <div class="row question">
             <div class="col">
-              <h2>Saya menggunakan masa saya dengan cekap dalam menyelesaikan tugasan  </h2>
+              <h2>Saya menggunakan masa saya dengan cekap dalam menyelesaikan tugasan </h2>
             </div>
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
-              {{form.hidden_tag()}}
-              {% for subfield in form.answer8 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+              <div class="col-sm input-radio">
+                {{form.hidden_tag()}}
+                {% for subfield in form.answer8 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t1q9a9">
           <div class="row question">
@@ -254,77 +282,79 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
-              {{form.hidden_tag()}}
-              {% for subfield in form.answer9 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+              <div class="col-sm input-radio">
+                {{form.hidden_tag()}}
+                {% for subfield in form.answer9 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t2q1a10">
           <div class="row question">
             <div class="col">
-              <h2>Saya mahir menggunakan sistem e-portal pembelajaran secara dalam talian  </h2>
+              <h2>Saya mahir menggunakan sistem e-portal pembelajaran secara dalam talian </h2>
             </div>
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
-              {{form.hidden_tag()}}
-              {% for subfield in form.answer10 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+              <div class="col-sm input-radio">
+                {{form.hidden_tag()}}
+                {% for subfield in form.answer10 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t2q2a11">
           <div class="row question">
             <div class="col">
-              <h2>Saya mahir memuat turun dan menyimpan fail yang dilampirkan di portal e-mel pembelajaran untuk tujuan akademik</h2>
+              <h2>Saya mahir memuat turun dan menyimpan fail yang dilampirkan di portal e-mel pembelajaran untuk tujuan
+                akademik</h2>
             </div>
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
-              {{form.hidden_tag()}}
-              {% for subfield in form.answer11 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+              <div class="col-sm input-radio">
+                {{form.hidden_tag()}}
+                {% for subfield in form.answer11 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t2q3a12">
           <div class="row question">
             <div class="col">
-              <h2>Saya tahu cara melampirkan fail (PDF, Word, Image) melalui e-mel portal pembelajaran dan kemudian menghantarnya kepada pihak penerima</h2>
+              <h2>Saya tahu cara melampirkan fail (PDF, Word, Image) melalui e-mel portal pembelajaran dan kemudian
+                menghantarnya kepada pihak penerima</h2>
             </div>
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
-              {{form.hidden_tag()}}
-              {% for subfield in form.answer12 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+              <div class="col-sm input-radio">
+                {{form.hidden_tag()}}
+                {% for subfield in form.answer12 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t2q4a13">
           <div class="row question">
@@ -334,17 +364,17 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
-              {{form.hidden_tag()}}
-              {% for subfield in form.answer13 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+              <div class="col-sm input-radio">
+                {{form.hidden_tag()}}
+                {% for subfield in form.answer13 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t2q5a14">
           <div class="row question">
@@ -354,17 +384,17 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
+              <div class="col-sm input-radio">
                 {{form.hidden_tag()}}
-              {% for subfield in form.answer14 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+                {% for subfield in form.answer14 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t2q6a15">
           <div class="row question">
@@ -374,17 +404,17 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
+              <div class="col-sm input-radio">
                 {{form.hidden_tag()}}
-              {% for subfield in form.answer15 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+                {% for subfield in form.answer15 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t2q7a16">
           <div class="row question">
@@ -394,17 +424,17 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
+              <div class="col-sm input-radio">
                 {{form.hidden_tag()}}
-              {% for subfield in form.answer16 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+                {% for subfield in form.answer16 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t2q8a17">
           <div class="row question">
@@ -414,17 +444,17 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
+              <div class="col-sm input-radio">
                 {{form.hidden_tag()}}
-              {% for subfield in form.answer17 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+                {% for subfield in form.answer17 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t2q9a18">
           <div class="row question">
@@ -434,17 +464,17 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
+              <div class="col-sm input-radio">
                 {{form.hidden_tag()}}
-              {% for subfield in form.answer18 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+                {% for subfield in form.answer18 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t2q10a19">
           <div class="row question">
@@ -454,17 +484,17 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
+              <div class="col-sm input-radio">
                 {{form.hidden_tag()}}
-              {% for subfield in form.answer19 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+                {% for subfield in form.answer19 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t2q11a20">
           <div class="row question">
@@ -474,37 +504,38 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
+              <div class="col-sm input-radio">
                 {{form.hidden_tag()}}
-              {% for subfield in form.answer20 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+                {% for subfield in form.answer20 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t2q12a21">
           <div class="row question">
             <div class="col">
-              <h2>Saya mempunyai kemahiran literasi komputer yang baik (Contoh, Microsoft Word, Excel, PowerPoint, dll.)</h2>
+              <h2>Saya mempunyai kemahiran literasi komputer yang baik (Contoh, Microsoft Word, Excel, PowerPoint, dll.)
+              </h2>
             </div>
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
+              <div class="col-sm input-radio">
                 {{form.hidden_tag()}}
-              {% for subfield in form.answer21 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+                {% for subfield in form.answer21 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t3q1a22">
           <div class="row question">
@@ -514,17 +545,17 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
+              <div class="col-sm input-radio">
                 {{form.hidden_tag()}}
-              {% for subfield in form.answer22 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+                {% for subfield in form.answer22 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t3q2a23">
           <div class="row question">
@@ -534,37 +565,38 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
+              <div class="col-sm input-radio">
                 {{form.hidden_tag()}}
-              {% for subfield in form.answer23 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+                {% for subfield in form.answer23 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t3q3a24">
           <div class="row question">
             <div class="col">
-              <h2>Saya bersedia meminta pertolongan daripada rakan kursus atau pensyarah untuk menyelesaikan masalah pembelajaran </h2>
+              <h2>Saya bersedia meminta pertolongan daripada rakan kursus atau pensyarah untuk menyelesaikan masalah
+                pembelajaran </h2>
             </div>
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
+              <div class="col-sm input-radio">
                 {{form.hidden_tag()}}
-              {% for subfield in form.answer24 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+                {% for subfield in form.answer24 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t3q4a25">
           <div class="row question">
@@ -574,17 +606,17 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
+              <div class="col-sm input-radio">
                 {{form.hidden_tag()}}
-              {% for subfield in form.answer25 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+                {% for subfield in form.answer25 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t3q5a26">
           <div class="row question">
@@ -594,17 +626,17 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
+              <div class="col-sm input-radio">
                 {{form.hidden_tag()}}
-              {% for subfield in form.answer26 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+                {% for subfield in form.answer26 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t3q6a27">
           <div class="row question">
@@ -614,17 +646,17 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
+              <div class="col-sm input-radio">
                 {{form.hidden_tag()}}
-              {% for subfield in form.answer27 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+                {% for subfield in form.answer27 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t3q7a28">
           <div class="row question">
@@ -634,17 +666,17 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
+              <div class="col-sm input-radio">
                 {{form.hidden_tag()}}
-              {% for subfield in form.answer28 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+                {% for subfield in form.answer28 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t3q8a29">
           <div class="row question">
@@ -654,17 +686,17 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
+              <div class="col-sm input-radio">
                 {{form.hidden_tag()}}
-              {% for subfield in form.answer29 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+                {% for subfield in form.answer29 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
         <div class="block" id="t3q9a30">
           <div class="row question">
@@ -674,29 +706,28 @@
           </div>
           <div class="row answer" id="answer">
             <h5 style="margin-left: 70px;">Very disagree</h1>
-            <div class="col-sm input-radio">
+              <div class="col-sm input-radio">
                 {{form.hidden_tag()}}
-              {% for subfield in form.answer30 %}
-              <tr>
-                <td>{{ subfield }}</td>
-                <td>{{ subfield.label(class_="radio-button") }}</td>
-              </tr>
-              {% endfor %}
-            </div>
-            <h5 style="margin-right: 70px;">Very agree</h1>
-            </div>
+                {% for subfield in form.answer30 %}
+                <tr>
+                  <td>{{ subfield }}</td>
+                  <td>{{ subfield.label(class_="radio-button") }}</td>
+                </tr>
+                {% endfor %}
+              </div>
+              <h5 style="margin-right: 70px;">Very agree</h1>
+          </div>
         </div>
 
-          <fieldset>
-            <div class="form-group center">
-              {{ form.submit(class="btn btn-outline-info") }}
-            </div>
-          </fieldset>
+        <fieldset>
+          <div class="form-group center">
+            <button class="btn-primary btn-lg"type="button" id="btnSubmit">Submit</button>
+          </div>
+        </fieldset>
+      </div>
 
-        </div>
-
-      </form>
-    </div>
+    </form>
   </div>
+</div>
 
 {%endblock%}
