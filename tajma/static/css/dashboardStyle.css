@@ -1994,7 +1994,8 @@ textarea.form-control {
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 20rem;
+  margin-top: 5rem;
 }
 
 .form-text {
@@ -11422,3 +11423,18 @@ body.sidebar-toggled footer.sticky-footer {
   height : auto;
   }
 
+
+/* Put oum logo at the bottom of list */
+ul {
+  /* just height for demo
+  height: 200px; */
+  /* become a flex-container */
+  /* its children will be flex-items */
+  display: flex;
+  /* move flex-items in column */
+  flex-direction: column;
+}
+ul > :last-child {
+  margin-top: auto;
+}
+  
