@@ -209,18 +209,22 @@ class Elearning(db.Model):
     kh = db.Column(db.Float(), nullable=True)
     userID = db.Column(db.Integer(), nullable=True)
 
-# class Learner(db.Model):
-#     trait1 = db.Column(db.Integer(),primary_key=True, nullable=False)
-#     trait2 = db.Column(db.Float(), nullable=True)
-#     trait3 = db.Column(db.Float(), nullable=True)
-#     userID = db.Column(db.Integer(), nullable=True)
+class Learner(db.Model):
+    id = db.Column(db.Integer(), primary_key=True, nullable=False)
+    tr1 = db.Column(db.Float(), nullable=True)
+    
+    userID = db.Column(db.Integer(), nullable=True)
 
-# class Attitude(db.Model):
-#     id = db.Column(db.Integer(),primary_key=True, nullable=False)
-#     trait1 = db.Column(db.Float(), nullable=True)
-#     trait2 = db.Column(db.Float(), nullable=True)
-#     trait3 = db.Column(db.Float(), nullable=True)
-#     userID = db.Column(db.Integer(), nullable=True)
+class Attitude(db.Model):
+    id = db.Column(db.Integer(),primary_key=True, nullable=False)
+    #motivasi
+    mt = db.Column(db.Float(), nullable=True)
+    #keterbukaan
+    kt = db.Column(db.Float(), nullable=True)
+    #kestabilan emosi
+    ke = db.Column(db.Float(), nullable=True)
+    
+    userID = db.Column(db.Integer(), nullable=True)
 
 class Code(db.Model):
     code = db.Column(db.Integer(), nullable=False, primary_key=True)
