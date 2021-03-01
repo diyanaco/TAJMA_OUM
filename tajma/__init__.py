@@ -16,7 +16,7 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
 }
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
-migrate = Migrate(app,db)
+migrate = Migrate(app, db)
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
@@ -25,6 +25,13 @@ login_manager.login_message_catagory = 'info'
 
 from tajma import routes
 from tajma.models import User
+
+# Only applicable to sqlite to prevent error
+with app.app_context():
+    if db.engine.url.drivername == 'sqlite':
+        migrate.init_app(app, db, render_as_batch=True)
+    else:
+        migrate.init_app(app, db)
 
 
 
