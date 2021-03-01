@@ -4,11 +4,12 @@ from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, has_request_context, session
 from sqlalchemy.orm import relation
 from tajma import app, db
-from tajma.form import ElearningAnswer, LoginForm, RegistrationForm, SearchForm, VerificationForm, UpdateAccountForm, SearchForm
-from tajma.models import User, Elearning, db_insert_data, db_update_data
+from tajma.form import ElearningAnswer,AttitudeAnswer, LoginForm, RegistrationForm, SearchForm, VerificationForm, UpdateAccountForm, SearchForm, LearnerAnswer
+from tajma.models import User, Elearning, Attitude,Learner, db_insert_data, db_update_data
 from flask_login import current_user, logout_user, login_required
 import numpy as np
 from random import randint
+
 
 #Veify if user admin or not
 def isAdmin():
@@ -213,19 +214,20 @@ def profile():
 def elearning():
     form = ElearningAnswer()
     if form.validate_on_submit():
+        #Kemahiran belajar
         trait1 = [form.answer1.data, form.answer2.data,
                   form.answer3.data, form.answer4.data,
                   form.answer5.data, form.answer6.data,
                   form.answer7.data, form.answer8.data,
                   form.answer9.data]
-
+        #Kemahiran literasi
         trait2 = [form.answer10.data, form.answer11.data,
                   form.answer12.data, form.answer13.data,
                   form.answer14.data, form.answer15.data,
                   form.answer16.data, form.answer17.data,
                   form.answer18.data, form.answer19.data,
                   form.answer20.data, form.answer21.data]
-
+        # Kemahiran hidup
         trait3 = [form.answer22.data, form.answer23.data,
             form.answer24.data, form.answer25.data,
             form.answer26.data, form.answer27.data,
@@ -244,16 +246,109 @@ def elearning():
         return redirect(url_for("attitude"))
     return render_template("tpElearning.html", form=form)
 
-@app.route("/attitude")
+@app.route("/attitude", methods=["GET", "POST"])
 @login_required
 def attitude():
-    return render_template("tpAttitude.html")
+    form = AttitudeAnswer()
+    if form.validate_on_submit():
+        #Motivasi
+        trait1 = [form.answer1.data, form.answer2.data,
+                  form.answer3.data, form.answer4.data,
+                  form.answer5.data, form.answer6.data,
+                  form.answer7.data]
+        #Keterbukaan          
+        trait2 = [form.answer8.data, form.answer9.data,
+                    form.answer10.data, form.answer11.data,
+                    form.answer12.data, form.answer13.data,
+                    form.answer14.data, form.answer15.data]
+        #Kestabilan emosi
+        trait3 = [form.answer16.data, form.answer17.data,
+                  form.answer18.data, form.answer19.data,
+                  form.answer20.data, form.answer21.data,
+                  form.answer22.data]
+                  
+        #Keberkesanan diri       
+        # trait4 = [form.answer23.data,
+        #             form.answer24.data, form.answer25.data,
+        #             form.answer26.data, form.answer27.data,
+        #             form.answer28.data, form.answer29.data]
+                    
+        
+        # #Kebolehsuaian
+        # trait5 = [form.answer30.data, form.answer31.data,
+        #             form.answer32.data, form.answer33.data, 
+        #             form.answer34.data, form.answer35.data,
+        #             form.answer36.data, form.answer37.data]
 
-@app.route("/learner")
+        # #Akauntabiliti/Kebertanggungjawaban
+        # trait6 = [form.answer38.dataform.answer39.data,
+        #             form.answer40.data, form.answer41.data, 
+        #             form.answer42.data, form.answer43.data,
+        #             form.answer44.data]
+        # #Pengarahan diri
+        # trait7 = [form.answer45.dataform.answer46.data,
+        #             form.answer47.data, form.answer48.data, 
+        #             form.answer49.data, form.answer50.data]
+        # #Silang budaya
+        # trait8 = [form.answer51.dataform.answer52.data,
+        #             form.answer53.data, form.answer54.data, 
+        #             form.answer55.data, form.answer56.data,
+        #             form.answer57.data, form.answer58.data]
+
+        # #Daya ketahanan
+        # trait9 = [form.answer59.data,form.answer60.data,
+        #             form.answer61.data, form.answer62.data, 
+        #             form.answer63.data, form.answer64.data,
+        #             form.answer65.data, form.answer66.data]
+                 
+
+        trait1 = round(np.mean(list(map(int, trait1))), 2)
+        trait2 = round(np.mean(list(map(int, trait2))), 2)
+        trait3 = round(np.mean(list(map(int, trait3))), 2)
+        # trait4 = round(np.mean(list(map(int, trait4))), 2)
+        # trait5 = round(np.mean(list(map(int, trait5))), 2)
+        # trait6 = round(np.mean(list(map(int, trait6))), 2)
+        # trait7 = round(np.mean(list(map(int, trait7))), 2)
+        # trait8 = round(np.mean(list(map(int, trait8))), 2)
+        # trait9 = round(np.mean(list(map(int, trait9))), 2)
+
+
+        # result = Attitude(ak = trait6, dk=trait9, kd=trait4, ke=trait3, ks=trait5, kt=trait2, mt=trait1, 
+        #                     pg=trait7,sb=trait8, userID=current_user.get_id())
+        result = Attitude(ke=trait3,kt=trait2, mt=trait1, userID=current_user.get_id())
+        db_insert_data(result)
+        user = User.query.filter_by(id = current_user.get_id()).update(dict(attitudeTaken = True))
+        #Update the user table where test is taken 
+        db_update_data()
+        return redirect(url_for("learner"))
+    return render_template("tpAttitude.html", form=form)
+
+@app.route("/learner", methods=["GET", "POST"])
 @login_required
 def learner():
+    form = LearnerAnswer()
+    if form.validate_on_submit():
+        trait1 = [form.answer1.data, form.answer2.data,
+            form.answer3.data, form.answer4.data,
+            form.answer5.data, form.answer6.data,
+            form.answer7.data]
+        trait1 = round(np.mean(list(map(int, trait1))), 2)
+        result = Learner(tr1=trait1, userID=current_user.get_id())
+        db_insert_data(result)
+        user = User.query.filter_by(id = current_user.get_id()).update(dict(learnerTaken = True))
+        #Update the user table where test is taken 
+        db_update_data()
+        return redirect(url_for("success"))
+    return render_template("tpLearner.html", form=form)
+ 
+@app.route("/success")
+def success():
+    user = User.query.filter_by(id = current_user.get_id()).first()
+    if user.elearningTaken and user.learnerTaken and user.attitudeTaken :
+        return render_template("success.html")
+    else:
+        return redirect(url_for("dashboard"))
 
-    return render_template("tpLearner.html")
 
 @app.route("/logout")
 @login_required
