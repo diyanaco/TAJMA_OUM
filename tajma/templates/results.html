@@ -11,12 +11,20 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-2 border rounded-top rounded-bottom" id="profilePicture">
+                    <div class="col-2 border rounded-top rounded-bottom center" id="profilePicture">
                         <img src="{{url_for('static', filename='assets/img/profile_pics/' + userProf.get_profPic())}}" class="
                         resize rounded-circle">    
                     </div>
                     <div class="col-5 border rounded-top rounded-bottom" id="user-info">
-                        <h6 class="m-0 font-weight-bold text-success"><u> Student Information</u></h6>
+                        <!-- <h6 class="m-0 font-weight-bold text-success"><u> Student Information</u></h6> -->
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="font-weight-bold">Name :</h5>
+                            </div>
+                            <div class="col">
+                                <h5 class="float-left font-weight-normal"> {{userProf.get_first_name() +" "+ userProf.get_last_name()}}</h5> <br>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col">
                                 <h5 class="font-weight-bold">Gender :</h5>
@@ -49,14 +57,14 @@
                                 <h5 class="float-left font-weight-normal"> {{(userProf.get_age())}}</h5> <br>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col">
                                 <h5 class="font-weight-bold">IC :</h5>
                             </div>
                             <div class="col">
                                 <h5 class="float-left font-weight-normal"> {{(userProf.get_IC())}}</h5> <br>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row">
                             <div class="col">
                                 <h5 class="font-weight-bold">Race :</h5>
@@ -65,12 +73,20 @@
                                 <h5 class="float-left font-weight-normal"> {{(userProf.get_race())}}</h5> <br>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col">
                                 <h5 class="font-weight-bold">Phone Number :</h5>
                             </div>
                             <div class="col">
                                 <h5 class="float-left font-weight-normal"> {{(userProf.get_mobile())}}</h5> <br>
+                            </div>
+                        </div> -->
+                         <div class="row">
+                            <div class="col">
+                                <h5 class="font-weight-bold">Centre :</h5>
+                            </div>
+                            <div class="col">
+                                <h5 class="float-left font-weight-normal"> Bangi</h5> <br>
                             </div>
                         </div>
                         <!-- <h5 class="font-weight-bold">Gender :<span class="float-right font-weight-normal"> {{(userProf.get_gender())}}</span></h5>
@@ -84,13 +100,37 @@
                         
                     </div>
                     <div class="col border rounded-top rounded-bottom" id="result-info">
-                        <h6 class="m-0 font-weight-bold text-success"><u> Test Information</u></h6>
+                        <!-- <h6 class="m-0 font-weight-bold text-success"><u> Test Information</u></h6> -->
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="font-weight-bold">Program Of Study :</h5>
+                            </div>
+                            <div class="col">
+                                <h5 class="float-left font-weight-normal"> Engineering</h5> <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="font-weight-bold">Year of Study :</h5>
+                            </div>
+                            <div class="col">
+                                <h5 class="float-left font-weight-normal"> 1</h5> <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h5 class="font-weight-bold">Semester :</h5>
+                            </div>
+                            <div class="col">
+                                <h5 class="float-left font-weight-normal"> Sem 1 2020/2021</h5> <br>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col">
                                 <h5 class="font-weight-bold">Date Taken :</h5>
                             </div>
                             <div class="col">
-                                <h5 class="float-left font-weight-normal"> {{(userProf.get_gender())}}</h5> <br>
+                                <h5 class="float-left font-weight-normal"> 1/03/2021</h5> <br>
                             </div>
                         </div>
                         <div class="row">
@@ -98,7 +138,7 @@
                                 <h5 class="font-weight-bold">Start Test :</h5>
                             </div>
                             <div class="col">
-                                <h5 class="float-left font-weight-normal"> {{(userProf.get_gender())}}</h5> <br>
+                                <h5 class="float-left font-weight-normal">8.00PM</h5> <br>
                             </div>
                         </div>
                         <div class="row">
@@ -106,7 +146,7 @@
                                 <h5 class="font-weight-bold">End Test :</h5>
                             </div>
                             <div class="col">
-                                <h5 class="float-left font-weight-normal"> {{(userProf.get_gender())}}</h5> <br>
+                                <h5 class="float-left font-weight-normal"> 8.30PM</h5> <br>
                             </div>
                         </div>
                         <div class="row">
@@ -114,7 +154,7 @@
                                 <h5 class="font-weight-bold">Duration Test :</h5>
                             </div>
                             <div class="col">
-                                <h5 class="float-left font-weight-normal"> {{(userProf.get_gender())}}</h5> <br>
+                                <h5 class="float-left font-weight-normal"> 30mins </h5> <br>
                             </div>
                         </div>
                     </div>
@@ -123,199 +163,449 @@
         </div>
     </div>
 </div>
-<div class="row">   
-    <div class="col">
-        <div class="row">
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Overal Result
-                        <span class="small font-weight-bold float-right" style="color: rgb(151,187,205);">-----Individual-----</span><br>
-                        <span class="small font-weight-bold float-right" style="color: rgb(128,128,0);">------Group-----</span>
-                    </h6>
-                    
-                </div>                
-                <div class="card-body">
-                    <canvas id="chart" height="400" width="600" ></canvas>
-                    <script>
-                
-                        // bar chart data
-                        var barData = {
-                            labels : [  
-                                {% for item in labels %}
-                                "{{ item }}",
-                                {% endfor %}
-                                ],
-                            datasets : [{
-                                label : 'Individual',
-                                fillColor: "rgba(151,187,205,0.2)",
-                                strokeColor: "rgba(151,187,205,1)",
-                                pointColor: "rgba(151,187,205,1)",
-                                pointStrokeColor: "#fff",
-                                pointHighlightFill: "#fff",
-                                pointHighlightStroke: "rgba(151,187,205,1)",
-                                bezierCurve : false,
-                                data : [
-                                    {% for item in valuesIndividual %}
-                                        {{ item }},
-                                    {% endfor %}
-                                    ]
-                                    },
-                                    // Second Line Graph
-                                    {
-                                label: 'Group',
-                                fillColor: "rgba(128,128,0, 0.2)",
-                                strokeColor: "rgba(128,128,0, 0.2)",
-                                pointColor: "rgba(128,128,0, 0.2)",
-                                pointStrokeColor: "#fff",
-                                pointHighlightFill: "#fff",
-                                pointHighlightStroke: "rgba(128,128,0, 0.2)",
-                                bezierCurve : false,
-                                        data: [
-                                            {% for item in valuesGroup %}
-                                                {{ item }},
-                                            {% endfor %}],
+<div class="container">
+    <div class="row justify-content-md-left">   
+        <div class="col">
+            <div class="row">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Based on whole User
+                            <span class="small font-weight-bold float-right" style="color: rgb(151,187,205);">-----Individual-----</span><br>
+                            <span class="small font-weight-bold float-right" style="color: rgb(128,128,0);">------Female-----</span><br>
+                            <span class="small font-weight-bold float-right" style="color: rgb(43,179,140);">------Male-----</span>
 
-                                        // Changes this dataset to become a line
-                                        type: 'line' 
-                                    }],
-                                options :{
-                                    legend: {
-                                        display: true,
-                                        position:'bottom',
-                                        labels: {
-                                            fontColor: "#000080",
+                        </h6>
+                    </div>                
+                    <div class="card-body">
+                        <canvas id="chart" height="400" width="600" ></canvas>
+                        <script>
+                    
+                            // bar chart data
+                            var barData = {
+                                labels : [  
+                                    {% for item in labels %}
+                                    "{{ item }}",
+                                    {% endfor %}
+                                    ],
+                                datasets : [{
+                                    label : 'Individual',
+                                    fillColor: "rgba(151,187,205,0.2)",
+                                    strokeColor: "rgba(151,187,205,1)",
+                                    pointColor: "rgba(151,187,205,1)",
+                                    pointStrokeColor: "#fff",
+                                    pointHighlightFill: "#fff",
+                                    pointHighlightStroke: "rgba(151,187,205,1)",
+                                    bezierCurve : false,
+                                    data : [
+                                        {% for item in valuesIndividual %}
+                                            {{ item }},
+                                        {% endfor %}
+                                        ]
+                                        },
+                                        // Second Line Graph
+                                        {
+                                    label: 'Female',
+                                    fillColor: "rgba(128,128,0, 0)",
+                                    strokeColor: "rgba(128,128,0, 0.2)",
+                                    pointColor: "rgba(128,128,0, 0.2)",
+                                    pointStrokeColor: "#fff",
+                                    pointHighlightFill: "#fff",
+                                    pointHighlightStroke: "rgba(128,128,0, 0.2)",
+                                    bezierCurve : false,
+                                            data: [
+                                                {% for item in valuesFemale %}
+                                                    {{ item }},
+                                                {% endfor %}],
+
+                                            // Changes this dataset to become a line
+                                            type: 'line' 
+                                        },
+                                        {
+                                        label: 'Male',
+                                    fillColor: "rgba(43,179,140, 0)",
+                                    strokeColor: "rgba(43,179,140, 0.2)",
+                                    pointColor: "rgba(43,179,140, 0.2)",
+                                    pointStrokeColor: "#fff",
+                                    pointHighlightFill: "#fff",
+                                    pointHighlightStroke: "rgba(43,179,140, 1)",
+                                    bezierCurve : false,
+                                            data: [
+                                                {% for item in valuesMale %}
+                                                    {{ item }},
+                                                {% endfor %}],
+
+                                            // Changes this dataset to become a line
+                                            type: 'line' 
+                                        }],
+                                    options :{
+                                        legend: {
+                                            display: true,
+                                            position:'bottom',
+                                            labels: {
+                                                fontColor: "#000080",
+                                            }
                                         }
                                     }
                                 }
-                            }
-                
-                        Chart.defaults.global.animationSteps = 50;
-                        Chart.defaults.global.tooltipYPadding = 16;
-                        Chart.defaults.global.tooltipCornerRadius = 0;
-                        Chart.defaults.global.tooltipTitleFontStyle = "normal";
-                        Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
-                        Chart.defaults.global.animationEasing = "easeOutBounce";
-                        Chart.defaults.global.responsive = false;
-                        Chart.defaults.global.scaleLineColor = "black";
-                        Chart.defaults.global.scaleFontSize = 16;
-                        Chart.defaults.global.legend = {
-                                                    display: true,
-                                                    position: 'bottom',
-                                                    fullWidth: true, 
-                                                    reverse: false,
-                                                    }
-                        // get bar chart canvas
-                        var mychart = document.getElementById("chart").getContext("2d");
-                
-                        steps = 10
-                        max = 100
-                        // draw bar chart
-                        var LineChartDemo = new Chart(mychart).Line(barData, {
-                        scaleOverride: true,
-                        scaleSteps: steps,
-                        scaleStepWidth: Math.ceil(max / steps),
-                        scaleStartValue: 0,
-                        scaleShowVerticalLines: true,
-                        scaleShowGridLines : true,
-                        barShowStroke : true,
-                        scaleShowLabels: true,
-                        bezierCurve: false,
-                        });
-                
-                    </script>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">OUM Learners Personality Profile</h6>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="small font-weight-bold">Kemahiran Belajar <span
-                                class="float-right">{{result.kb}}</span></h4>
-                        <div class="progress mb-4">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{result.kb}}%"
-                                aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <h4 class="small font-weight-bold">Kemahiran Literasi<span
-                                class="float-right">{{result.kh}}</span></h4>
-                        <div class="progress mb-4">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: {{result.kh}}%"
-                                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <h4 class="small font-weight-bold">Kemahiran Hidup <span
-                                class="float-right">{{result.kl}}</span></h4>
-                        <div class="progress mb-4">
-                            <div class="progress-bar" role="progressbar" style="width: {{result.kl}}%"
-                                aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                    
+                            Chart.defaults.global.animationSteps = 50;
+                            Chart.defaults.global.tooltipYPadding = 16;
+                            Chart.defaults.global.tooltipCornerRadius = 0;
+                            Chart.defaults.global.tooltipTitleFontStyle = "normal";
+                            Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+                            Chart.defaults.global.animationEasing = "easeOutBounce";
+                            Chart.defaults.global.responsive = false;
+                            Chart.defaults.global.scaleLineColor = "black";
+                            Chart.defaults.global.scaleFontSize = 16;
+                            Chart.defaults.global.legend = {
+                                                        display: true,
+                                                        position: 'bottom',
+                                                        fullWidth: true, 
+                                                        reverse: false,
+                                                        }
+                            // get bar chart canvas
+                            var mychart = document.getElementById("chart").getContext("2d");
+                    
+                            steps = 10
+                            max = 100
+                            // draw bar chart
+                            var LineChartDemo = new Chart(mychart).Line(barData, {
+                            scaleOverride: true,
+                            scaleSteps: steps,
+                            scaleStepWidth: Math.ceil(max / steps),
+                            scaleStartValue: 0,
+                            scaleShowVerticalLines: true,
+                            scaleShowGridLines : true,
+                            barShowStroke : true,
+                            scaleShowLabels: true,
+                            bezierCurve: false,
+                            });
+                    
+                        </script>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="row">
-            <div class="col">
+            <div class="row">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Life-long Learning Attitude</h6>
-                    </div>
+                        <h6 class="m-0 font-weight-bold text-primary"> Based on Centre
+                            <span class="small font-weight-bold float-right" style="color: rgb(151,187,205);">-----Individual-----</span><br>
+                            <span class="small font-weight-bold float-right" style="color: rgb(128,128,0);">------Female-----</span><br>
+                            <span class="small font-weight-bold float-right" style="color: rgb(43,179,140);">------Male-----</span>
+
+                        </h6>
+                        
+                    </div>                
                     <div class="card-body">
-                        <h4 class="small font-weight-bold">Kemahiran Belajar <span
-                                class="float-right">{{result.kb}}</span></h4>
-                        <div class="progress mb-4">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{result.kb}}%"
-                                aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <h4 class="small font-weight-bold">Kemahiran Literasi<span
-                                class="float-right">{{result.kh}}</span></h4>
-                        <div class="progress mb-4">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: {{result.kh}}%"
-                                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <h4 class="small font-weight-bold">Kemahiran Hidup <span
-                                class="float-right">{{result.kl}}</span></h4>
-                        <div class="progress mb-4">
-                            <div class="progress-bar" role="progressbar" style="width: {{result.kl}}%"
-                                aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                        <canvas id="chart-2" height="400" width="600" ></canvas>
+                        <script>
+                    
+                            // bar chart data
+                            var barData = {
+                                labels : [  
+                                    {% for item in labels %}
+                                    "{{ item }}",
+                                    {% endfor %}
+                                    ],
+                                datasets : [{
+                                    label : 'Individual',
+                                    fillColor: "rgba(151,187,205,0.2)",
+                                    strokeColor: "rgba(151,187,205,1)",
+                                    pointColor: "rgba(151,187,205,1)",
+                                    pointStrokeColor: "#fff",
+                                    pointHighlightFill: "#fff",
+                                    pointHighlightStroke: "rgba(151,187,205,1)",
+                                    bezierCurve : false,
+                                    data : [
+                                        {% for item in valuesIndividual %}
+                                            {{ item }},
+                                        {% endfor %}
+                                        ]
+                                        },
+                                        // Second Line Graph
+                                        {
+                                    label: 'Group',
+                                    fillColor: "rgba(128,128,0, 0)",
+                                    strokeColor: "rgba(128,128,0, 0.2)",
+                                    pointColor: "rgba(128,128,0, 0.2)",
+                                    pointStrokeColor: "#fff",
+                                    pointHighlightFill: "#fff",
+                                    pointHighlightStroke: "rgba(128,128,0, 0.2)",
+                                    bezierCurve : false,
+                                            data: [
+                                                {% for item in valuesFemale %}
+                                                    {{ item }},
+                                                {% endfor %}],
+
+                                            // Changes this dataset to become a line
+                                            type: 'line' 
+                                        },
+                                        {
+                                    label: 'Group',
+                                    fillColor: "rgb(43,179,140, 0)",
+                                    strokeColor: "rgb(43,179,140, 0.2)",
+                                    pointColor: "rgb(43,179,140, 0.2)",
+                                    pointStrokeColor: "#fff",
+                                    pointHighlightFill: "#fff",
+                                    pointHighlightStroke: "rgb(43,179,140, 0.2)",
+                                    bezierCurve : false,
+                                            data: [
+                                                {% for item in valuesMale %}
+                                                    {{ item }},
+                                                {% endfor %}],
+
+                                            // Changes this dataset to become a line
+                                            type: 'line' 
+                                        }],
+                                    options :{
+                                        legend: {
+                                            display: true,
+                                            position:'bottom',
+                                            labels: {
+                                                fontColor: "#000080",
+                                            }
+                                        }
+                                    }
+                                }
+                    
+                            Chart.defaults.global.animationSteps = 50;
+                            Chart.defaults.global.tooltipYPadding = 16;
+                            Chart.defaults.global.tooltipCornerRadius = 0;
+                            Chart.defaults.global.tooltipTitleFontStyle = "normal";
+                            Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+                            Chart.defaults.global.animationEasing = "easeOutBounce";
+                            Chart.defaults.global.responsive = false;
+                            Chart.defaults.global.scaleLineColor = "black";
+                            Chart.defaults.global.scaleFontSize = 16;
+                            Chart.defaults.global.legend = {
+                                                        display: true,
+                                                        position: 'bottom',
+                                                        fullWidth: true, 
+                                                        reverse: false,
+                                                        }
+                            // get bar chart canvas
+                            var mychart = document.getElementById("chart-2").getContext("2d");
+                    
+                            steps = 10
+                            max = 100
+                            // draw bar chart
+                            var LineChartDemo = new Chart(mychart).Line(barData, {
+                            scaleOverride: true,
+                            scaleSteps: steps,
+                            scaleStepWidth: Math.ceil(max / steps),
+                            scaleStartValue: 0,
+                            scaleShowVerticalLines: true,
+                            scaleShowGridLines : true,
+                            barShowStroke : true,
+                            scaleShowLabels: true,
+                            bezierCurve: false,
+                            });
+                    
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Based on Course
+                            <span class="small font-weight-bold float-right" style="color: rgb(151,187,205);">-----Individual-----</span><br>
+                            <span class="small font-weight-bold float-right" style="color: rgb(128,128,0);">------Female-----</span><br>
+                            <span class="small font-weight-bold float-right" style="color: rgb(43,179,140);">------Male-----</span>
+
+                        </h6>
+                        
+                    </div>                
+                    <div class="card-body">
+                        <canvas id="chart-3" height="400" width="600" ></canvas>
+                        <script>
+                    
+                            // bar chart data
+                            var barData = {
+                                labels : [  
+                                    {% for item in labels %}
+                                    "{{ item }}",
+                                    {% endfor %}
+                                    ],
+                                datasets : [{
+                                    label : 'Individual',
+                                    fillColor: "rgba(151,187,205,0.2)",
+                                    strokeColor: "rgba(151,187,205,1)",
+                                    pointColor: "rgba(151,187,205,1)",
+                                    pointStrokeColor: "#fff",
+                                    pointHighlightFill: "#fff",
+                                    pointHighlightStroke: "rgba(151,187,205,1)",
+                                    bezierCurve : false,
+                                    data : [
+                                        {% for item in valuesIndividual %}
+                                            {{ item }},
+                                        {% endfor %}
+                                        ]
+                                        },
+                                        // Second Line Graph
+                                        {
+                                    label: 'Female',
+                                    fillColor: "rgba(128,128,0, 0)",
+                                    strokeColor: "rgba(128,128,0, 0.2)",
+                                    pointColor: "rgba(128,128,0, 0.2)",
+                                    pointStrokeColor: "#fff",
+                                    pointHighlightFill: "#fff",
+                                    pointHighlightStroke: "rgba(128,128,0, 0.2)",
+                                    bezierCurve : false,
+                                            data: [
+                                                {% for item in valuesFemale %}
+                                                    {{ item }},
+                                                {% endfor %}],
+
+                                            // Changes this dataset to become a line
+                                            type: 'line' 
+                                        },
+                                        {
+                                    label: 'Male',
+                                    fillColor: "rgb(43,179,140, 0)",
+                                    strokeColor: "rgb(43,179,140, 0.2)",
+                                    pointColor: "rgb(43,179,140, 0.2)",
+                                    pointStrokeColor: "#fff",
+                                    pointHighlightFill: "#fff",
+                                    pointHighlightStroke: "rgb(43,179,140, 0.2)",
+                                    bezierCurve : false,
+                                            data: [
+                                                {% for item in valuesMale %}
+                                                    {{ item }},
+                                                {% endfor %}],
+
+                                            // Changes this dataset to become a line
+                                            type: 'line' 
+                                        }],
+                                    options :{
+                                        legend: {
+                                            display: true,
+                                            position:'bottom',
+                                            labels: {
+                                                fontColor: "#000080",
+                                            }
+                                        }
+                                    }
+                                }
+                    
+                            Chart.defaults.global.animationSteps = 50;
+                            Chart.defaults.global.tooltipYPadding = 16;
+                            Chart.defaults.global.tooltipCornerRadius = 0;
+                            Chart.defaults.global.tooltipTitleFontStyle = "normal";
+                            Chart.defaults.global.tooltipFillColor = "rgba(0,0,0,0.8)";
+                            Chart.defaults.global.animationEasing = "easeOutBounce";
+                            Chart.defaults.global.responsive = false;
+                            Chart.defaults.global.scaleLineColor = "black";
+                            Chart.defaults.global.scaleFontSize = 16;
+                            Chart.defaults.global.legend = {
+                                                        display: true,
+                                                        position: 'bottom',
+                                                        fullWidth: true, 
+                                                        reverse: false,
+                                                        }
+                            // get bar chart canvas
+                            var mychart = document.getElementById("chart-3").getContext("2d");
+                    
+                            steps = 10
+                            max = 100
+                            // draw bar chart
+                            var LineChartDemo = new Chart(mychart).Line(barData, {
+                            scaleOverride: true,
+                            scaleSteps: steps,
+                            scaleStepWidth: Math.ceil(max / steps),
+                            scaleStartValue: 0,
+                            scaleShowVerticalLines: true,
+                            scaleShowGridLines : true,
+                            barShowStroke : true,
+                            scaleShowLabels: true,
+                            bezierCurve: false,
+                            });
+                    
+                        </script>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">E-Learning Styles</h6>
+        <div class="col col-xl-">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">OUM Learners Personality Profile</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="small font-weight-bold">Kemahiran Belajar <span
+                            class="float-right">{{result.kb}}</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{result.kb}}%"
+                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <div class="card-body">
-                        <h4 class="small font-weight-bold">Kemahiran Belajar <span
-                                class="float-right">{{result.kb}}</span></h4>
-                        <div class="progress mb-4">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{result.kb}}%"
-                                aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <h4 class="small font-weight-bold">Kemahiran Literasi<span
-                                class="float-right">{{result.kl}}</span></h4>
-                        <div class="progress mb-4">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: {{result.kl}}%"
-                                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <h4 class="small font-weight-bold">Kemahiran Hidup <span
-                                class="float-right">{{result.kh}}</span></h4>
-                        <div class="progress mb-4">
-                            <div class="progress-bar" role="progressbar" style="width: {{result.kh}}%"
-                                aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                    <h4 class="small font-weight-bold">Kemahiran Literasi<span
+                            class="float-right">{{result.kh}}</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: {{result.kh}}%"
+                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">Kemahiran Hidup <span
+                            class="float-right">{{result.kl}}</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar" role="progressbar" style="width: {{result.kl}}%"
+                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Life-long Learning Attitude</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="small font-weight-bold">Kemahiran Belajar <span
+                            class="float-right">{{result.kb}}</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{result.kb}}%"
+                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">Kemahiran Literasi<span
+                            class="float-right">{{result.kh}}</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: {{result.kh}}%"
+                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">Kemahiran Hidup <span
+                            class="float-right">{{result.kl}}</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar" role="progressbar" style="width: {{result.kl}}%"
+                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">E-Learning Styles</h6>
+                </div>
+                <div class="card-body">
+                    <h4 class="small font-weight-bold">Kemahiran Belajar <span
+                            class="float-right">{{result.kb}}</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{result.kb}}%"
+                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">Kemahiran Literasi<span
+                            class="float-right">{{result.kl}}</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: {{result.kl}}%"
+                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h4 class="small font-weight-bold">Kemahiran Hidup <span
+                            class="float-right">{{result.kh}}</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar" role="progressbar" style="width: {{result.kh}}%"
+                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 
 {%endblock%}

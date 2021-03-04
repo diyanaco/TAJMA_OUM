@@ -172,13 +172,15 @@ def results(id):
         #get the user info
         labels=["TR1", "TR2", "TR3", "TR4", "TR5", "TR6", "TR7", "TR8", "TR9", "TR10"]
         valuesIndividual=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
-        valuesGroup=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
+        valuesMale=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
+        valuesFemale=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
         
+
         userProf = User.query.filter_by(id=id).first()
         #fn = request.args.get('fn')
         # return render_template('results.html',values=values, labels=labels,result=result, 
         #                         result1=result1,result2=result2,result3=result3, userProf=userProf)
-        return render_template('results.html',valuesIndividual=valuesIndividual,valuesGroup=valuesGroup, labels=labels,result=result,userProf=userProf)
+        return render_template('results.html',valuesIndividual=valuesIndividual,valuesMale=valuesMale,valuesFemale=valuesFemale, labels=labels,result=result,userProf=userProf)
  
     else :
         return redirect(url_for('login'))

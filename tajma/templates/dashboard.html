@@ -29,49 +29,49 @@
   <!-- Page Wrapper -->
   <div id="wrapper">
     <!-- Sidebar -->
-      <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <!-- Sidebar - Brand -->
-        <!-- <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <!-- Sidebar - Brand -->
+      <!-- <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
                 <div class="sidebar-brand-text mx-3">TAJMA <sup>TP+</sup></div>
             </a> -->
-        <a class="navbar-brand"><img src="/static/assets/img/tajma-logo.jpg" alt="" /></a>
+      <img style="margin-bottom: 10px;" src="/static/assets/img/oum-logo.png">
+      <a class="navbar-brand"><img src="/static/assets/img/tajma-logo.jpg" alt="" /></a>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
-
-        {%block sidebar%}
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-          <a class="nav-link" href="{{url_for('profile')}}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>My Profile</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-          Psychometric Tests
-        </div>
-
-        <li class="nav-item " id="menu1">
-          <a class="nav-link collapsed" href="{{url_for('dashboard')}}">
-            <p>Take Test</p>
-          </a>
-        </li>
-        {%endblock%}
+      <!-- Divider -->
+      <hr class="sidebar-divider my-0">
 
 
-          <img style="margin-bottom: 10px" src="/static/assets/img/oum-logo.png">
+      {%block sidebar%}
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('profile')}}">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>My Profile</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Psychometric Tests
+      </div>
+
+      <li class="nav-item " id="menu1">
+        <a class="nav-link collapsed" href="{{url_for('dashboard')}}">
+          <p>Take Test</p>
+        </a>
+      </li>
+      {%endblock%}
 
 
-      </ul>
+
+
+    </ul>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
