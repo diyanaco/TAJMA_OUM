@@ -101,7 +101,8 @@ class Student(db.Model):
         return f"Student('{self.email}', '{self.firstName}')"
 
 #inserting data
-if db.engine.dialect.has_table(db.engine, "student"):
+#if db.engine.dialect.has_table(db.engine, "student"):
+if db.inspect(db.engine).has_table("student"):
     if not Student.query.all():
         student_1 = Student(studentID='01', firstName='Zaim', lastName='Saha', email='zaim@demo.com', gender='Male', age='29', IC=910321035515, race='Malay', mobile= '0179163956')
         student_2 = Student(studentID='02', firstName='Joyce', lastName='Yong', email='joyce@demo.com', gender='Female', age='28', IC=920315031234, race='Chinese', mobile= '01791678965')
@@ -123,7 +124,8 @@ class Question(db.Model):
     def __repr__(self):
         return f"Question('{self.question}', '{self.instruCode}')"
 #check table exist
-if db.engine.dialect.has_table(db.engine, "question"):
+#if db.engine.dialect.has_table(db.engine, "question"):
+if db.inspect(db.engine).has_table("student"):
     #check row empty
     if not Question.query.all():
         db.session.add_all([

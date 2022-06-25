@@ -28,7 +28,7 @@ def save_picture(form_picture):
         app.root_path, 'static/assets/img/profile_pics', picture_fn)
     # resize the image
     output_size = (300, 300)
-    i = Image.open(form_picture)
+    i = Image.core.open(form_picture)
     i.thumbnail(output_size)
     i.save(picture_path)
     return picture_fn
