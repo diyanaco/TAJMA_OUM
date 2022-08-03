@@ -1,4 +1,5 @@
 __pycache__/
 query/
 .vscode/
-tajma/tajma.db/
+tajma/tajma.db
+venv/
