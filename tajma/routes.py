@@ -246,7 +246,7 @@ def elearning():
         #Update the user table where test is taken 
         db_update_data()
         return redirect(url_for("attitude"))
-    return render_template("tpElearning.html", form=form)
+    return render_template("tp1Elearning.html", form=form)
 
 @app.route("/attitude", methods=["GET", "POST"])
 @login_required
@@ -323,7 +323,7 @@ def attitude():
         #Update the user table where test is taken 
         db_update_data()
         return redirect(url_for("learner"))
-    return render_template("tpAttitude.html", form=form)
+    return render_template("tp2Attitude.html", form=form)
 
 @app.route("/learner", methods=["GET", "POST"])
 @login_required
@@ -341,8 +341,13 @@ def learner():
         #Update the user table where test is taken 
         db_update_data()
         return redirect(url_for("success"))
-    return render_template("tpLearner.html", form=form)
- 
+    return render_template("tp3Learner.html", form=form)
+
+@app.route("/saveProgress", methods=["GET", "POST"])
+@login_required
+def saveProgress():
+    return render_template("saveProgress.html")
+
 @app.route("/success")
 def success():
     user = User.query.filter_by(id = current_user.get_id()).first()

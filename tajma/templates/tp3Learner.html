@@ -64,9 +64,15 @@
     <!-- Popup instruction -->
     <script>
         $(document).ready(function () {
-            $("#myInstru").modal('show');
+          // Initially we show the Instruction modal popup
+          $("#myInstru").modal('show');
+      
+          // To close the Instruction modal popup
+          $('#btn-close-modal').click(function() {
+              $('#myInstru').modal('hide');
+          });
         });
-    </script>
+      </script>
     <div id="myInstru" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -81,7 +87,8 @@
                         <li>There is no correct or wrong answer</li>
                         <li>The first answer that come through your mind is the most accurate</li>
                         <li>Good luck</li>
-
+                        <button id="btn-close-modal" type="button" class="close" data-dismiss="modal" aria-label="Close">Proceed to take final test</button>
+                        <button id="btn-close-modal" type="button" class="close" data-dismiss="modal" aria-label="Close">Save progress</button>
                     </ul>
                 </div>
             </div>

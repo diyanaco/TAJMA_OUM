@@ -61,7 +61,13 @@
 <!-- Instruction pop up -->
 <script>
   $(document).ready(function () {
+    // Initially we show the Instruction modal popup
     $("#myInstru").modal('show');
+
+    // To close the Instruction modal popup
+    $('#btn-close-modal').click(function() {
+        $('#myInstru').modal('hide');
+    });
   });
 </script>
 
@@ -70,7 +76,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Instructions</h5>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!-- <button id="btn-close-modal" type="button" class="close" data-dismiss="modal" aria-label="Close">Close</button> -->
       </div>
       <div class="modal-body">
         <ul>
@@ -79,7 +85,7 @@
           <li>There is no correct or wrong answer</li>
           <li>The first answer that come through your mind is the most accurate</li>
           <li>Good luck</li>
-
+          <button id="btn-close-modal" type="button" class="close" data-dismiss="modal" aria-label="Close">Proceed to take First test</button>
         </ul>
       </div>
     </div>

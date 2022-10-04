@@ -57,7 +57,8 @@
                     <li>There is no correct or wrong answer</li>
                     <li>The first answer that come through your mind is the most accurate</li>
                     <li>Good luck</li>
-
+                    <button id="btn-close-modal" type="button" class="close" data-dismiss="modal" aria-label="Close">Proceed to take Second test</button>
+                    <a type="button" class="close" data-dismiss="modal" aria-label="Close" href="{{url_for('saveProgress')}}">Save Progess</button>
                 </ul>
             </div>
         </div>
@@ -82,10 +83,15 @@
 <!-- Instru popup -->
 <script>
     $(document).ready(function () {
-        $('#myInstru').modal('show');
-        return false;
+      // Initially we show the Instruction modal popup
+      $("#myInstru").modal('show');
+  
+      // To close the Instruction modal popup
+      $('#btn-close-modal').click(function() {
+          $('#myInstru').modal('hide');
+      });
     });
-</script>
+  </script>
 
 <div class="container-fluid">
     <div id="container">
