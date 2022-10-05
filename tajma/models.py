@@ -58,7 +58,7 @@ class User(db.Model, UserMixin):
         return self.mobile
 
     def __repr__(self):
-        return f"User('{self.email}', '{self.password}')"
+        return f"User('{self.email}', '{self.password}', {self.id})"
 
 class Role(db.Model):
     id = db.Column(db.Integer(), primary_key=True)

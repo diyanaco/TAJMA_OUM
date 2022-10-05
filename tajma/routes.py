@@ -125,11 +125,74 @@ def admin():
         return redirect(url_for('login'))
 
 #View results
+@app.route("/admin/results", methods=["GET"])
+@login_required
+def result_user():
+    #TODO #6 : Create isOwner function
+    # if isOwner true then retrieve the result
+    # if isAdmin():
+    #Retrieve elearning result
+    print(f"current_user is : {current_user}")
+    elearning = Elearning.query.filter_by(userID=current_user.get_id()).first()
+    if elearning is None:
+        message="The user has not taken any test yet"
+        return redirect(url_for('error', error=message))
+    result = {
+        "kb" : round(elearning.kb/5*100, 1),
+        "kh" : round(elearning.kh/5*100, 1),
+        "kl" : round(elearning.kl/5*100, 1)
+    }
+
+    # #Retrieve Learner result
+    # learner = Learner.query.filter_by(userID=id).first()
+    # if learner is None:
+    #     message="The user has not taken any test yet"
+    #     return redirect(url_for('error', error=message))
+    # result2 = {
+    #     "trait1" : round(learner.trait1/5*100, 1),
+    #     "trait2" : round(learner.trait2/5*100, 1),
+    #     "trait3" : round(learner.trait3/5*100, 1)
+    # }
+
+    # #Retrieve Attitude result
+    # attitude = Attitude.query.filter_by(userID=id).first()
+    # if attitude is None:
+    #     message="The user has not taken any test yet"
+    #     return redirect(url_for('error', error=message))
+    # result3 = {
+    #     "trait1" : round(attitude.trait1/5*100, 1),
+    #     "trait2" : round(attitude.trait2/5*100, 1),
+    #     "trait3" : round(attitude.trait3/5*100, 1)
+    # }
+    # #Merging dictionary
+    # result={**result1,**result2,**result3}
+    # #Declare empty list
+    # labels= []
+    # values=[]
+    # for k,v in result.items():
+    #     labels.append(k)
+    #     values.append(v)
+    #get the user info
+    labels=["TR1", "TR2", "TR3", "TR4", "TR5", "TR6", "TR7", "TR8", "TR9", "TR10"]
+    valuesIndividual=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
+    valuesMale=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
+    valuesFemale=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
+    
+
+    userProf = User.query.filter_by(id=current_user.get_id()).first()
+    #fn = request.args.get('fn')
+    # return render_template('results.html',values=values, labels=labels,result=result, 
+    #                         result1=result1,result2=result2,result3=result3, userProf=userProf)
+    return render_template('ResultUser.html',valuesIndividual=valuesIndividual,valuesMale=valuesMale,valuesFemale=valuesFemale, labels=labels,result=result,userProf=userProf)
+
+    # else :
+    #     return redirect(url_for('login'))
+
 @app.route("/admin/results/<id>", methods=["GET"])
 @login_required
-def results(id):
+def results_admin(id):
+    print(f"current_user is : {current_user}")
     if isAdmin():
-        #Retrieve elearning result
         elearning = Elearning.query.filter_by(userID=id).first()
         if elearning is None:
             message="The user has not taken any test yet"
@@ -139,49 +202,17 @@ def results(id):
             "kh" : round(elearning.kh/5*100, 1),
             "kl" : round(elearning.kl/5*100, 1)
         }
-
-        # #Retrieve Learner result
-        # learner = Learner.query.filter_by(userID=id).first()
-        # if learner is None:
-        #     message="The user has not taken any test yet"
-        #     return redirect(url_for('error', error=message))
-        # result2 = {
-        #     "trait1" : round(learner.trait1/5*100, 1),
-        #     "trait2" : round(learner.trait2/5*100, 1),
-        #     "trait3" : round(learner.trait3/5*100, 1)
-        # }
-
-        # #Retrieve Attitude result
-        # attitude = Attitude.query.filter_by(userID=id).first()
-        # if attitude is None:
-        #     message="The user has not taken any test yet"
-        #     return redirect(url_for('error', error=message))
-        # result3 = {
-        #     "trait1" : round(attitude.trait1/5*100, 1),
-        #     "trait2" : round(attitude.trait2/5*100, 1),
-        #     "trait3" : round(attitude.trait3/5*100, 1)
-        # }
-        # #Merging dictionary
-        # result={**result1,**result2,**result3}
-        # #Declare empty list
-        # labels= []
-        # values=[]
-        # for k,v in result.items():
-        #     labels.append(k)
-        #     values.append(v)
-        #get the user info
         labels=["TR1", "TR2", "TR3", "TR4", "TR5", "TR6", "TR7", "TR8", "TR9", "TR10"]
         valuesIndividual=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
         valuesMale=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
         valuesFemale=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
         
 
-        userProf = User.query.filter_by(id=id).first()
+        userProf = User.query.filter_by(id=current_user.get_id()).first()
         #fn = request.args.get('fn')
         # return render_template('results.html',values=values, labels=labels,result=result, 
         #                         result1=result1,result2=result2,result3=result3, userProf=userProf)
-        return render_template('results.html',valuesIndividual=valuesIndividual,valuesMale=valuesMale,valuesFemale=valuesFemale, labels=labels,result=result,userProf=userProf)
- 
+        return render_template('ResultAdmin.html',valuesIndividual=valuesIndividual,valuesMale=valuesMale,valuesFemale=valuesFemale, labels=labels,result=result,userProf=userProf)
     else :
         return redirect(url_for('login'))
 
