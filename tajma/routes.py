@@ -1,7 +1,7 @@
 import os
 import secrets
 from PIL import Image
-from flask import render_template, url_for, flash, redirect, request, has_request_context, session
+from flask import render_template, url_for, flash, redirect, request, has_request_context, session, jsonify
 from sqlalchemy.orm import relation
 from tajma import app, db
 from tajma.form import ElearningAnswer,AttitudeAnswer, LoginForm, RegistrationForm, SearchForm, VerificationForm, UpdateAccountForm, SearchForm, LearnerAnswer
@@ -378,6 +378,58 @@ def learner():
 @login_required
 def saveProgress():
     return render_template("saveProgress.html")
+
+# import pymysql
+# from app import app
+# from db_config import mysql
+# from flask import flash, render_template, jsonify
+
+@app.route('/calendar')
+def calendar():
+    return render_template('CalendarEvents.html')
+
+@app.route('/calendar-events')
+def calendar_events():
+    conn = None
+    cursor = None
+    try:
+        rows = [
+                    {
+                        "id": 101,
+                        "title": "Event 1",
+                        "url": "http://example.com",
+                        "class": "event-important",
+                        "start": 12039485678000, 
+                        "end": 1234576967000 
+                    },
+                    {
+                        "id": 102,
+                        "title": "Event 1",
+                        "url": "http://example.com",
+                        "class": "event-important",
+                        "start": 12039485678000, 
+                        "end": 1234576967000 
+                    },
+                    {
+                        "id": 103,
+                        "title": "Event 1",
+                        "url": "http://example.com",
+                        "class": "event-important",
+                        "start": 12039485678000, 
+                        "end": 1234576967000 
+                    }
+                    # {1,'Example','http://www.example.com','event-sucess','2019-09-10 20:00:00','2019-09-10 20:01:02'},
+                    # {2,'Roy Tutorials','https://roytuts.com','event-important','2019-09-15 19:00:00','2019-09-15 19:42:45'},
+                    # {3,'Roy Tutorial','https://roytuts.com','event-info','2019-09-23 20:03:05','2019-09-24 08:45:53'},
+                    # {4,'Roy Tutorial','https://roytuts.com','event-error','2019-09-24 20:03:05','2019-09-25 08:45:53'}
+                ]
+        resp = jsonify({'success' : 1, 'result' : rows})
+        resp.status_code = 200
+        return resp
+    except Exception as e:
+        print(e)
+
+        
 
 @app.route("/success")
 def success():
