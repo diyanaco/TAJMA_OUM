@@ -1,0 +1,118 @@
+{%extends 'dashboard.html' %} {%block head%}
+<link
+  href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css"
+  rel="stylesheet"
+/>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var calendarEl = document.getElementById("calendar");
+    // var calendar = new FullCalendar.Calendar(calendarEl, {
+    //   initialView: "dayGridMonth",
+    // });
+    // calendar.render();
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      headerToolbar: {
+        left: "dayGridMonth",
+        center: "dayGridMonth,timeGridWeek",
+        right: "timeGridWeek",
+      }, // buttons for switching between views
+      views: {
+        dayGridMonth: {
+          // name of view
+          titleFormat: {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          },
+          // other view-specific options here
+        },
+      },
+      weekends: false,
+      events: [
+        {
+          title: "Meeting with AbuDhabi",
+          start: "2022-10-03",
+          end : "2022-10-06"
+        },
+        {
+          title: "Deployment",
+          start: "2022-10-07",
+          allDay : true
+        },
+        {
+          title: "Rest time",
+          start: "2022-10-12",
+          end: "2022-10-13",
+        },
+        {
+          title: "Coding whole day",
+          start: "2022-10-28",
+          allDay: true, // will make the time show
+        },
+      ],
+      //   eventSources: [
+      //     // your event source
+      //     {
+      //       events: [
+      //         // put the array in the `events` property
+      //         {
+      //           title: "event1",
+      //           start: "2022-6-10",
+      //         },
+      //         {
+      //           title: "event2",
+      //           start: "2010-01-05",
+      //           end: "2010-01-07",
+      //         },
+      //         {
+      //           title: "event3",
+      //           start: "2010-01-09T12:30:00",
+      //         },
+      //       ],
+      //       color: "black", // an option!
+      //       textColor: "yellow", // an option!
+      //     },
+
+      //     // any other event sources...
+      //   ],
+      //Static handler
+      //   dateClick: function () {
+      //     alert("a day has been clicked!");
+      //   },
+      //   initialView : this.changeView( 'dayGridMonth')
+    });
+    calendar.render();
+    //Setting the options, options can be set after the calendar is initialize
+    calendar.setOption("locale", "fr");
+    calendar.setOption("private", "myr");
+    calendar.setOption("locale", "btc");
+    console.log("locale is : ", calendar.getOption("private"));
+
+    //can obtain list of info in dateClickevent
+    calendar.on("dateClick", function (info) {
+        alert("What do u want to do with this date? " + info.dateStr);
+    });
+    // var calendar = new Calendar(calendarEl, {
+    //   views: {
+    //     dayGrid: {
+    //       // options apply to dayGridMonth, dayGridWeek, and dayGridDay views
+    //     },
+    //     timeGrid: {
+    //       // options apply to timeGridWeek and timeGridDay views
+    //     },
+    //     week: {
+    //       // options apply to dayGridWeek and timeGridWeek views
+    //     },
+    //     day: {
+    //       // options apply to dayGridDay and timeGridDay views
+    //     },
+    //   },
+    // });
+  });
+</script>
+
+{%endblock%} {%block body%}
+<div id="calendar" style="margin-left: 30px;"></div>
+{%endblock%}
