@@ -48,7 +48,7 @@ session = Session()
 
 # from tajma.models import User, Role, UserRoles, Student, Question, Elearning, Learner, Attitude, Code
 from tajma.model.AttitudeModel import Attitude
-from tajma.model.CodeModel import Code 
+from tajma.model.ClientSidePermissionModel import ClientSidePermisssion 
 from tajma.model.ElearningModel import Elearning
 from tajma.model.LearnerModel import Learner
 from tajma.model.QuestionModel import Question

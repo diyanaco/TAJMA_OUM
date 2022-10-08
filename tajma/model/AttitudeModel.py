@@ -12,3 +12,6 @@ class Attitude(Base):
     ke =Column(Float, nullable=True)
     
     userID = Column(String(50), nullable=True)
+
+    def __repr__(self):
+        return f"Attitude('{self.mt}', '{self.kt}', {self.ke}, {self.id})"

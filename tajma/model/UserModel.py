@@ -23,7 +23,7 @@ class User(Base, UserMixin):
     learnerTaken = Column(Boolean, nullable =True)
     attitudeTaken = Column(Boolean, nullable =True)
 
-    role_id = relationship("RoleModel", secondary=association_user_role_table)
+    role_id = relationship("Role", secondary=association_user_role_table)
 
     #override get_id method from UserMixin
     def get_id(self):

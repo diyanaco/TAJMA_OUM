@@ -11,3 +11,6 @@ class Elearning(Base):
     #kemahiran hidup
     kh =Column(Float, nullable=True)
     userID = Column(String(50), nullable=True)
+    
+    def __repr__(self):
+        return f"Elearning('{self.kb}', '{self.kl}','{self.kh}', {self.id})"
