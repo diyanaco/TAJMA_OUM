@@ -107,6 +107,7 @@ def register():
 @app.route("/dashboard", methods=["GET", "POST"])
 @login_required
 def dashboard():
+    print(f'current user is : {current_user}')
     session.query(User).filter(User.id == current_user.get_id()).scalar().elearningTaken,
     # testTaken = {
     #     "elearning" : User.query.filter_by(id = current_user.get_id()).first().elearningTaken,

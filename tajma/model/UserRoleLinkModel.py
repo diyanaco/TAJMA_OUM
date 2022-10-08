@@ -1,8 +1,9 @@
 from tajma import Base
-from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy import Column, String, ForeignKey, Table
 
-class UserRoles(Base):
-    __tablename__ = 'psy_user_roles'
-    id = Column(String(50), primary_key=True)
-    user_id = Column(String(50), ForeignKey('psy_user.id', ondelete='CASCADE'))
-    role_id = Column(String(50), ForeignKey('psy_role.id', ondelete='CASCADE'))
+association_user_role_table = Table(
+    "psy_user_role_link",
+    Base.metadata,
+    Column("user_id", ForeignKey("psy_user.id")),
+    Column("role_id", ForeignKey("psy_role.id")),
+)

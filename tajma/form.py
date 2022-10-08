@@ -16,6 +16,7 @@ from sqlalchemy.orm import sessionmaker
 from tajma import engine
 from flask import session as localSession
 from tajma.model import db_insert_data, db_update_data
+import uuid
 
 Session = sessionmaker()
 Session.configure(bind=engine)
@@ -28,6 +29,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
     def check_credentialsLOGIN(self):
+        print(f'email data is : {self.email.data}')
         user = session.query(User).filter(User.email == self.email.data).scalar()
         print(f'user is : {user}')
         if user and bcrypt.check_password_hash(user.password, self.password.data):
@@ -91,16 +93,18 @@ class RegistrationForm(FlaskForm):
         a, b, c, d, e, f, g= self.retrieve_data()
         #increment the username
         # topUserID = User.query.order_by(User.desc()).first()
-        topUserID = session.query(User).order_by(User.desc()).first()
+        # topUserID = session.query(User).order_by(User.desc()).first()
+        user = User(id= str(uuid.uuid4()), firstName=a, lastName=b,email=self.email.data, password=hashed_password, gender=c, age=d, IC=e, race=f, mobile=g)
+        db_insert_data(user)
         #If first user sign up, then assign UserID 1
-        if topUserID is None:
-            user = User(id=1, firstName=a, lastName=b,email=self.self.email.data, password=hashed_password, gender=c, age=d, IC=e, race=f, mobile=g)
-            db_insert_data(user)
-        #Else increment the userID by 1
-        else :
-            user = User(id=(topUserID.id + '1'), firstName=a, lastName=b,email=self.email.data, password=hashed_password, gender=c, age=d, IC=e, race=f, mobile=g)
-            db_insert_data(user)
-        #Add user to session
+        # if topUserID is None:
+        #     user = User(id=1, firstName=a, lastName=b,email=self.self.email.data, password=hashed_password, gender=c, age=d, IC=e, race=f, mobile=g)
+        #     db_insert_data(user)
+        # #Else increment the userID by 1
+        # else :
+        #     user = User(id=(topUserID.id + '1'), firstName=a, lastName=b,email=self.email.data, password=hashed_password, gender=c, age=d, IC=e, race=f, mobile=g)
+        #     db_insert_data(user)
+        # #Add user to session
         login_user(user)
         return True
 

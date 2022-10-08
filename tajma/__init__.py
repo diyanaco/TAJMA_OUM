@@ -55,7 +55,7 @@ from tajma.model.QuestionModel import Question
 from tajma.model.RoleModel import Role
 from tajma.model.StudentModel import Student
 from tajma.model.UserModel import User
-from tajma.model.UserRoleLinkModel import UserRoles
+# from tajma.model.UserRoleLinkModel import UserRoles
 
 Base.metadata.create_all(engine)
 
