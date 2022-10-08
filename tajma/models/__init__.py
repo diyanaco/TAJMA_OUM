@@ -18,6 +18,7 @@ from .ClientSidePermissionModel import ClientSidePermisssion
 from .QuestionModel import Question
 from .RoleModel import Role
 from .StudentModel import Student
+# from .CalendarEventModel import CalendarEvent
 from .UserRoleLinkModel import association_user_role_table
 
 Base.metadata.create_all(engine)

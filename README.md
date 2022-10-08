@@ -29,6 +29,20 @@ Add role based authentication manually without using packages
 
 ## Testing
 
-# Alembic
+## Alembic
 alembic revision --autogenerate -m "Added account table"
 alembic upgrade head
+
+# to clean the tree, will point to the latest revision created
+alembic downgrade base
+alembic upgrade head
+
+# to downgrade revision 
+alembic upgarade a12
+
+# to downgrade
+alembic stamp <revision>
+alembic downgrade -1
+
+# point to a revision id
+alembic stamp a12
