@@ -4,3 +4,5 @@ query/
 tajma/tajma.db
 venv/
 venv2/
+tajma/.env
+tajma/token.json
