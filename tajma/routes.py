@@ -1,19 +1,25 @@
+import imp
 import os
 import secrets
 from PIL import Image
-from flask import render_template, url_for, flash, redirect, request, has_request_context, session, jsonify
-from sqlalchemy.orm import relation
+from flask import render_template, url_for, flash, redirect, request, session as localSession, has_request_context, jsonify
+from sqlalchemy.orm import sessionmaker
 from tajma import app, db
 from tajma.form import ElearningAnswer,AttitudeAnswer, LoginForm, RegistrationForm, SearchForm, VerificationForm, UpdateAccountForm, SearchForm, LearnerAnswer
 from tajma.models import User, Elearning, Attitude,Learner, db_insert_data, db_update_data
 from flask_login import current_user, logout_user, login_required
 import numpy as np
 from random import randint
+from tajma import engine
 
+Session = sessionmaker()
+Session.configure(bind=engine)
+session = Session()
 
 #Veify if user admin or not
 def isAdmin():
-    userAdmin = User.query.filter_by(email = current_user.get_email()).first()
+    userAdmin = session.query(User.id).filter(User.email == current_user.get_email()).scalar()
+    # userAdmin = User.query.filter_by(email = current_user.get_email()).first()
     if userAdmin.roles and userAdmin.roles[0].name == 'Admin':
         return True
     else:
@@ -67,7 +73,7 @@ def verify():
         if form.check_email() == True:
             flash(
                 'A confirmation email has been sent, please verify first, then continue with the registration')
-            session["email"] = form.email.data
+            localSession["email"] = form.email.data
             return redirect(url_for('register'))
         else:
             flash('You are not elligible to register, please verify with OUM', 'success')
@@ -87,42 +93,48 @@ def register():
         #after normal user register, will route to the main dashboard
         #superAdmin will then assign them admin role later after registration
         #after that, the user with admin role will route to admin page after login
-        if session.get("email") == "admin@demo.com":
+        if localSession.get("email") == "admin@demo.com":
             form.assign_admin()
             return redirect(url_for('admin'))
         #ISSUE 3 create function first time login
         #flash("Succesfully Register, please login")
         return redirect(url_for('dashboard'))
-    return render_template("register.html", form=form, fn=fn, ln=ln, em=session.get("email"))
+    return render_template("register.html", form=form, fn=fn, ln=ln, em=localSession.get("email"))
 
 @app.route("/dashboard", methods=["GET", "POST"])
 @login_required
 def dashboard():
+    session.query(User).filter(User.id == current_user.get_id()).scalar().elearningTaken,
+    # testTaken = {
+    #     "elearning" : User.query.filter_by(id = current_user.get_id()).first().elearningTaken,
+    #     "learner" : User.query.filter_by(id = current_user.get_id()).first().learnerTaken,
+    #     "attitude" : User.query.filter_by(id = current_user.get_id()).first().attitudeTaken
+    # }
     testTaken = {
-        "elearning" : User.query.filter_by(id = current_user.get_id()).first().elearningTaken,
-        "learner" : User.query.filter_by(id = current_user.get_id()).first().learnerTaken,
-        "attitude" : User.query.filter_by(id = current_user.get_id()).first().attitudeTaken
+        "elearning" : session.query(User).filter(User.id == current_user.get_id()).scalar().elearningTaken,
+        "learner" : session.query(User).filter(User.id == current_user.get_id()).scalar().learnerTaken,
+        "attitude" : session.query(User).filter(User.id == current_user.get_id()).scalar().attitudeTaken,
     }
     return render_template("dashboard.html", testTaken=testTaken)
 
-@app.route('/admin', methods=["GET", "POST"])
-def admin():
-    if isAdmin():
-        form = SearchForm()
-        if form.validate_on_submit():
-            kwargs = {
-                form.selectfield.data : form.searchfield.data
-            }
-            userSearch = User.query.filter_by(**kwargs).all()
+# @app.route('/admin', methods=["GET", "POST"])
+# def admin():
+#     if isAdmin():
+#         form = SearchForm()
+#         if form.validate_on_submit():
+#             kwargs = {
+#                 form.selectfield.data : form.searchfield.data
+#             }
+#             userSearch = User.query.filter_by(**kwargs).all()
             
-            return render_template('admin.html', form=form, userSearch=userSearch)
-        #need to fix this
-        if request.args.get('type') :
-                hello = "Hello"
-                return render_template('admin.html', form= form, hello=hello)
-        return render_template("admin.html", form=form)
-    else :
-        return redirect(url_for('login'))
+#             return render_template('admin.html', form=form, userSearch=userSearch)
+#         #need to fix this
+#         if request.args.get('type') :
+#                 hello = "Hello"
+#                 return render_template('admin.html', form= form, hello=hello)
+#         return render_template("admin.html", form=form)
+#     else :
+#         return redirect(url_for('login'))
 
 #View results
 @app.route("/admin/results", methods=["GET"])
@@ -133,7 +145,8 @@ def result_user():
     # if isAdmin():
     #Retrieve elearning result
     print(f"current_user is : {current_user}")
-    elearning = Elearning.query.filter_by(userID=current_user.get_id()).first()
+    elearning = session.query(Elearning.id).filter(Elearning.userID == current_user.get_id()).scalar()
+    # elearning = Elearning.query.filter_by(userID=current_user.get_id()).first()
     if elearning is None:
         message="The user has not taken any test yet"
         return redirect(url_for('error', error=message))
@@ -178,8 +191,8 @@ def result_user():
     valuesMale=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
     valuesFemale=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
     
-
-    userProf = User.query.filter_by(id=current_user.get_id()).first()
+    userProf = session.query(User.id).filter(User.id == current_user.get_id()).scalar()
+    # userProf = User.query.filter_by(id=current_user.get_id()).first()
     #fn = request.args.get('fn')
     # return render_template('results.html',values=values, labels=labels,result=result, 
     #                         result1=result1,result2=result2,result3=result3, userProf=userProf)
@@ -188,33 +201,33 @@ def result_user():
     # else :
     #     return redirect(url_for('login'))
 
-@app.route("/admin/results/<id>", methods=["GET"])
-@login_required
-def results_admin(id):
-    print(f"current_user is : {current_user}")
-    if isAdmin():
-        elearning = Elearning.query.filter_by(userID=id).first()
-        if elearning is None:
-            message="The user has not taken any test yet"
-            return redirect(url_for('error', error=message))
-        result = {
-            "kb" : round(elearning.kb/5*100, 1),
-            "kh" : round(elearning.kh/5*100, 1),
-            "kl" : round(elearning.kl/5*100, 1)
-        }
-        labels=["TR1", "TR2", "TR3", "TR4", "TR5", "TR6", "TR7", "TR8", "TR9", "TR10"]
-        valuesIndividual=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
-        valuesMale=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
-        valuesFemale=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
+# @app.route("/admin/results/<id>", methods=["GET"])
+# @login_required
+# def results_admin(id):
+#     print(f"current_user is : {current_user}")
+#     if isAdmin():
+#         elearning = Elearning.query.filter_by(userID=id).first()
+#         if elearning is None:
+#             message="The user has not taken any test yet"
+#             return redirect(url_for('error', error=message))
+#         result = {
+#             "kb" : round(elearning.kb/5*100, 1),
+#             "kh" : round(elearning.kh/5*100, 1),
+#             "kl" : round(elearning.kl/5*100, 1)
+#         }
+#         labels=["TR1", "TR2", "TR3", "TR4", "TR5", "TR6", "TR7", "TR8", "TR9", "TR10"]
+#         valuesIndividual=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
+#         valuesMale=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
+#         valuesFemale=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
         
 
-        userProf = User.query.filter_by(id=current_user.get_id()).first()
-        #fn = request.args.get('fn')
-        # return render_template('results.html',values=values, labels=labels,result=result, 
-        #                         result1=result1,result2=result2,result3=result3, userProf=userProf)
-        return render_template('ResultAdmin.html',valuesIndividual=valuesIndividual,valuesMale=valuesMale,valuesFemale=valuesFemale, labels=labels,result=result,userProf=userProf)
-    else :
-        return redirect(url_for('login'))
+#         userProf = User.query.filter_by(id=current_user.get_id()).first()
+#         #fn = request.args.get('fn')
+#         # return render_template('results.html',values=values, labels=labels,result=result, 
+#         #                         result1=result1,result2=result2,result3=result3, userProf=userProf)
+#         return render_template('ResultAdmin.html',valuesIndividual=valuesIndividual,valuesMale=valuesMale,valuesFemale=valuesFemale, labels=labels,result=result,userProf=userProf)
+#     else :
+#         return redirect(url_for('login'))
 
 @app.route("/profile", methods=["GET", "POST"])
 @login_required
@@ -273,7 +286,8 @@ def elearning():
 
         result = Elearning(kb = trait1, kl=trait2, kh=trait3, userID=current_user.get_id())
         db_insert_data(result)
-        user = User.query.filter_by(id = current_user.get_id()).update(dict(elearningTaken = True))
+        user = session.query(User.id).filter(User.id == current_user.get_id()).scalar()
+        # user = User.query.filter_by(id = current_user.get_id()).update(dict(elearningTaken = True))
         #Update the user table where test is taken 
         db_update_data()
         return redirect(url_for("attitude"))
@@ -350,29 +364,30 @@ def attitude():
         #                     pg=trait7,sb=trait8, userID=current_user.get_id())
         result = Attitude(ke=trait3,kt=trait2, mt=trait1, userID=current_user.get_id())
         db_insert_data(result)
-        user = User.query.filter_by(id = current_user.get_id()).update(dict(attitudeTaken = True))
+        # user = session.query(User.id).filter(User.id == current_user.get_id()).scalar()
+        # user = User.query.filter_by(id = current_user.get_id()).update(dict(attitudeTaken = True))
         #Update the user table where test is taken 
         db_update_data()
         return redirect(url_for("learner"))
     return render_template("tp2Attitude.html", form=form)
 
-@app.route("/learner", methods=["GET", "POST"])
-@login_required
-def learner():
-    form = LearnerAnswer()
-    if form.validate_on_submit():
-        trait1 = [form.answer1.data, form.answer2.data,
-            form.answer3.data, form.answer4.data,
-            form.answer5.data, form.answer6.data,
-            form.answer7.data]
-        trait1 = round(np.mean(list(map(int, trait1))), 2)
-        result = Learner(tr1=trait1, userID=current_user.get_id())
-        db_insert_data(result)
-        user = User.query.filter_by(id = current_user.get_id()).update(dict(learnerTaken = True))
-        #Update the user table where test is taken 
-        db_update_data()
-        return redirect(url_for("success"))
-    return render_template("tp3Learner.html", form=form)
+# @app.route("/learner", methods=["GET", "POST"])
+# @login_required
+# def learner():
+#     form = LearnerAnswer()
+#     if form.validate_on_submit():
+#         trait1 = [form.answer1.data, form.answer2.data,
+#             form.answer3.data, form.answer4.data,
+#             form.answer5.data, form.answer6.data,
+#             form.answer7.data]
+#         trait1 = round(np.mean(list(map(int, trait1))), 2)
+#         result = Learner(tr1=trait1, userID=current_user.get_id())
+#         db_insert_data(result)
+#         user = User.query.filter_by(id = current_user.get_id()).update(dict(learnerTaken = True))
+#         #Update the user table where test is taken 
+#         db_update_data()
+#         return redirect(url_for("success"))
+#     return render_template("tp3Learner.html", form=form)
 
 @app.route("/saveProgress", methods=["GET", "POST"])
 @login_required
@@ -431,13 +446,13 @@ def calendar_events():
 
         
 
-@app.route("/success")
-def success():
-    user = User.query.filter_by(id = current_user.get_id()).first()
-    if user.elearningTaken and user.learnerTaken and user.attitudeTaken :
-        return render_template("success.html")
-    else:
-        return redirect(url_for("dashboard"))
+# @app.route("/success")
+# def success():
+#     user = User.query.filter_by(id = current_user.get_id()).first()
+#     if user.elearningTaken and user.learnerTaken and user.attitudeTaken :
+#         return render_template("success.html")
+#     else:
+#         return redirect(url_for("dashboard"))
 
 
 @app.route("/logout")

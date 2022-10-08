@@ -4,6 +4,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_migrate import Migrate
+from sqlalchemy import create_engine
+from sqlalchemy import create_engine
+from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import sessionmaker
+import os
+
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '1d66b518598641b6d88a3f0115780daf'
@@ -23,15 +31,33 @@ login_manager.login_view = 'login'
 # the category for error login message
 login_manager.login_message_catagory = 'info'
 
-from tajma import routes
-from tajma.models import User
+#SqlAlchemy
+db_url = os.getenv('DATABASE_OUM_URL')
+print(db_url)
+engine = create_engine(db_url, echo=True)
+Base = declarative_base()
 
-# Only applicable to sqlite to prevent error
-with app.app_context():
-    if db.engine.url.drivername == 'sqlite':
-        migrate.init_app(app, db, render_as_batch=True)
-    else:
-        migrate.init_app(app, db)
+#another test
+
+Session = sessionmaker()
+Session.configure(bind=engine)
+session = Session()
+
+# Base.metadata.drop_all(engine)
+
+from tajma.models import User, Role, UserRoles, Student, Question, Elearning, Learner, Attitude, Code
+
+Base.metadata.create_all(engine)
+
+from tajma import routes
+# from tajma.models import User
+
+# # Only applicable to sqlite to prevent error
+# with app.app_context():
+#     if db.engine.url.drivername == 'sqlite':
+#         migrate.init_app(app, db, render_as_batch=True)
+#     else:
+#         migrate.init_app(app, db)
 
 
 

@@ -1,5 +1,5 @@
+import email
 from email.policy import default
-from flask import flash, session
 from wtforms.fields.core import FieldList, FormField
 from wtforms.form import Form
 from tajma import app, bcrypt
@@ -8,9 +8,16 @@ from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from tajma.models import Role, User, Student, db_insert_data
+from tajma.models import Role, User, Student
 from flask_login import login_user
+from sqlalchemy.orm import sessionmaker
+from tajma import engine
+from flask import session as localSession
+from tajma.models import db_insert_data, db_update_data
 
+Session = sessionmaker()
+Session.configure(bind=engine)
+session = Session()
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -19,7 +26,8 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Login')
 
     def check_credentialsLOGIN(self):
-        user = User.query.filter_by(email=self.email.data).first()
+        user = session.query(User).filter(User.email == self.email.data).scalar()
+        print(f'user is : {user}')
         if user and bcrypt.check_password_hash(user.password, self.password.data):
             login_user(user, remember=False)
             return True
@@ -28,13 +36,13 @@ class LoginForm(FlaskForm):
     
 
     def check_role(self):
-        user = User.query.filter_by(email=self.email.data).first()
+        user = session.query(User).filter(User.email == self.email.data).scalar()
         if user.roles:
             return user.roles[0].name
         else :
             return "normal"
     def check_registered(self):
-        if User.query.filter_by(email=self.email.data).first():
+        if session.query(User).filter(User.email == self.email.data).scalar():
             return True
         else:
             return False
@@ -44,7 +52,12 @@ class VerificationForm(FlaskForm):
     verify = SubmitField('Verify')
 
     def check_email(self):
-        if Student.query.filter_by(email=self.email.data).first():
+        # print(f'self.email.data : {self.email.data}')
+        # userQuery = session.query(Student).filter(Student.email == self.email.data).all()
+        # print(f'userQuery is : {userQuery}')
+        # user = session.query(User).filter(User.email == self.email.data).scalar()
+        # print(f'user is : {user}')
+        if session.query(Student).filter(Student.email == self.email.data).all():
             return True
         else:
             return False
@@ -61,7 +74,8 @@ class RegistrationForm(FlaskForm):
     # retrieve student info to import inside User table
     @staticmethod
     def retrieve_data():
-        fn = Student.query.filter_by(email=session.get("email")).first()
+        fn = session.query(Student).filter(Student.email == localSession.get("email")).scalar()
+        # fn = Student.query.filter_by(email=session.get("email")).first()
         return(fn.firstName, fn.lastName, fn.gender, fn.age, fn.IC, fn.race, fn.mobile )
 
     #check insert
@@ -74,21 +88,22 @@ class RegistrationForm(FlaskForm):
         hashed_password = bcrypt.generate_password_hash(self.password.data).decode('utf-8')
         a, b, c, d, e, f, g= self.retrieve_data()
         #increment the username
-        topUserID = User.query.order_by(User.id.desc()).first()
+        # topUserID = User.query.order_by(User.desc()).first()
+        topUserID = session.query(User).order_by(User.desc()).first()
         #If first user sign up, then assign UserID 1
         if topUserID is None:
-            user = User(id=1, firstName=a, lastName=b,email=self.email.data, password=hashed_password, gender=c, age=d, IC=e, race=f, mobile=g)
+            user = User(id=1, firstName=a, lastName=b,email=self.self.email.data, password=hashed_password, gender=c, age=d, IC=e, race=f, mobile=g)
             db_insert_data(user)
         #Else increment the userID by 1
         else :
-            user = User(id=(topUserID.id + 1), firstName=a, lastName=b,email=self.email.data, password=hashed_password, gender=c, age=d, IC=e, race=f, mobile=g)
+            user = User(id=(topUserID.id + '1'), firstName=a, lastName=b,email=self.email.data, password=hashed_password, gender=c, age=d, IC=e, race=f, mobile=g)
             db_insert_data(user)
         #Add user to session
         login_user(user)
         return True
 
     def assign_admin(self):
-        user = User.query.filter_by(email=self.email.data).first()
+        user = User.query.filter_by(email=self.self.email.data).first()
         user.roles.append(Role(name="Admin"))
         db_insert_data(user)
 
