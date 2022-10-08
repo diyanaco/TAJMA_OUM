@@ -4,7 +4,6 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
 from alembic import context
-import os
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -17,18 +16,15 @@ fileConfig(config.config_file_name)
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
-from tajma.__init__backup import Base
+# target_metadata = mymodel.Base.metadata
+from tajma.models import Base
 target_metadata = Base.metadata
-# target_metadata = None
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
-# db_url = os.environ.get("DATABASE_OUM_URL")
-# print(db_url)
-# config.set_main_option("sqlalchemy.url", db_url)
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode.

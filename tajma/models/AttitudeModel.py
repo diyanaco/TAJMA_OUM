@@ -1,7 +1,5 @@
-from sqlalchemy.orm import declarative_base
 from sqlalchemy import Column, String, Float
-Base = declarative_base()
-
+from . import Base
 class Attitude(Base):
     __tablename__ = "psy_attitude"
     id = Column(String(50),primary_key=True, nullable=False)

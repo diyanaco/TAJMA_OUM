@@ -8,6 +8,7 @@ engine = create_engine(db_url, echo=True)
 Session = sessionmaker()
 Session.configure(bind=engine)
 session = Session()
+Base = declarative_base()
 
 from .AttitudeModel import Attitude
 from .LearnerModel import Learner
@@ -19,7 +20,6 @@ from .RoleModel import Role
 from .StudentModel import Student
 from .UserRoleLinkModel import association_user_role_table
 
-Base = declarative_base()
 Base.metadata.create_all(engine)
 # db.drop_all()
 

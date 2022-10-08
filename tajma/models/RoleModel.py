@@ -1,8 +1,8 @@
 import imp
 from sqlalchemy import Column, String
-from sqlalchemy.orm import relationship, declarative_base
+from sqlalchemy.orm import relationship
 from .UserRoleLinkModel import association_user_role_table
-Base = declarative_base()
+from . import Base
 
 class Role(Base):
     __tablename__="psy_role"

@@ -1,8 +1,8 @@
-"""UserRoleLink add foreign key column2
+"""Init db
 
-Revision ID: 628620f3d891
-Revises: c92e695aef42
-Create Date: 2022-10-08 15:05:14.548582
+Revision ID: 3da17d7476c1
+Revises: 
+Create Date: 2022-10-08 21:16:20.078991
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '628620f3d891'
-down_revision = 'c92e695aef42'
+revision = '3da17d7476c1'
+down_revision = None
 branch_labels = None
 depends_on = None
 

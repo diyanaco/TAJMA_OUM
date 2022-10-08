@@ -1,9 +1,8 @@
 from sqlalchemy import Column, String, DateTime, Boolean
-from sqlalchemy.orm import relationship, declarative_base
+from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 from .UserRoleLinkModel import association_user_role_table
-
-Base = declarative_base()
+from . import Base
 
 class User(Base, UserMixin):
     __tablename__ = "psy_user"

@@ -1,8 +1,5 @@
 from sqlalchemy import Column, String
-from sqlalchemy.orm import declarative_base
-
-Base = declarative_base()
-
+from . import Base
 class ClientSidePermisssion(Base):
     __tablename__ = "psy_client_side_permission"
     id = Column(String(50),primary_key=True, nullable=False)

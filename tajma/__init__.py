@@ -10,7 +10,7 @@ bcrypt = Bcrypt(app)
 
 def create_app(config=None):
     load_dotenv()
-    from . import  routes, services
+    from . import  routes, services, models
     # load default configuration
     app.config.from_object('tajma.settings')
     # load environment configuration
@@ -25,5 +25,4 @@ def create_app(config=None):
             app.config.from_pyfile(config)
 
     routes.init_app(app)
-    # services.init_app(app)
     return app
