@@ -28,3 +28,7 @@ Enhance the questionaire to flow one direction and hardcode the questionaire and
 Add role based authentication manually without using packages
 
 ## Testing
+
+# Alembic
+alembic revision --autogenerate -m "Added account table"
+alembic upgrade head

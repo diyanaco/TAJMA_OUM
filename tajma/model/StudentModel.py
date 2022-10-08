@@ -3,7 +3,7 @@ from sqlalchemy import Column, String
 
 class Student(Base):
     __tablename__ = "psy_student"
-    studentID = Column(String(50), primary_key=True)
+    id = Column(String(50), primary_key=True)
     firstName = Column(String(50), nullable=True)
     lastName = Column(String(50), nullable=False)
     email = Column(String(50), unique=True, nullable=False)
