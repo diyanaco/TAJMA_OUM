@@ -6,7 +6,10 @@ from flask import render_template, url_for, flash, redirect, request, session as
 from sqlalchemy.orm import sessionmaker
 from tajma import app, db
 from tajma.form import ElearningAnswer,AttitudeAnswer, LoginForm, RegistrationForm, SearchForm, VerificationForm, UpdateAccountForm, SearchForm, LearnerAnswer
-from tajma.models import User, Elearning, Attitude,Learner, db_insert_data, db_update_data
+# from tajma.models import User, Elearning, Attitude,Learner, db_insert_data, db_update_data
+from tajma.model.UserModel import User 
+from tajma.model.ElearningModel import Elearning
+from tajma.model import db_insert_data, db_update_data
 from flask_login import current_user, logout_user, login_required
 import numpy as np
 from random import randint

@@ -8,12 +8,14 @@ from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from tajma.models import Role, User, Student
+from tajma.model.RoleModel import Role 
+from tajma.model.UserModel import User 
+from tajma.model.StudentModel import Student
 from flask_login import login_user
 from sqlalchemy.orm import sessionmaker
 from tajma import engine
 from flask import session as localSession
-from tajma.models import db_insert_data, db_update_data
+from tajma.model import db_insert_data, db_update_data
 
 Session = sessionmaker()
 Session.configure(bind=engine)

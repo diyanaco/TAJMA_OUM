@@ -26,9 +26,9 @@ target_metadata = Base.metadata
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
-db_url = os.environ.get("DATABASE_OUM_URL")
-print(db_url)
-config.set_main_option("sqlalchemy.url", db_url)
+# db_url = os.environ.get("DATABASE_OUM_URL")
+# print(db_url)
+# config.set_main_option("sqlalchemy.url", db_url)
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode.

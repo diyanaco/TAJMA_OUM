@@ -1,4 +1,5 @@
 
+import imp
 from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -45,7 +46,16 @@ session = Session()
 
 # Base.metadata.drop_all(engine)
 
-from tajma.models import User, Role, UserRoles, Student, Question, Elearning, Learner, Attitude, Code
+# from tajma.models import User, Role, UserRoles, Student, Question, Elearning, Learner, Attitude, Code
+from tajma.model.AttitudeModel import Attitude
+from tajma.model.CodeModel import Code 
+from tajma.model.ElearningModel import Elearning
+from tajma.model.LearnerModel import Learner
+from tajma.model.QuestionModel import Question
+from tajma.model.RoleModel import Role
+from tajma.model.StudentModel import Student
+from tajma.model.UserModel import User
+from tajma.model.UserRoleLinkModel import UserRoles
 
 Base.metadata.create_all(engine)
 
