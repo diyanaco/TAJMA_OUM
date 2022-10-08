@@ -9,6 +9,7 @@ from tajma.form import ElearningAnswer,AttitudeAnswer, LoginForm, RegistrationFo
 # from tajma.models import User, Elearning, Attitude,Learner, db_insert_data, db_update_data
 from tajma.model.UserModel import User 
 from tajma.model.ElearningModel import Elearning
+from tajma.model.AttitudeModel import Attitude
 from tajma.model import db_insert_data, db_update_data
 from flask_login import current_user, logout_user, login_required
 import numpy as np
