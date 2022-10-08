@@ -1,12 +1,14 @@
-from . import app, login_required, db_update_data, db_insert_data, session, User, current_user, redirect, render_template, url_for
+from flask import Blueprint, redirect, render_template, url_for
+from flask_login import login_required, current_user
 from tajma.form import ElearningAnswer, AttitudeAnswer, LearnerAnswer
-
-from tajma.models.ElearningModel import Elearning
-from tajma.models.AttitudeModel import Attitude
-from tajma.models.LearnerModel import Learner
+from tajma.models import *
 import numpy as np
 
-@app.route("/elearning", methods=["GET","POST"])
+psychometric_test_page = Blueprint('test', __name__,
+                        template_folder='templates',
+                        url_prefix='/test')
+
+@psychometric_test_page.route("/elearning", methods=["GET","POST"])
 @login_required
 def elearning():
     form = ElearningAnswer()
@@ -42,7 +44,7 @@ def elearning():
         return redirect(url_for("attitude"))
     return render_template("tp1Elearning.html", form=form)
 
-@app.route("/attitude", methods=["GET", "POST"])
+@psychometric_test_page.route("/attitude", methods=["GET", "POST"])
 @login_required
 def attitude():
     form = AttitudeAnswer()
@@ -74,7 +76,7 @@ def attitude():
         return redirect(url_for("learner"))
     return render_template("tp2Attitude.html", form=form)
 
-@app.route("/learner", methods=["GET", "POST"])
+@psychometric_test_page.route("/learner", methods=["GET", "POST"])
 @login_required
 def learner():
     form = LearnerAnswer()

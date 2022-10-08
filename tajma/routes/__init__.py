@@ -1,9 +1,20 @@
 from .Admin import admin_page
 from .Dashboard import dashboard_page
+from .Home import home_page
+from .Login import login_page
+from .PsychometricTest import psychometric_test_page
+from .Register import register_page
+from .Verify import verify_page
 
 def init_app(app):
+    app.register_blueprint(home_page)   
+    app.register_blueprint(login_page)   
+    app.register_blueprint(register_page)   
     app.register_blueprint(admin_page)
-    app.register_blueprint(dashboard_page)    
+    app.register_blueprint(dashboard_page)   
+    app.register_blueprint(psychometric_test_page)   
+    app.register_blueprint(verify_page)   
+
 
 #Save picture
 # def save_picture(form_picture):

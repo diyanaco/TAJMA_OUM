@@ -1,8 +1,11 @@
-import routes
 from tajma.form import VerificationForm
-from flask import flash, session as localSession, redirect, url_for
+from flask import flash, session as localSession, redirect, url_for, Blueprint, render_template
 
-@routes.app.route("/verify", methods=["GET", "POST"])
+verify_page = Blueprint('verify', __name__,
+                        template_folder='templates',
+                        url_prefix='/verify')
+
+@verify_page.route("/", methods=["GET", "POST"])
 def verify():
     form = VerificationForm()
     if form.validate_on_submit():
@@ -13,4 +16,4 @@ def verify():
             return redirect(url_for('register'))
         else:
             flash('You are not elligible to register, please verify with OUM', 'success')
-    return routes.render_template("verify.html", form=form)
+    return render_template("verify.html", form=form)

@@ -1,5 +1,8 @@
-import routes
+from flask import Blueprint,render_template
 
-@routes.app.route("/", methods=["GET", "POST"])
+home_page = Blueprint('home', __name__,
+                        template_folder='templates')
+
+@home_page.route("/", methods=["GET", "POST"])
 def home():
-    return routes.render_template("index.html")
+    return render_template("index.html")

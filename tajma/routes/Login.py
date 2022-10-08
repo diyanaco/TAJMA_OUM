@@ -1,8 +1,11 @@
-import routes
 from tajma.form import LoginForm
-from flask import redirect, flash, url_for
+from flask import redirect, flash, url_for, render_template, Blueprint
 
-@routes.app.route("/login", methods=["GET", "POST"])
+login_page = Blueprint('login', __name__,
+                        template_folder='templates',
+                        url_prefix='/login')
+
+@login_page.route("/", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -17,4 +20,4 @@ def login():
             flash("Your email is not registered, please register first")
         else:
             flash("You are not elligible to login or register, please consult with OUM")
-    return routes.render_template("login.html", form=form)
+    return render_template("login.html", form=form)

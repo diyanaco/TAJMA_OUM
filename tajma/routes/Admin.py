@@ -5,7 +5,8 @@ from random import randint
 from flask_login import login_required, current_user
 
 admin_page = Blueprint('admin', __name__,
-                        template_folder='templates')
+                        template_folder='templates',
+                        url_prefix='/admin')
 
 def isAdmin():
     userAdmin = session.query(User.id).filter(User.email == current_user.get_email()).scalar()

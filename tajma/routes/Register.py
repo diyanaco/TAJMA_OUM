@@ -1,10 +1,13 @@
 
-import routes
 from flask_login import current_user
-from flask import redirect, url_for, session as localSession
+from flask import redirect, url_for, session as localSession, Blueprint, render_template
 from tajma.form import RegistrationForm
 
-@routes.app.route("/register", methods=["GET", "POST"])
+register_page = Blueprint('register', __name__,
+                        template_folder='templates',
+                        url_prefix='/register')
+
+@register_page.route("/", methods=["GET", "POST"])
 def register():
     #reroute the user to dashboard if its already sign in
     if current_user.is_authenticated:
@@ -24,4 +27,4 @@ def register():
         #ISSUE 3 create function first time login
         #flash("Succesfully Register, please login")
         return redirect(url_for('dashboard'))
-    return routes.render_template("register.html", form=form, fn=fn, ln=ln, em=localSession.get("email"))
+    return render_template("register.html", form=form, fn=fn, ln=ln, em=localSession.get("email"))

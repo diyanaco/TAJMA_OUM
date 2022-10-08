@@ -3,7 +3,8 @@ from flask import Blueprint, render_template
 from tajma.models import *
 
 dashboard_page = Blueprint('dashboard', __name__,
-                        template_folder='templates')
+                        template_folder='templates',
+                        url_prefix='/dashboard')
 
 @dashboard_page.route("/", methods=["GET", "POST"])
 @login_required
