@@ -2,7 +2,7 @@ from tajma import Base
 from sqlalchemy import Column, String, DateTime, Boolean
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
-from tajma.model.UserRoleLinkModel import association_user_role_table
+from tajma.model.UserRoleLinkModel import UserRoleLink
 class User(Base, UserMixin):
     __tablename__ = "psy_user"
     id = Column(String(50), primary_key=True)
@@ -23,7 +23,7 @@ class User(Base, UserMixin):
     learnerTaken = Column(Boolean, nullable =True)
     attitudeTaken = Column(Boolean, nullable =True)
 
-    role_id = relationship("Role", secondary=association_user_role_table)
+    role_id = relationship("Role", secondary=UserRoleLink)
 
     #override get_id method from UserMixin
     def get_id(self):

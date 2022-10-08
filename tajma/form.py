@@ -18,7 +18,7 @@ from tajma import engine
 from flask import session as localSession
 from tajma.model import db_insert_data, db_update_data
 import uuid
-from tajma.model.UserRoleLinkModel import association_user_role_table
+from tajma.model.UserRoleLinkModel import UserRoleLink
 
 Session = sessionmaker()
 Session.configure(bind=engine)
@@ -43,9 +43,9 @@ class LoginForm(FlaskForm):
 
     def check_role(self):
         user = session.query(User).filter(User.email == self.email.data).scalar()
-        userRole = session.query(association_user_role_table).filter(association_user_role_table.columns.user_id == user.id).scalar()
+        userRole = session.query(UserRoleLink).filter(UserRoleLink.user_id == user.id).scalar()
         print(f'userRole is : {userRole}')
-        if user.roles:
+        if userRole:
             return user.roles[0].name
         else :
             return "normal"
