@@ -1,7 +1,9 @@
-from tajma import Base
+import imp
 from sqlalchemy import Column, String
-from sqlalchemy.orm import relationship
-from tajma.model.UserRoleLinkModel import association_user_role_table
+from sqlalchemy.orm import relationship, declarative_base
+from .UserRoleLinkModel import association_user_role_table
+Base = declarative_base()
+
 class Role(Base):
     __tablename__="psy_role"
     id = Column(String(50), primary_key=True)

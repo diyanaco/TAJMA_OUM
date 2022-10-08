@@ -1,5 +1,7 @@
-from tajma import Base
-from sqlalchemy import Column, Integer, String, ForeignKey, Table
+from sqlalchemy import Column, String, ForeignKey, Table
+from sqlalchemy.orm import declarative_base
+
+Base = declarative_base()
 
 association_user_role_table = Table(
     "psy_user_role_link",

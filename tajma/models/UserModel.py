@@ -1,8 +1,10 @@
-from tajma import Base 
 from sqlalchemy import Column, String, DateTime, Boolean
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, declarative_base
 from flask_login import UserMixin
-from tajma.model.UserRoleLinkModel import association_user_role_table
+from .UserRoleLinkModel import association_user_role_table
+
+Base = declarative_base()
+
 class User(Base, UserMixin):
     __tablename__ = "psy_user"
     id = Column(String(50), primary_key=True)

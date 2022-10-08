@@ -1,9 +1,9 @@
 from . import app, login_required, db_update_data, db_insert_data, session, User, current_user, redirect, render_template, url_for
 from tajma.form import ElearningAnswer, AttitudeAnswer, LearnerAnswer
 
-from tajma.model.ElearningModel import Elearning
-from tajma.model.AttitudeModel import Attitude
-from tajma.model.LearnerModel import Learner
+from tajma.models.ElearningModel import Elearning
+from tajma.models.AttitudeModel import Attitude
+from tajma.models.LearnerModel import Learner
 import numpy as np
 
 @app.route("/elearning", methods=["GET","POST"])

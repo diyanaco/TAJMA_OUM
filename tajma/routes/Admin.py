@@ -1,12 +1,20 @@
-import imp
-from . import User, app, isAdmin, render_template, request, redirect, url_for, login_required, current_user, session
-from tajma.model.ElearningModel import Elearning
-from tajma.model.LearnerModel import Learner
-from tajma.model.AttitudeModel import Attitude
+from tajma.models import *
 from tajma.form import SearchForm
+from flask import Blueprint, render_template, redirect, request, url_for
 from random import randint
+from flask_login import login_required, current_user
 
-@app.routes.app.route('/admin', methods=["GET", "POST"])
+admin_page = Blueprint('admin', __name__,
+                        template_folder='templates')
+
+def isAdmin():
+    userAdmin = session.query(User.id).filter(User.email == current_user.get_email()).scalar()
+    if userAdmin.roles and userAdmin.roles[0].name == 'Admin':
+        return True
+    else:
+        return False
+
+@admin_page.route('/', methods=["GET", "POST"])
 def admin():
     if isAdmin():
         form = SearchForm()
@@ -28,7 +36,7 @@ def admin():
 # View results
 
 
-@app.route("/admin/results", methods=["GET"])
+@admin_page.route("/results", methods=["GET"])
 @login_required
 def result_user():
     print(f"current_user is : {current_user}")
@@ -93,7 +101,7 @@ def result_user():
     return render_template('ResultUser.html', valuesIndividual=valuesIndividual, valuesMale=valuesMale, valuesFemale=valuesFemale, labels=labels, result=result, userProf=userProf)
 
 
-@app.route("/admin/results/<id>", methods=["GET"])
+@admin_page.route("/results/<id>", methods=["GET"])
 @login_required
 def results_admin(id):
     print(f"current_user is : {current_user}")

@@ -1,4 +1,4 @@
-from tajma import app
+from tajma import create_app
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    create_app().run(debug=True)

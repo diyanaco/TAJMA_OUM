@@ -4,17 +4,17 @@ import secrets
 from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, session as localSession, has_request_context, jsonify
 from sqlalchemy.orm import sessionmaker
-from tajma import app, db
+from tajma.__init__backup import app, db
 from tajma.form import ElearningAnswer,AttitudeAnswer, LoginForm, RegistrationForm, SearchForm, VerificationForm, UpdateAccountForm, SearchForm, LearnerAnswer
-from tajma.model.UserModel import User 
-from tajma.model.ElearningModel import Elearning
-from tajma.model.AttitudeModel import Attitude
-from tajma.model.LearnerModel import Learner
-from tajma.model import db_insert_data, db_update_data
+from tajma.models.UserModel import User 
+from tajma.models.ElearningModel import Elearning
+from tajma.models.AttitudeModel import Attitude
+from tajma.models.LearnerModel import Learner
+from tajma.models import db_insert_data, db_update_data
 from flask_login import current_user, logout_user, login_required
 import numpy as np
 from random import randint
-from tajma import engine
+from tajma.__init__backup import engine
 
 Session = sessionmaker()
 Session.configure(bind=engine)

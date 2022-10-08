@@ -1,29 +1,14 @@
-import email
-from email.policy import default
-from unicodedata import name
-from wtforms.fields.core import FieldList, FormField
-from wtforms.form import Form
-from tajma import app, bcrypt
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField, SelectField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
-from tajma.model.RoleModel import Role 
-from tajma.model.UserModel import User 
-from tajma.model.StudentModel import Student
+from wtforms.validators import DataRequired, Email, EqualTo
 from flask_login import login_user
-from sqlalchemy.orm import sessionmaker
-from tajma import engine
+from tajma.models import *
+from tajma import bcrypt
 from flask import session as localSession
-from tajma.model import db_insert_data, db_update_data
 import uuid
-from tajma.model.UserRoleLinkModel import association_user_role_table
 from sqlalchemy import insert
-
-Session = sessionmaker()
-Session.configure(bind=engine)
-session = Session()
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])

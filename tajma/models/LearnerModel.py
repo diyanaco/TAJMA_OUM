@@ -1,5 +1,7 @@
-from tajma import Base
 from sqlalchemy import Column, String, Float
+from sqlalchemy.orm import declarative_base
+
+Base = declarative_base()
 
 class Learner(Base):
     __tablename__ = "psy_learner"
