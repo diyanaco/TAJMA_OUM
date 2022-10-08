@@ -18,7 +18,8 @@ from tajma import engine
 from flask import session as localSession
 from tajma.model import db_insert_data, db_update_data
 import uuid
-from tajma.model.UserRoleLinkModel import UserRoleLink
+from tajma.model.UserRoleLinkModel import association_user_role_table
+from sqlalchemy import insert
 
 Session = sessionmaker()
 Session.configure(bind=engine)
@@ -43,7 +44,8 @@ class LoginForm(FlaskForm):
 
     def check_role(self):
         user = session.query(User).filter(User.email == self.email.data).scalar()
-        userRole = session.query(UserRoleLink).filter(UserRoleLink.user_id == user.id).scalar()
+        userRole = session.query(association_user_role_table).filter(association_user_role_table.columns.user_id == user.id).scalar()
+        # userRole = session.query(UserRoleLink).filter(UserRoleLink.user_id == user.id).scalar()
         print(f'userRole is : {userRole}')
         if userRole:
             return user.roles[0].name
@@ -99,11 +101,22 @@ class RegistrationForm(FlaskForm):
         # topUserID = User.query.order_by(User.desc()).first()
         # topUserID = session.query(User).order_by(User.desc()).first()
         user = User(id= str(uuid.uuid4()), firstName=a, lastName=b,email=self.email.data, password=hashed_password, gender=c, age=d, IC=e, race=f, mobile=g)
+        db_insert_data(user)
         # userRole = association_user_role_table()
         normal_role = session.query(Role).filter(Role.name == "NORMAL").scalar()
+        normal_role_id = session.query(Role).filter(Role.name == "NORMAL").scalar().id
         print(f'normal role is {normal_role}')
-        user.role_id.append()
-        db_insert_data(user)
+        print(f'normal role id is {normal_role_id}')
+        
+        #Insert into link table:
+        stmt = insert(association_user_role_table).values(id=str(uuid.uuid4()), user_id=user.id, role_id=normal_role_id)
+        with engine.connect() as conn:
+            result = conn.execute(stmt)
+            # conn.commit()
+        print(f'inserted primary key : {result.inserted_primary_key}')
+        # userRole = UserRoleLink(id=str(uuid.uuid4()), user_id=user.id, role_id=normal_role_id)
+        # print(f'userRole is : {userRole}')
+        # db_insert_data(user)
         #If first user sign up, then assign UserID 1
         # if topUserID is None:
         #     user = User(id=1, firstName=a, lastName=b,email=self.self.email.data, password=hashed_password, gender=c, age=d, IC=e, race=f, mobile=g)

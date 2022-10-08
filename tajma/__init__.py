@@ -6,7 +6,6 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_migrate import Migrate
 from sqlalchemy import create_engine
-from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
@@ -37,6 +36,7 @@ db_url = os.getenv('DATABASE_OUM_URL')
 print(db_url)
 engine = create_engine(db_url, echo=True)
 Base = declarative_base()
+print(f'base metada is : {Base.metadata}')
 
 #another test
 
@@ -55,7 +55,7 @@ from tajma.model.QuestionModel import Question
 from tajma.model.RoleModel import Role
 from tajma.model.StudentModel import Student
 from tajma.model.UserModel import User
-from tajma.model.UserRoleLinkModel import UserRoleLink
+from tajma.model.UserRoleLinkModel import association_user_role_table
 # from tajma.model.UserRoleLinkModel import UserRoles
 
 Base.metadata.create_all(engine)
