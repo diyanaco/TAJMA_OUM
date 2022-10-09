@@ -46,3 +46,5 @@ alembic downgrade -1
 
 # point to a revision id
 alembic stamp a12
+
+# If want to rename a table, must first create the table model

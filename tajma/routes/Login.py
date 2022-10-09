@@ -13,7 +13,7 @@ def login():
             if form.check_role() == "Admin":
                 return redirect(url_for('admin'))
             else :
-                return redirect(url_for('dashboard'))
+                return redirect(url_for('dashboard.dashboard'))
         elif form.check_credentialsLOGIN() == False:
             flash("Your credentials are wrong")
         elif form.check_registered == False:

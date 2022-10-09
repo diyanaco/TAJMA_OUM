@@ -54,7 +54,7 @@ def login():
             if form.check_role() == "Admin":
                 return redirect(url_for('admin'))
             else :
-                return redirect(url_for('dashboard'))
+                return redirect(url_for('dashboard.dashboard'))
         elif form.check_credentialsLOGIN() == False:
             flash("Your credentials are wrong")
         elif form.check_registered == False:
@@ -80,7 +80,7 @@ def verify():
 def register():
     #reroute the user to dashboard if its already sign in
     if current_user.is_authenticated:
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('dashboard.dashboard'))
     form = RegistrationForm()
     fn, ln, gender, age, IC, race, mobile = form.retrieve_data()
     if form.validate_on_submit():
@@ -95,7 +95,7 @@ def register():
             return redirect(url_for('admin'))
         #ISSUE 3 create function first time login
         #flash("Succesfully Register, please login")
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('dashboard.dashboard'))
     return render_template("register.html", form=form, fn=fn, ln=ln, em=localSession.get("email"))
 
 @app.route("/dashboard", methods=["GET", "POST"])
@@ -382,7 +382,7 @@ def success():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('home'))
+    return redirect(url_for('home.home'))
 
 @app.route("/error/M/<error>")
 def error(error):

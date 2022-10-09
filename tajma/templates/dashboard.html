@@ -48,7 +48,7 @@
       {%block sidebar%}
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="{{url_for('profile')}}">
+        <a class="nav-link" href="{{url_for('profile.profile')}}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>My Profile</span></a>
       </li>
@@ -62,17 +62,17 @@
       </div>
 
       <li class="nav-item " id="menu1">
-        <a class="nav-link collapsed" href="{{url_for('dashboard')}}">
+        <a class="nav-link collapsed" href="{{url_for('dashboard.dashboard')}}">
           <p>Take Test</p>
         </a>
       </li>
       <li class="nav-item " id="menu1">
-        <a class="nav-link collapsed" href="{{url_for('result_user')}}">
+        <a class="nav-link collapsed" href="{{url_for('admin.result_user')}}">
           <p>My Result</p>
         </a>
       </li>
       <li class="nav-item " id="menu1">
-        <a class="nav-link collapsed" href="{{url_for('calendar')}}">
+        <a class="nav-link collapsed" href="{{url_for('calendar.calendar')}}">
           <p>My Appointment</p>
         </a>
       </li>
@@ -96,7 +96,7 @@
               <!-- <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#info">APAKAH TP+</a></li>
               <li class="nav-item"><a class="nav-link js-scroll-trigger " href="#ask">F&Q </a></li> -->
               {% if current_user.is_authenticated %}
-              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{url_for('logout')}}">Logout</a></li>
+              <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{url_for('logout.logout')}}">Logout</a></li>
               {% else %}
               <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{url_for('login')}}">Login</a></li>
               <li class="nav-item"><a class="nav-link js-scroll-trigger"
@@ -188,7 +188,7 @@
             </div>-->
           </div>
           <div class="d-flex justify-content-center" style="margin-top:20px">
-            <a class="btn-primary btn-lg" href="{{url_for('elearning')}}">Take Test »</a>
+            <a class="btn-primary btn-lg" href="{{url_for('test.elearning')}}">Take Test »</a>
           </div>
         </div>
         {%endblock%}
