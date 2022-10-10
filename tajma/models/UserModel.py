@@ -1,3 +1,4 @@
+from typing import Any
 from sqlalchemy import Column, String, DateTime, Boolean
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
@@ -17,14 +18,13 @@ class User(Base, UserMixin):
     IC = Column(String(50), nullable=False)
     race = Column(String(50), nullable=False)
     mobile = Column(String(50), nullable=False)
-    # roles = relationship('Role', secondary='psy_user_roles')
     # active = db.Column('is_active', db.Boolean(), nullable=False, server_default='1')
     email_confirmed_at = Column(DateTime)
     elearningTaken = Column(Boolean, nullable =True)
     learnerTaken = Column(Boolean, nullable =True)
     attitudeTaken = Column(Boolean, nullable =True)
 
-    role_id = relationship("Role", secondary=association_user_role_table)
+    roles = relationship("Role", secondary=association_user_role_table)
 
     #override get_id method from UserMixin
     def get_id(self):

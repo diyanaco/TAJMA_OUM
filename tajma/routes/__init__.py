@@ -1,3 +1,4 @@
+from flask_login import current_user
 from .Admin import admin_page
 from .Dashboard import dashboard_page
 from .Home import home_page
@@ -8,6 +9,7 @@ from .Verify import verify_page
 from .Profile import profile_page
 from .Calendar import calendar_page
 from .Logout import logout_page
+
 def init_app(app):
     app.register_blueprint(home_page)   
     app.register_blueprint(login_page)   

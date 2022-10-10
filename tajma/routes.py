@@ -50,12 +50,12 @@ def home():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        if form.check_credentialsLOGIN() == True:
+        if form.check_login() == True:
             if form.check_role() == "Admin":
                 return redirect(url_for('admin'))
             else :
                 return redirect(url_for('dashboard.dashboard'))
-        elif form.check_credentialsLOGIN() == False:
+        elif form.check_login() == False:
             flash("Your credentials are wrong")
         elif form.check_registered == False:
             flash("Your email is not registered, please register first")

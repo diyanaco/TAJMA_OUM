@@ -1,10 +1,12 @@
-from flask_bcrypt import Bcrypt
-from flask import Flask
-from flask_login import LoginManager
 import os
+from flask import Flask
+from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
+from flask_principal import Principal
 from dotenv import load_dotenv
 
 app = Flask(__name__)
+principals = Principal(app)
 login_manager = LoginManager(app)
 bcrypt = Bcrypt(app)
 
@@ -25,5 +27,5 @@ print(f'app config is : {app.config}')
 #         app.config.update(config)
 #     elif config.endswith('.py'):
 #         app.config.from_pyfile(config)
-
+#with app.app_context():
 routes.init_app(app)

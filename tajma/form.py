@@ -6,9 +6,10 @@ from wtforms.validators import DataRequired, Email, EqualTo
 from flask_login import login_user
 from tajma.models import *
 from tajma import bcrypt
-from flask import session as localSession
+from flask import session as localSession, current_app
 import uuid
 from sqlalchemy import insert
+from flask_principal import identity_changed, Identity
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -16,26 +17,28 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
-    def check_credentialsLOGIN(self):
+    def check_login(self):
         print(f'email data is : {self.email.data}')
         user = session.query(User).filter(User.email == self.email.data).scalar()
         print(f'user is : {user}')
         if user and bcrypt.check_password_hash(user.password, self.password.data):
+            role_code = self.check_role(user)
             login_user(user, remember=False)
+            identity_changed.send(current_app._get_current_object(),
+                        identity=Identity(user.id))
             return True
         else:
             return False
     
 
-    def check_role(self):
-        user = session.query(User).filter(User.email == self.email.data).scalar()
-        userRole = session.query(association_user_role_table).filter(association_user_role_table.columns.user_id == user.id).scalar()
-        # userRole = session.query(UserRoleLink).filter(UserRoleLink.user_id == user.id).scalar()
-        print(f'userRole is : {userRole}')
-        if userRole:
-            return user.roles[0].name
+    def check_role(self, user : User):
+        role = session.query(Role).join(association_user_role_table).join(User).filter(association_user_role_table.columns.user_id == user.id).scalar()
+        print(f'role is : {role}')
+        if role:
+            return role.code
         else :
-            return "normal"
+            return "NORMAL"
+    
     def check_registered(self):
         if session.query(User).filter(User.email == self.email.data).scalar():
             return True
