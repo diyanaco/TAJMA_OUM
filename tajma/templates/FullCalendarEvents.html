@@ -34,12 +34,12 @@
         {
           title: "Meeting with AbuDhabi",
           start: "2022-10-03",
-          end : "2022-10-06"
+          end: "2022-10-06",
         },
         {
           title: "Deployment",
           start: "2022-10-07",
-          allDay : true
+          allDay: true,
         },
         {
           title: "Rest time",
@@ -92,12 +92,12 @@
 
     //can obtain list of info in dateClickevent
     calendar.on("dateClick", function (info) {
-      console.log("OnClick")
+      console.log("OnClick");
       // Get the modal
       var modal = document.getElementById("myModal");
-      // $(".modal-body #todaydate").val( new Date().toISOString().split('T')[0] );
-      $(".modal-body #appointmentdate").val( info.dateStr );
-      $('#myModal').modal('show')
+      $(".modal-body #todaydate").val( new Date().toISOString().split('T')[0] );
+      $(".modal-body #appointmentdate").val(info.dateStr);
+      $("#myModal").modal("show");
       // alert("What do u want to do with this date? " + info.dateStr);
     });
     // var calendar = new Calendar(calendarEl, {
@@ -117,74 +117,108 @@
     //   },
     // });
   });
-  $(document).ready(function() {
-    $('#todaydate').datepicker({
-      language: 'pt-BR'
-    });
-    // $('#todaydate').change(function() {
-    //     startDate = $(this).datepicker('getDate');
-    //     // $("#my_date_picker2").datepicker("option", "minDate", startDate);
-    // })
+  $(document).ready(function () {
+    $("#todaydate").datepicker();
+    $("#appointmentdate").datepicker();
   });
 </script>
 
 {%endblock%} {%block body%}
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="myModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Choose date for your appointment</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Choose date for your appointment
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
+        <form action="">
           <div class="form-group">
-            <label for="todaydate">Today date</label><br>
-            <div class="input-group">
-              <div class="input-group-prepend" >
-                <span class="material-symbols-outlined input-group-text">event</span> 
-              </div>
-              <input type="text" class="form-control" id="todaydate" aria-describedby="inputGroupPrepend2" required>
-            </div>
-          </div>
-          <div  class="form-group">
-            <label for="appointmentdate">Appointment date</label><br>
+            <label for="todaydate">Today date</label><br />
             <div class="input-group">
               <div class="input-group-prepend">
-                <span class="material-symbols-outlined input-group-text">event</span> 
+                <span class="material-symbols-outlined input-group-text"
+                  >event</span
+                >
               </div>
-              <input type="text" class="form-control" id="appointmentdate" placeholder="dd/MM/yyyy" data-format="dd/MM/yyyy" aria-describedby="inputGroupPrepend2" required>
+              <div class="form-control">
+                <input
+                  type="text"
+                  id="todaydate"
+                  aria-describedby="inputGroupPrepend2"
+                  required
+                  style="border: none"
+                  placeholder="dd/MM/yyyy"
+                  data-format="dd/MM/yyyy"
+                />
+              </div>
             </div>
           </div>
           <div class="form-group">
-              <label >Choose your slot</label>
-              <select class="form-control" id="exampleFormControlSelect1">
-                <option>10am - 11pm</option>
-                <option>11am - 1pm</option>
-                <option>2pm - 3pm</option>
-                <option>3am - 4pm</option>
-              </select>
+            <label for="appointmentdate">Appointment date</label><br />
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="material-symbols-outlined input-group-text"
+                  >event</span
+                >
+              </div>
+              <div class="form-control">
+                <input
+                  type="text"
+                  id="appointmentdate"
+                  aria-describedby="inputGroupPrepend2"
+                  required
+                  style="border: none"
+                  placeholder="dd/MM/yyyy"
+                  data-format="dd/MM/yyyy"
+                />
+              </div>
+            </div>
           </div>
           <div class="form-group">
-            <label >Choose your caunselor</label>
+            <label>Choose your slot</label>
+            <select class="form-control" id="exampleFormControlSelect1">
+              <option>10am - 11pm</option>
+              <option>11am - 1pm</option>
+              <option>2pm - 3pm</option>
+              <option>3am - 4pm</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Choose your caunselor</label>
             <select class="form-control" id="exampleFormControlSelect1">
               <option>Dr Ahmad Idham</option>
               <option>Prof Tajudin</option>
               <option>Caunselor Siti Saleha</option>
               <option>Psychiatrist Adeha</option>
             </select>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>
-
-<div id="calendar" style="margin-left: 30px;"></div>
-
+<div id="calendar" style="margin-left: 30px"></div>
 {%endblock%}
