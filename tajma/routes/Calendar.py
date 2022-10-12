@@ -6,7 +6,7 @@ calendar_page = Blueprint('calendar', __name__,
 
 @calendar_page.route('/')
 def calendar():
-    return render_template('FullCalendar.html')
+    return render_template('FullCalendarEvents.html')
 
 @calendar_page.route('/calendar-events')
 def calendar_events():

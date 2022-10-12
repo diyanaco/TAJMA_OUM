@@ -329,7 +329,7 @@ def saveProgress():
 
 @app.route('/calendar')
 def calendar():
-    return render_template('FullCalendar.html')
+    return render_template('FullCalendarEvents.html')
 
 @app.route('/calendar-events')
 def calendar_events():

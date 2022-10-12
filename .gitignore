@@ -7,3 +7,4 @@ venv2/
 tajma/.env
 tajma/token.json
 mysql_dumps
+jquery-ui-1.13.2.custom
