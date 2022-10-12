@@ -27,5 +27,5 @@ print(f'app config is : {app.config}')
 #         app.config.update(config)
 #     elif config.endswith('.py'):
 #         app.config.from_pyfile(config)
-#with app.app_context():
-routes.init_app(app)
+with app.app_context():
+    routes.init_app(app)

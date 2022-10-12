@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from tajma.form import ElearningAnswer, AttitudeAnswer, LearnerAnswer
 from tajma.models import *
 import numpy as np
+import uuid
 
 psychometric_test_page = Blueprint('test', __name__,
                         template_folder='templates',
@@ -37,11 +38,12 @@ def elearning():
         trait2 = round(np.mean(list(map(int, trait2))),2)
         trait3 = round(np.mean(list(map(int, trait3))), 2)
 
-        result = Elearning(kb = trait1, kl=trait2, kh=trait3, userID=current_user.get_id())
+        result = Elearning(id=str(uuid.uuid4()), kb = trait1, kl=trait2, kh=trait3, userID=current_user.get_id())
         db_insert_data(result)
-        user = session.query(User.id).filter(User.id == current_user.get_id()).scalar()
+        user : User = session.query(User).filter(User.id == current_user.get_id()).scalar()
+        user.elearningTaken = True
         db_update_data()
-        return redirect(url_for("attitude"))
+        return redirect(url_for("test.attitude"))
     return render_template("tp1Elearning.html", form=form)
 
 @psychometric_test_page.route("/attitude", methods=["GET", "POST"])
@@ -69,11 +71,13 @@ def attitude():
         trait2 = round(np.mean(list(map(int, trait2))), 2)
         trait3 = round(np.mean(list(map(int, trait3))), 2)
 
-        result = Attitude(ke=trait3,kt=trait2, mt=trait1, userID=current_user.get_id())
+        result = Attitude(id=str(uuid.uuid4()), ke=trait3,kt=trait2, mt=trait1, userID=current_user.get_id())
         db_insert_data(result)
-        #Update the user table where test is taken 
+        # Update the user table where test is taken 
+        user : User = session.query(User.id).filter(User.id == current_user.get_id()).scalar()
+        user.attitudeTaken = True
         db_update_data()
-        return redirect(url_for("learner"))
+        return redirect(url_for("test.learner"))
     return render_template("tp2Attitude.html", form=form)
 
 @psychometric_test_page.route("/learner", methods=["GET", "POST"])
@@ -86,10 +90,12 @@ def learner():
             form.answer5.data, form.answer6.data,
             form.answer7.data]
         trait1 = round(np.mean(list(map(int, trait1))), 2)
-        result = Learner(tr1=trait1, userID=current_user.get_id())
+        result = Learner(id=str(uuid.uuid4()), tr1=trait1, userID=current_user.get_id())
         db_insert_data(result)
         user = User.query.filter_by(id = current_user.get_id()).update(dict(learnerTaken = True))
         #Update the user table where test is taken 
+        user : User = session.query(User.id).filter(User.id == current_user.get_id()).scalar()
+        user.learnerTaken = True
         db_update_data()
         return redirect(url_for("success"))
     return render_template("tp3Learner.html", form=form)

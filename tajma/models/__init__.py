@@ -30,8 +30,19 @@ def load_user(user_id):
     return session.query(User).get(user_id)
 
 def db_insert_data(model):
-    session.add(model)
-    session.commit()
+    try :
+        session.add(model)
+        session.commit()
+    except Exception as e :
+        session.rollback()
+        session.close()
+        print(str(e))
+
 
 def db_update_data():
-    session.commit()
+    try :
+        session.commit()
+    except Exception as e :
+        session.rollback()
+        session.close()
+        print(str(e))

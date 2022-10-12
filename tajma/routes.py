@@ -269,7 +269,7 @@ def elearning():
         db_insert_data(result)
         user = session.query(User.id).filter(User.id == current_user.get_id()).scalar()
         db_update_data()
-        return redirect(url_for("attitude"))
+        return redirect(url_for("test.attitude"))
     return render_template("tp1Elearning.html", form=form)
 
 @app.route("/attitude", methods=["GET", "POST"])
@@ -301,7 +301,7 @@ def attitude():
         db_insert_data(result)
         #Update the user table where test is taken 
         db_update_data()
-        return redirect(url_for("learner"))
+        return redirect(url_for("test.learner"))
     return render_template("tp2Attitude.html", form=form)
 
 @app.route("/learner", methods=["GET", "POST"])

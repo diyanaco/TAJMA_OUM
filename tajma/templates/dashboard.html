@@ -88,6 +88,7 @@
     <div id="content-wrapper" class="d-flex flex-column">
 
       <!-- Main Content -->
+
       <div id="content">
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -109,6 +110,13 @@
 
         <!-- Begin Page Content -->
         {%block body%}
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <P class="nav-item" style="text-align:left ; margin-left:10px; margin-right: 10px; color: red;">{{ message }}</li>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
         <div class="container-fluid">
           <h1>Welcome To OUM Psychometric Test,</h1>
           <div class="container-fluid" style="padding-top: 150px">
@@ -137,6 +145,7 @@
                   mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
                   mollis euismod. Donec sed odio dui.
                 </p>
+                <h6>Test taken : {{testTaken.learner}}</h6>
               </div>
               <div class="col-md-4">
                 <p>
@@ -144,6 +153,7 @@
                   mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
                   mollis euismod. Donec sed odio dui.
                 </p>
+                <h6>Test taken : {{testTaken.elearning}}</h6>
               </div>
               <div class="col-md-4">
                 <p>
@@ -151,6 +161,7 @@
                   mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna
                   mollis euismod. Donec sed odio dui.
                 </p>
+                <h6>Test taken : {{testTaken.attitude}}</h6>
               </div>
 
             </div>

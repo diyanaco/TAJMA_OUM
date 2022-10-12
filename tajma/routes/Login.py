@@ -25,9 +25,9 @@ def on_identity_loaded(sender, identity):
         if hasattr(current_user, 'roles'):
             for role in identity.user.roles:
                 identity.provides.add(RoleNeed(role.code))
-                identity
-    except:
-        print("EXCEPTION : on_identity_loaded")
+
+    except Exception as e:
+        print("EXCEPTION : on_identity_loaded : " + str(e))
 
 @login_manager.user_loader
 def load_user(userid):
@@ -36,6 +36,8 @@ def load_user(userid):
         user = session.query(User).filter(User.id == userid).scalar()
         return user
     except :
+        session.rollback()
+        session.close()
         return None
 
 
