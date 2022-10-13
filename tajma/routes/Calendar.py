@@ -1,12 +1,18 @@
-from flask import Blueprint, render_template,  jsonify
+from flask import Blueprint, render_template,  jsonify, url_for, request, redirect
+
+from tajma.forms.CreateCalendarForm import CalendarEventForm
 
 calendar_page = Blueprint('calendar', __name__,
                         template_folder='templates',
                         url_prefix='/calendar')
 
-@calendar_page.route('/')
+@calendar_page.route('/', methods=["GET", "POST"])
 def calendar():
-    return render_template('FullCalendarEvents.html')
+    form = CalendarEventForm()
+    if form.validate_on_submit():
+        form.updateCalEvent()
+        return redirect(url_for('calendar.calendar'))
+    return render_template('FullCalendarEvents.html', form=form)
 
 @calendar_page.route('/calendar-events')
 def calendar_events():

@@ -3,6 +3,7 @@ from sqlalchemy import Column, String, DateTime, Boolean
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 from .UserRoleLinkModel import association_user_role_table
+from .UserCalendarEventModel import association_user_calendar_event_table
 from . import Base
 
 class User(Base, UserMixin):
@@ -24,7 +25,9 @@ class User(Base, UserMixin):
     learnerTaken = Column(Boolean, nullable =True)
     attitudeTaken = Column(Boolean, nullable =True)
 
+    #if s means its one to many, else one to one
     roles = relationship("Role", secondary=association_user_role_table)
+    calendar_event = relationship("CalendarEvent", secondary=association_user_calendar_event_table)
 
     #override get_id method from UserMixin
     def get_id(self):

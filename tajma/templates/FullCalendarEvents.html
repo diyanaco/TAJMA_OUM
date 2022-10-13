@@ -95,7 +95,7 @@
       console.log("OnClick");
       // Get the modal
       var modal = document.getElementById("myModal");
-      $(".modal-body #todaydate").val( new Date().toISOString().split('T')[0] );
+      $(".modal-body #todaydate").val(new Date().toISOString().split("T")[0]);
       $(".modal-body #appointmentdate").val(info.dateStr);
       $("#myModal").modal("show");
       // alert("What do u want to do with this date? " + info.dateStr);
@@ -118,8 +118,7 @@
     // });
   });
   $(document).ready(function () {
-    $("#todaydate").datepicker();
-    $("#appointmentdate").datepicker();
+    $("#appointmentdate").datepicker({ dateFormat: 'yy-mm-dd' });
   });
 </script>
 
@@ -148,74 +147,36 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="">
+        <form method="POST" action="">
+          {{form.hidden_tag()}} 
+          {% for field in form %}
           <div class="form-group">
-            <label for="todaydate">Today date</label><br />
+            {% if field.type=="DateField" %}
+            {{field.label(class="form-control-label")}} 
             <div class="input-group">
               <div class="input-group-prepend">
                 <span class="material-symbols-outlined input-group-text"
-                  >event</span
-                >
+                  >event
+                </span>
               </div>
-              <div class="form-control">
-                <input
-                  type="text"
-                  id="todaydate"
-                  aria-describedby="inputGroupPrepend2"
-                  required
-                  style="border: none"
-                  placeholder="dd/MM/yyyy"
-                  data-format="dd/MM/yyyy"
-                />
-              </div>
+              {{ field(style="border: none") }}
             </div>
-          </div>
-          <div class="form-group">
-            <label for="appointmentdate">Appointment date</label><br />
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="material-symbols-outlined input-group-text"
-                  >event</span
-                >
-              </div>
-              <div class="form-control">
-                <input
-                  type="text"
-                  id="appointmentdate"
-                  aria-describedby="inputGroupPrepend2"
-                  required
-                  style="border: none"
-                  placeholder="dd/MM/yyyy"
-                  data-format="dd/MM/yyyy"
-                />
-              </div>
+            {% endif %} 
+            {% if field.type =="SelectField" %} 
+            {{field.label(class="form-control-label")}} 
+            {{field}} 
+            {% endif%}
+            {% if field.type =="SubmitField" %} 
+            <div class="modal-footer">
+              {{field(class="btn btn-primary")}} 
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                Close
+              </button>
             </div>
+            {% endif%}
           </div>
-          <div class="form-group">
-            <label>Choose your slot</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option>10am - 11pm</option>
-              <option>11am - 1pm</option>
-              <option>2pm - 3pm</option>
-              <option>3am - 4pm</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Choose your caunselor</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option>Dr Ahmad Idham</option>
-              <option>Prof Tajudin</option>
-              <option>Caunselor Siti Saleha</option>
-              <option>Psychiatrist Adeha</option>
-            </select>
-          </div>
+          {% endfor %}
         </form>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Close
-          </button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
-        </div>
       </div>
     </div>
   </div>
