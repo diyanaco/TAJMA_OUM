@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template,  jsonify, url_for, request, redirect
 
-from tajma.forms.CreateCalendarForm import CalendarEventForm
+from tajma.forms.CreateCalendarEventForm import CalendarEventForm
 
 calendar_page = Blueprint('calendar', __name__,
                         template_folder='templates',

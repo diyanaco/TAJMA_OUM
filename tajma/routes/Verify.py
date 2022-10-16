@@ -1,4 +1,4 @@
-from tajma.form import VerificationForm
+from tajma.forms import VerificationForm
 from flask import flash, session as localSession, redirect, url_for, Blueprint, render_template
 
 verify_page = Blueprint('verify', __name__,

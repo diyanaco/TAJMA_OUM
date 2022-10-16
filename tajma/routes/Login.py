@@ -1,6 +1,6 @@
 from tajma import login_manager, app
 from tajma.models import User, session
-from tajma.form import LoginForm
+from tajma.forms import LoginForm
 from flask import redirect, flash, url_for, render_template, Blueprint
 from flask_login import current_user
 from flask_principal import identity_loaded, RoleNeed, UserNeed

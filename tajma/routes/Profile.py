@@ -1,5 +1,4 @@
 from flask import Blueprint, request, url_for, render_template
-from tajma.form import UpdateAccountForm
 from flask_login import login_required, current_user
 profile_page = Blueprint('profile', __name__,
                         template_folder='templates',

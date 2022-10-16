@@ -1,7 +1,7 @@
 
 from flask_login import current_user
 from flask import redirect, url_for, session as localSession, Blueprint, render_template
-from tajma.form import RegistrationForm
+from tajma.forms import RegistrationForm
 
 register_page = Blueprint('register', __name__,
                         template_folder='templates',
