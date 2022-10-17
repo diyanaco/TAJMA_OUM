@@ -1,37 +1,31 @@
-
-from flask import Flask, session
-from flask_sqlalchemy import SQLAlchemy
+import os
+from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
-from flask_migrate import Migrate
+from flask_principal import Principal
+from dotenv import load_dotenv
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '1d66b518598641b6d88a3f0115780daf'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tajma.db'
-#increase timeout in case database locked
-app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-    'connect_args': {
-        'timeout': 15
-    }
-}
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
-migrate = Migrate(app, db)
-
+principals = Principal(app)
 login_manager = LoginManager(app)
-login_manager.login_view = 'login'
-# the category for error login message
-login_manager.login_message_catagory = 'info'
+bcrypt = Bcrypt(app)
 
-from tajma import routes
-from tajma.models import User
-
-# Only applicable to sqlite to prevent error
+load_dotenv()
+from . import  routes, models
+# load default configuration
+app.config.from_object('tajma.settings')
+# load environment configuration
+##This below is not working, need to find a way to get user enviroment variables
+if 'OUMPSY_SETTINGS' in os.environ:
+    app.config.from_envvar('OUMPSY_SETTINGS')
+# load app sepcified configuration
+app.config.update({'APP_PATH': app.root_path})
+print(f'app config is : {app.config}')
+#If theres initial config to create app, upon instantiate the app
+# if config is not None:
+#     if isinstance(config, dict):
+#         app.config.update(config)
+#     elif config.endswith('.py'):
+#         app.config.from_pyfile(config)
 with app.app_context():
-    if db.engine.url.drivername == 'sqlite':
-        migrate.init_app(app, db, render_as_batch=True)
-    else:
-        migrate.init_app(app, db)
-
-
-
+    routes.init_app(app)

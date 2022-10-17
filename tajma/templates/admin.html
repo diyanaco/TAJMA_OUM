@@ -73,7 +73,7 @@
             <td>{{row.firstName}}</td>
             <td>{{row.lastName}}</td>
             <!-- <td><a href = "#result?id={{row.id}}"> View Result</a></td> -->
-            <td><a href = "{{url_for('results', id=row.id)}}"> View Result</a></td>
+            <td><a href = "{{url_for('results_admin', id=row.id)}}"> View Result</a></td>
         </tr>
         <br>
         {% endfor %}

@@ -22,13 +22,13 @@
 {%block sidebar%}
 <li class="nav-item">
     <a class="nav-link collapsed" style="color: #fff;">
-        <span>E-Learning Styles</span>
+        <span>OUM E-Learning Styles</span>
     </a>
 </li>
 
 <li class="nav-item">
     <a class="nav-link collapsed" style="background-color: #602fdf; color: #fff;">
-        <span>Life-long Learning Attitude</span>
+        <span>OUM Life-long Learning Attitude</span>
     </a>
 </li>
 
@@ -57,7 +57,8 @@
                     <li>There is no correct or wrong answer</li>
                     <li>The first answer that come through your mind is the most accurate</li>
                     <li>Good luck</li>
-
+                    <button id="btn-close-modal" type="button" class="close" data-dismiss="modal" aria-label="Close">Proceed to take Second test</button>
+                    <a type="button" class="close" data-dismiss="modal" aria-label="Close" href="{{url_for('dashboard.dashboardWithFlash', test="E-Learner")}}">Save First Test</button>
                 </ul>
             </div>
         </div>
@@ -82,10 +83,15 @@
 <!-- Instru popup -->
 <script>
     $(document).ready(function () {
-        $('#myInstru').modal('show');
-        return false;
+      // Initially we show the Instruction modal popup
+      $("#myInstru").modal('show');
+  
+      // To close the Instruction modal popup
+      $('#btn-close-modal').click(function() {
+          $('#myInstru').modal('hide');
+      });
     });
-</script>
+  </script>
 
 <div class="container-fluid">
     <div id="container">

@@ -21,13 +21,13 @@
 <!-- Nav Item - Utilities Collapse Menu -->
 <li class="nav-item">
     <a class="nav-link collapsed">
-        <span>E-Learning Styles</span>
+        <span>OUM E-Learning Styles</span>
     </a>
 </li>
 
 <li class="nav-item">
     <a class="nav-link collapsed">
-        <span>Life-long Learning Attitude</span>
+        <span>OUM Life-long Learning Attitude</span>
     </a>
 </li>
 <!-- Nav Item - Pages Collapse Menu -->
@@ -64,9 +64,15 @@
     <!-- Popup instruction -->
     <script>
         $(document).ready(function () {
-            $("#myInstru").modal('show');
+          // Initially we show the Instruction modal popup
+          $("#myInstru").modal('show');
+      
+          // To close the Instruction modal popup
+          $('#btn-close-modal').click(function() {
+              $('#myInstru').modal('hide');
+          });
         });
-    </script>
+      </script>
     <div id="myInstru" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -81,7 +87,8 @@
                         <li>There is no correct or wrong answer</li>
                         <li>The first answer that come through your mind is the most accurate</li>
                         <li>Good luck</li>
-
+                        <button id="btn-close-modal" type="button" class="close" data-dismiss="modal" aria-label="Close">Proceed to take final test</button>
+                        <a type="button" class="close" data-dismiss="modal" aria-label="Close" href="{{url_for('save.save', test="attitude")}}">Save Second Test</button>
                     </ul>
                 </div>
             </div>

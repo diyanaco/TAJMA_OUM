@@ -1,19 +1,28 @@
+import imp
 import os
 import secrets
 from PIL import Image
-from flask import render_template, url_for, flash, redirect, request, has_request_context, session
-from sqlalchemy.orm import relation
-from tajma import app, db
+from flask import render_template, url_for, flash, redirect, request, session as localSession, has_request_context, jsonify
+from sqlalchemy.orm import sessionmaker
+from tajma.__init__backup import app, db
 from tajma.form import ElearningAnswer,AttitudeAnswer, LoginForm, RegistrationForm, SearchForm, VerificationForm, UpdateAccountForm, SearchForm, LearnerAnswer
-from tajma.models import User, Elearning, Attitude,Learner, db_insert_data, db_update_data
+from tajma.models.UserModel import User 
+from tajma.models.ElearningModel import Elearning
+from tajma.models.AttitudeModel import Attitude
+from tajma.models.LearnerModel import Learner
+from tajma.models import db_insert_data, db_update_data
 from flask_login import current_user, logout_user, login_required
 import numpy as np
 from random import randint
+from tajma.__init__backup import engine
 
+Session = sessionmaker()
+Session.configure(bind=engine)
+session = Session()
 
 #Veify if user admin or not
 def isAdmin():
-    userAdmin = User.query.filter_by(email = current_user.get_email()).first()
+    userAdmin = session.query(User.id).filter(User.email == current_user.get_email()).scalar()
     if userAdmin.roles and userAdmin.roles[0].name == 'Admin':
         return True
     else:
@@ -39,25 +48,19 @@ def home():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    # if current_user.is_authenticated:
-    #     return redirect(url_for('dashboard'))
     form = LoginForm()
     if form.validate_on_submit():
-        if form.check_credentialsLOGIN() == True:
-            # next_page = request.args.get('next')
-            # return redirect(next_page) if next_page else render_template('login.html'))
+        if form.check_login() == True:
             if form.check_role() == "Admin":
                 return redirect(url_for('admin'))
             else :
-                return redirect(url_for('dashboard'))
-        elif form.check_credentialsLOGIN() == False:
+                return redirect(url_for('dashboard.dashboard'))
+        elif form.check_login() == False:
             flash("Your credentials are wrong")
         elif form.check_registered == False:
             flash("Your email is not registered, please register first")
-            # ISSUE 1 create a link to registration
         else:
             flash("You are not elligible to login or register, please consult with OUM")
-            # redirect to index.html
     return render_template("login.html", form=form)
 
 @app.route("/verify", methods=["GET", "POST"])
@@ -67,7 +70,7 @@ def verify():
         if form.check_email() == True:
             flash(
                 'A confirmation email has been sent, please verify first, then continue with the registration')
-            session["email"] = form.email.data
+            localSession["email"] = form.email.data
             return redirect(url_for('register'))
         else:
             flash('You are not elligible to register, please verify with OUM', 'success')
@@ -76,8 +79,8 @@ def verify():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     #reroute the user to dashboard if its already sign in
-    # if current_user.is_authenticated:
-    #     return redirect(url_for('dashboard'))
+    if current_user.is_authenticated:
+        return redirect(url_for('dashboard.dashboard'))
     form = RegistrationForm()
     fn, ln, gender, age, IC, race, mobile = form.retrieve_data()
     if form.validate_on_submit():
@@ -87,21 +90,22 @@ def register():
         #after normal user register, will route to the main dashboard
         #superAdmin will then assign them admin role later after registration
         #after that, the user with admin role will route to admin page after login
-        if session.get("email") == "admin@demo.com":
+        if localSession.get("email") == "admin@demo.com":
             form.assign_admin()
             return redirect(url_for('admin'))
         #ISSUE 3 create function first time login
         #flash("Succesfully Register, please login")
-        return redirect(url_for('dashboard'))
-    return render_template("register.html", form=form, fn=fn, ln=ln, em=session.get("email"))
+        return redirect(url_for('dashboard.dashboard'))
+    return render_template("register.html", form=form, fn=fn, ln=ln, em=localSession.get("email"))
 
 @app.route("/dashboard", methods=["GET", "POST"])
 @login_required
 def dashboard():
+    print(f'current user is : {current_user}')
     testTaken = {
-        "elearning" : User.query.filter_by(id = current_user.get_id()).first().elearningTaken,
-        "learner" : User.query.filter_by(id = current_user.get_id()).first().learnerTaken,
-        "attitude" : User.query.filter_by(id = current_user.get_id()).first().attitudeTaken
+        "elearning" : session.query(User).filter(User.id == current_user.get_id()).scalar().elearningTaken,
+        "learner" : session.query(User).filter(User.id == current_user.get_id()).scalar().learnerTaken,
+        "attitude" : session.query(User).filter(User.id == current_user.get_id()).scalar().attitudeTaken,
     }
     return render_template("dashboard.html", testTaken=testTaken)
 
@@ -125,11 +129,67 @@ def admin():
         return redirect(url_for('login'))
 
 #View results
+@app.route("/admin/results", methods=["GET"])
+@login_required
+def result_user():
+    print(f"current_user is : {current_user}")
+    elearning = session.query(Elearning).filter(Elearning.userID == current_user.get_id()).scalar()
+    if elearning is None:
+        message="The user has not taken any test yet"
+        return redirect(url_for('error', error=message))
+    result1 = {
+        "kb" : round(elearning.kb/5*100, 1),
+        "kh" : round(elearning.kh/5*100, 1),
+        "kl" : round(elearning.kl/5*100, 1)
+    }
+
+    #Retrieve Learner result
+    learner = session.query(Learner).filter_by(userID=current_user.get_id()).scalar()
+    if learner is None:
+        message="The user has not taken any test yet"
+        return redirect(url_for('error', error=message))
+    result2 = {
+        "trait1" : round(learner.trait1/5*100, 1),
+        "trait2" : round(learner.trait2/5*100, 1),
+        "trait3" : round(learner.trait3/5*100, 1)
+    }
+
+    #Retrieve Attitude result
+    attitude = session.query(Attitude).filter_by(userID=current_user.get_id()).scalar()
+    if attitude is None:
+        message="The user has not taken any test yet"
+        return redirect(url_for('error', error=message))
+    result3 = {
+        "trait1" : round(attitude.trait1/5*100, 1),
+        "trait2" : round(attitude.trait2/5*100, 1),
+        "trait3" : round(attitude.trait3/5*100, 1)
+    }
+    #Merging dictionary
+    result={**result1,**result2,**result3}
+    #Declare empty list
+    labels= []
+    values=[]
+    for k,v in result.items():
+        labels.append(k)
+        values.append(v)
+    #get the user info
+    labels=["TR1", "TR2", "TR3", "TR4", "TR5", "TR6", "TR7", "TR8", "TR9", "TR10"]
+    valuesIndividual=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
+    valuesMale=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
+    valuesFemale=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
+    
+    user = session.query(User).filter(User.id == current_user.get_id()).scalar()
+    userProf = user.profPic
+    print(f'user is : {user}')
+    print(f'user profile is : {userProf}')
+
+    return render_template('ResultUser.html',valuesIndividual=valuesIndividual,valuesMale=valuesMale,valuesFemale=valuesFemale, labels=labels,result=result,userProf=userProf)
+
 @app.route("/admin/results/<id>", methods=["GET"])
 @login_required
-def results(id):
+def results_admin(id):
+    print(f"current_user is : {current_user}")
     if isAdmin():
-        #Retrieve elearning result
         elearning = Elearning.query.filter_by(userID=id).first()
         if elearning is None:
             message="The user has not taken any test yet"
@@ -139,49 +199,14 @@ def results(id):
             "kh" : round(elearning.kh/5*100, 1),
             "kl" : round(elearning.kl/5*100, 1)
         }
-
-        # #Retrieve Learner result
-        # learner = Learner.query.filter_by(userID=id).first()
-        # if learner is None:
-        #     message="The user has not taken any test yet"
-        #     return redirect(url_for('error', error=message))
-        # result2 = {
-        #     "trait1" : round(learner.trait1/5*100, 1),
-        #     "trait2" : round(learner.trait2/5*100, 1),
-        #     "trait3" : round(learner.trait3/5*100, 1)
-        # }
-
-        # #Retrieve Attitude result
-        # attitude = Attitude.query.filter_by(userID=id).first()
-        # if attitude is None:
-        #     message="The user has not taken any test yet"
-        #     return redirect(url_for('error', error=message))
-        # result3 = {
-        #     "trait1" : round(attitude.trait1/5*100, 1),
-        #     "trait2" : round(attitude.trait2/5*100, 1),
-        #     "trait3" : round(attitude.trait3/5*100, 1)
-        # }
-        # #Merging dictionary
-        # result={**result1,**result2,**result3}
-        # #Declare empty list
-        # labels= []
-        # values=[]
-        # for k,v in result.items():
-        #     labels.append(k)
-        #     values.append(v)
-        #get the user info
         labels=["TR1", "TR2", "TR3", "TR4", "TR5", "TR6", "TR7", "TR8", "TR9", "TR10"]
         valuesIndividual=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
         valuesMale=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
         valuesFemale=[randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100),randint(0,100)]
         
 
-        userProf = User.query.filter_by(id=id).first()
-        #fn = request.args.get('fn')
-        # return render_template('results.html',values=values, labels=labels,result=result, 
-        #                         result1=result1,result2=result2,result3=result3, userProf=userProf)
-        return render_template('results.html',valuesIndividual=valuesIndividual,valuesMale=valuesMale,valuesFemale=valuesFemale, labels=labels,result=result,userProf=userProf)
- 
+        userProf = User.query.filter_by(id=current_user.get_id()).first()
+        return render_template('ResultAdmin.html',valuesIndividual=valuesIndividual,valuesMale=valuesMale,valuesFemale=valuesFemale, labels=labels,result=result,userProf=userProf)
     else :
         return redirect(url_for('login'))
 
@@ -242,11 +267,10 @@ def elearning():
 
         result = Elearning(kb = trait1, kl=trait2, kh=trait3, userID=current_user.get_id())
         db_insert_data(result)
-        user = User.query.filter_by(id = current_user.get_id()).update(dict(elearningTaken = True))
-        #Update the user table where test is taken 
+        user = session.query(User.id).filter(User.id == current_user.get_id()).scalar()
         db_update_data()
-        return redirect(url_for("attitude"))
-    return render_template("tpElearning.html", form=form)
+        return redirect(url_for("test.attitude"))
+    return render_template("tp1Elearning.html", form=form)
 
 @app.route("/attitude", methods=["GET", "POST"])
 @login_required
@@ -268,62 +292,17 @@ def attitude():
                   form.answer18.data, form.answer19.data,
                   form.answer20.data, form.answer21.data,
                   form.answer22.data]
-                  
-        #Keberkesanan diri       
-        # trait4 = [form.answer23.data,
-        #             form.answer24.data, form.answer25.data,
-        #             form.answer26.data, form.answer27.data,
-        #             form.answer28.data, form.answer29.data]
-                    
-        
-        # #Kebolehsuaian
-        # trait5 = [form.answer30.data, form.answer31.data,
-        #             form.answer32.data, form.answer33.data, 
-        #             form.answer34.data, form.answer35.data,
-        #             form.answer36.data, form.answer37.data]
-
-        # #Akauntabiliti/Kebertanggungjawaban
-        # trait6 = [form.answer38.dataform.answer39.data,
-        #             form.answer40.data, form.answer41.data, 
-        #             form.answer42.data, form.answer43.data,
-        #             form.answer44.data]
-        # #Pengarahan diri
-        # trait7 = [form.answer45.dataform.answer46.data,
-        #             form.answer47.data, form.answer48.data, 
-        #             form.answer49.data, form.answer50.data]
-        # #Silang budaya
-        # trait8 = [form.answer51.dataform.answer52.data,
-        #             form.answer53.data, form.answer54.data, 
-        #             form.answer55.data, form.answer56.data,
-        #             form.answer57.data, form.answer58.data]
-
-        # #Daya ketahanan
-        # trait9 = [form.answer59.data,form.answer60.data,
-        #             form.answer61.data, form.answer62.data, 
-        #             form.answer63.data, form.answer64.data,
-        #             form.answer65.data, form.answer66.data]
-                 
 
         trait1 = round(np.mean(list(map(int, trait1))), 2)
         trait2 = round(np.mean(list(map(int, trait2))), 2)
         trait3 = round(np.mean(list(map(int, trait3))), 2)
-        # trait4 = round(np.mean(list(map(int, trait4))), 2)
-        # trait5 = round(np.mean(list(map(int, trait5))), 2)
-        # trait6 = round(np.mean(list(map(int, trait6))), 2)
-        # trait7 = round(np.mean(list(map(int, trait7))), 2)
-        # trait8 = round(np.mean(list(map(int, trait8))), 2)
-        # trait9 = round(np.mean(list(map(int, trait9))), 2)
 
-
-        # result = Attitude(ak = trait6, dk=trait9, kd=trait4, ke=trait3, ks=trait5, kt=trait2, mt=trait1, 
-        #                     pg=trait7,sb=trait8, userID=current_user.get_id())
         result = Attitude(ke=trait3,kt=trait2, mt=trait1, userID=current_user.get_id())
         db_insert_data(result)
-        user = User.query.filter_by(id = current_user.get_id()).update(dict(attitudeTaken = True))
         #Update the user table where test is taken 
         db_update_data()
-        return redirect(url_for("learner"))
-    return render_template("tpAttitude.html", form=form)
+        return redirect(url_for("test.learner"))
+    return render_template("tp2Attitude.html", form=form)
 
 @app.route("/learner", methods=["GET", "POST"])
 @login_required
@@ -341,8 +320,56 @@ def learner():
         #Update the user table where test is taken 
         db_update_data()
         return redirect(url_for("success"))
-    return render_template("tpLearner.html", form=form)
- 
+    return render_template("tp3Learner.html", form=form)
+
+@app.route("/saveProgress", methods=["GET", "POST"])
+@login_required
+def saveProgress():
+    return render_template("saveProgress.html")
+
+@app.route('/calendar')
+def calendar():
+    return render_template('FullCalendarEvents.html')
+
+@app.route('/calendar-events')
+def calendar_events():
+    conn = None
+    cursor = None
+    try:
+        rows = [
+                    {
+                        "id": 101,
+                        "title": "Event 1",
+                        "url": "http://example.com",
+                        "class": "event-important",
+                        "start": 12039485678000, 
+                        "end": 1234576967000 
+                    },
+                    {
+                        "id": 102,
+                        "title": "Event 1",
+                        "url": "http://example.com",
+                        "class": "event-important",
+                        "start": 12039485678000, 
+                        "end": 1234576967000 
+                    },
+                    {
+                        "id": 103,
+                        "title": "Event 1",
+                        "url": "http://example.com",
+                        "class": "event-important",
+                        "start": 12039485678000, 
+                        "end": 1234576967000 
+                    }
+                ]
+        resp = jsonify({'success' : 1, 'result' : rows})
+        resp.status_code = 200
+        return resp
+    except Exception as e:
+        print(e)
+
+        
+
 @app.route("/success")
 def success():
     user = User.query.filter_by(id = current_user.get_id()).first()
@@ -351,12 +378,11 @@ def success():
     else:
         return redirect(url_for("dashboard"))
 
-
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('home'))
+    return redirect(url_for('home.home'))
 
 @app.route("/error/M/<error>")
 def error(error):
