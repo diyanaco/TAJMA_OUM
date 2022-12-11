@@ -50,3 +50,7 @@ def calendar_events():
         return resp
     except Exception as e:
         print(e)
+
+@calendar_page.route('/google', methods=["GET", "POST"])
+def google_calendar():
+    return render_template('GoogleCalendar.html')
