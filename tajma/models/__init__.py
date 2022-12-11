@@ -3,7 +3,8 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 from tajma import login_manager
 import os
 
-db_url = os.getenv('DATABASE_OUM_URL')
+# db_url = os.getenv('DATABASE_OUM_URL')
+db_url = "sqlite:///tajma.db"
 engine = create_engine(db_url, echo=True)
 Session = sessionmaker()
 Session.configure(bind=engine)

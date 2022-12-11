@@ -1,33 +1,24 @@
-# TAJMA_OUM
+# OUM Psychometric Test
 Profiling System where students of OUM will take questionaire to determine traits of personality
 
-
-## Clone repository
-- Download github desktop
-- Sign in 
-- File -> Clone repository
-- Enter url https://github.com/ZaimAndTaufiq/TAJMA_OUM.git
-
 ## Run system
-- Activate virtualenv
+- Create venv
 ```
-oum\Scripts\activate
+python -m venv venv
 ```
-- In the visual code terminal 
+- Install libraries
 ```
-- create .env file
-export FLASK_APP='run.py'
-flask run
+pip install -r requirements.text
 ```
 
-- View url in the browser
+- Run app
+```
+python run.py
+```
 
-## Warning
-Only commit changes to your branch only (Taufiq)
-
-## Version 3.2
-Enhance the questionaire to flow one direction and hardcode the questionaire and answer inside templates
-Add role based authentication manually without using packages
+- Create admin user
+- Create student user
+- Create counselor user
 
 ## Alembic
 alembic revision --autogenerate -m "Added account table"
