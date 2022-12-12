@@ -5,7 +5,9 @@ import os
 
 # db_url = os.getenv('DATABASE_OUM_URL')
 db_url = "sqlite:///tajma.db"
-engine = create_engine(db_url, echo=True)
+# check_same_thread
+# err : sqlite objects created in a thread can only be used in that same thread sqlalchemy
+engine = create_engine(db_url,connect_args={"check_same_thread": False}, echo=True)
 Session = sessionmaker()
 Session.configure(bind=engine)
 session = Session()
