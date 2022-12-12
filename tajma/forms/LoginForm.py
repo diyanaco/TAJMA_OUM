@@ -22,7 +22,8 @@ class LoginForm(FlaskForm):
             print(f'user is : {user}')
             print("hash successfull",bcrypt.check_password_hash(user.password, self.password.data))
             if user and bcrypt.check_password_hash(user.password, self.password.data):
-                role_code = self.check_role(user)
+                role_codes = self.check_role(user)
+                print(f'role_codes', role_codes)
                 login_user(user, remember=False)
                 identity_changed.send(current_app._get_current_object(),
                             identity=Identity(user.id))
@@ -38,10 +39,10 @@ class LoginForm(FlaskForm):
 
     def check_role(self, user : User):
         try :
-            role = session.query(Role).join(association_user_role_table).join(User).filter(association_user_role_table.columns.user_id == user.id).all()
-            print(f'role is : {role}')
-            if role:
-                return role.code
+            roles = session.query(Role).join(association_user_role_table).join(User).filter(association_user_role_table.columns.user_id == user.id).all()
+            print(f'role is : {roles}')
+            if roles:
+                return [x for x in roles if x.code]
             else :
                 return "NORMAL"
         except Exception as e :
