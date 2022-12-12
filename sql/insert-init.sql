@@ -17,7 +17,8 @@ VALUES (
         'user',
         'admin',
         'admin@demo.com',
-        '$2b$12$aGk1pWGfI8O/bfoVMc7QPeWIj0OLA.tUPdHE0fSUeTRHxkGD7t5JW',
+        --change hashed password here
+        '$2b$12$zSq2iZYBHDUOinevarjf5.v59lMscvv8AqVqlQODxaoVjHzD.zXvS',
         'admin-prof-pic.jpg',
         'male',
         '30',
