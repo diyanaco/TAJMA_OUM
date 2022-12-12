@@ -20,6 +20,7 @@ class LoginForm(FlaskForm):
             # session.close()
             user = session.query(User).filter(User.email == self.email.data).scalar()
             print(f'user is : {user}')
+            print("hash successfull",bcrypt.check_password_hash(user.password, self.password.data))
             if user and bcrypt.check_password_hash(user.password, self.password.data):
                 role_code = self.check_role(user)
                 login_user(user, remember=False)
@@ -29,6 +30,7 @@ class LoginForm(FlaskForm):
             else:
                 return False
         except Exception as e :
+            print("Exception happens", e)
             session.rollback()
             session.close()
             return None
@@ -36,13 +38,14 @@ class LoginForm(FlaskForm):
 
     def check_role(self, user : User):
         try :
-            role = session.query(Role).join(association_user_role_table).join(User).filter(association_user_role_table.columns.user_id == user.id).scalar()
+            role = session.query(Role).join(association_user_role_table).join(User).filter(association_user_role_table.columns.user_id == user.id).all()
             print(f'role is : {role}')
             if role:
                 return role.code
             else :
                 return "NORMAL"
         except Exception as e :
+            print("Exception at check role", e)
             session.rollback()
             session.close()
             return None

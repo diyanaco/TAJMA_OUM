@@ -13,7 +13,7 @@ def verify():
             flash(
                 'A confirmation email has been sent, please verify first, then continue with the registration')
             localSession["email"] = form.email.data
-            return redirect(url_for('register'))
+            return redirect(url_for('register.register'))
         else:
             flash('You are not elligible to register, please verify with OUM', 'success')
     return render_template("verify.html", form=form)

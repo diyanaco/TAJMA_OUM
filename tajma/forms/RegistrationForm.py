@@ -42,6 +42,7 @@ class RegistrationForm(FlaskForm):
             # topUserID = User.query.order_by(User.desc()).first()
             # topUserID = session.query(User).order_by(User.desc()).first()
             user = User(id= str(uuid.uuid4()), firstName=a, lastName=b,email=self.email.data, password=hashed_password, gender=c, age=d, IC=e, race=f, mobile=g)
+            # Login user after su
             db_insert_data(user)
             # userRole = association_user_role_table()
             normal_role = session.query(Role).filter(Role.name == "NORMAL").scalar()
