@@ -15,10 +15,13 @@ pip install -r requirements.text
 ```
 python run.py
 ```
+- Generate password for admin@demo.com
+  ``` 
+  python bcrypt_generator.py
+  ```
+- Insert hashed_password in sql script for admin@demi.com
+- Run __insert-init.sql__
 
-- Create admin user
-- Create student user
-- Create counselor user
 
 ## Alembic
 alembic revision --autogenerate -m "Added account table"
