@@ -96,7 +96,7 @@
       // Get the modal
       var modal = document.getElementById("myModal");
       $(".modal-body #todaydate").val(new Date().toISOString().split("T")[0]);
-      $(".modal-body #appointmentdate").val(info.dateStr);
+      $(".modal-body #appointmentdate").val(new Date().toISOString().split("T")[0]);
       $("#myModal").modal("show");
       // alert("What do u want to do with this date? " + info.dateStr);
     });
@@ -123,6 +123,7 @@
 </script>
 
 {%endblock%} {%block body%}
+<!-- Pop Up Calendar to insert event -->
 <div
   class="modal fade"
   id="myModal"
@@ -166,6 +167,11 @@
             {{field.label(class="form-control-label")}} 
             {{field}} 
             {% endif%}
+            {% if field.type =="TextAreaField" %} 
+            {{field.label(class="form-control-label")}} 
+            <br>
+            {{field(cols="50", rows="4")}} 
+            {% endif%}
             {% if field.type =="SubmitField" %} 
             <div class="modal-footer">
               {{field(class="btn btn-primary")}} 
@@ -181,5 +187,7 @@
     </div>
   </div>
 </div>
+
+<!-- Main calendar -->
 <div id="calendar" style="margin-left: 30px"></div>
 {%endblock%}

@@ -9,9 +9,14 @@ calendar_page = Blueprint('calendar', __name__,
 @calendar_page.route('/', methods=["GET", "POST"])
 def calendar():
     form = CalendarEventForm()
+    form.errors
     if form.validate_on_submit():
-        form.updateCalEvent()
+        form.flas()
         return redirect(url_for('calendar.calendar'))
+    else :
+        for fieldName, errorMessages in form.errors.items():
+            for err in errorMessages:
+                error = err
     return render_template('FullCalendarEvents.html', form=form)
 
 @calendar_page.route('/calendar-events')
@@ -30,7 +35,7 @@ def calendar_events():
                     },
                     {
                         "id": 102,
-                        "title": "Event 1",
+                        "title": "Event 2",
                         "url": "http://example.com",
                         "class": "event-important",
                         "start": 12039485678000, 
@@ -38,7 +43,7 @@ def calendar_events():
                     },
                     {
                         "id": 103,
-                        "title": "Event 1",
+                        "title": "Event 3",
                         "url": "http://example.com",
                         "class": "event-important",
                         "start": 12039485678000, 

@@ -1,14 +1,14 @@
 from tokenize import String
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, DateField, SelectField
+from wtforms import StringField, SubmitField, DateField, SelectField, TextAreaField
 from wtforms.validators import DataRequired, Email
 from tajma.models import *
 from flask_login import current_user
 
+
 class CalendarEventForm(FlaskForm):
-    todaydate = DateField('Today Date', render_kw={'readonly': True}, format='%Y-%m-%d')
-    summary = StringField('Can you give a brief summary', validators=[DataRequired()])
-    description = StringField('Explain briefyly your situation')
+    todaydate = DateField('Today Date', render_kw={
+                          'readonly': True}, format='%Y-%m-%d')
     appointmentdate = DateField(
         'Choose your appointment date', format='%Y-%m-%d')
 
@@ -24,12 +24,16 @@ class CalendarEventForm(FlaskForm):
         ('91f6da50-208d-40ad-a63d-c96814c3607b', 'Caunselor Siti Saleha'),
         ('3a12da67-6afe-4cd9-87db-5535796c3799', 'Psychiatrist Adeha')
     ])
+    summary = TextAreaField('Can you give a brief summary', validators=[
+                          DataRequired()])
+    description = TextAreaField('Explain briefly your situation')
     submit = SubmitField('Submit')
 
     def updateCalEvent(self):
-        counselor_user : User = session.query(User).join(association_user_role_table).join(Role).filter(Role.code =="COUNSELOR", User.id == self.counselor)
-        patient_user : User = current_user
-        
+        counselor_user: User = session.query(User).join(association_user_role_table).join(
+            Role).filter(Role.code == "COUNSELOR", User.id == self.counselor)
+        patient_user: User = current_user
+
         event = CalendarEvent()
         event.summary = self.summary
         event.description = self.description
@@ -39,5 +43,3 @@ class CalendarEventForm(FlaskForm):
         event.slot = self.slot
         db_insert_data(event)
         return True
-
-
