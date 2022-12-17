@@ -6,7 +6,7 @@ class CalendarEvent(Base):
     __tablename__ = "psy_calendar_event"
     id = Column('id', String(50), primary_key=True, nullable=False)
     summary = Column('summary', String(200))
-    description = Column('description', String(500))
+    # description = Column('description', String(500))
     appointment_date = Column('appointment_date', DateTime)
     slot = Column("slot", String(50))
 

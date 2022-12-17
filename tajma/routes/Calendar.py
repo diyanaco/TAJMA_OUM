@@ -11,7 +11,7 @@ def calendar():
     form = CalendarEventForm()
     form.errors
     if form.validate_on_submit():
-        form.flas()
+        form.updateCalEvent()
         return redirect(url_for('calendar.calendar'))
     else :
         for fieldName, errorMessages in form.errors.items():
