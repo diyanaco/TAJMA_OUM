@@ -23,16 +23,22 @@ class CalendarEventForm(FlaskForm):
     counselor = SelectField('Choose your counselor', choices=[
         ('e8f8ab35-ce89-449e-a5a6-8536c7309607', 'Hamza Fadhila')
     ])
-    # summary = TextAreaField('Can you give a brief summary', validators=[
-    #                       DataRequired()])
-    description = TextAreaField('Explain briefly your situation')
+    summary = TextAreaField('Can you give a brief summary', validators=[
+        DataRequired()])
+    # description = TextAreaField('Explain briefly your situation')
     submit = SubmitField('Submit')
+    # List of participants
+    counselor_user: User
+    patient_user: User
+    
+    def generateTitle(self):
+        return str(self.slot.data + " " + self.patient_user)
 
     def updateCalEvent(self):
-        counselor_user: User = session.query(User).join(association_user_role_table).join(
+        self.counselor_user: User = session.query(User).join(association_user_role_table).join(
             Role).filter(Role.code == RoleConstant.COUNSELOR, User.id == self.counselor.data).scalar()
         if current_user.is_authenticated:
-            patient_user: User = current_user
+            self.patient_user: User = current_user
 
         # event = CalendarEvent()
         # event.id = str(uuid.uuid4())
@@ -43,12 +49,13 @@ class CalendarEventForm(FlaskForm):
         # event.participants.append(counselor_user)
         # event.slot = self.slot.data
         event = CalendarEvent(id=str(uuid.uuid4()),
-                              description=self.description.data,
+                              title=self.generateTitle(),
+                              summary=self.summary.data,
                               appointment_date=self.appointmentdate.data,
-                            #   participants=[patient_user, counselor_user],
+                              #   participants=[patient_user, counselor_user],
                               slot=self.slot.data)
-        event.participants.append(patient_user)
-        event.participants.append(counselor_user)
+        event.participants.append(self.patient_user)
+        event.participants.append(self.counselor_user)
         session.add(event)
         session.commit()
         # event_user_link = association_user_calendar_event_table(

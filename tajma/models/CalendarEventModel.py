@@ -9,6 +9,7 @@ class CalendarEvent(Base):
     # description = Column('description', String(500))
     appointment_date = Column('appointment_date', DateTime)
     slot = Column("slot", String(50))
+    title = Column("title", String(50))
 
     participants = relationship("User", secondary=association_user_calendar_event_table)
 

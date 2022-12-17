@@ -5,13 +5,17 @@
 />
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script>
+  var events = JSON.parse('{{events | tojson | safe}}');
+  // var events = '{{events}}';
+  // events = JSON.parse(events);
   document.addEventListener("DOMContentLoaded", function () {
+    console.log(events)
     var calendarEl = document.getElementById("calendar");
     // var calendar = new FullCalendar.Calendar(calendarEl, {
     //   initialView: "dayGridMonth",
     // });
     // calendar.render();
-
+    // var events = 
     var calendar = new FullCalendar.Calendar(calendarEl, {
       headerToolbar: {
         left: "dayGridMonth",
@@ -30,28 +34,7 @@
         },
       },
       weekends: false,
-      events: [
-        {
-          title: "Meeting with AbuDhabi",
-          start: "2022-10-03",
-          end: "2022-10-06",
-        },
-        {
-          title: "Deployment",
-          start: "2022-10-07",
-          allDay: true,
-        },
-        {
-          title: "Rest time",
-          start: "2022-10-12",
-          end: "2022-10-13",
-        },
-        {
-          title: "Coding whole day",
-          start: "2022-10-28",
-          allDay: true, // will make the time show
-        },
-      ],
+      events: events
       //   eventSources: [
       //     // your event source
       //     {
