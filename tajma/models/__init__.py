@@ -3,11 +3,16 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 from tajma import login_manager
 import os
 
-# db_url = os.getenv('DATABASE_OUM_URL')
-db_url = "sqlite:///tajma.db"
+db_url='mysql://zaim:zaim@localhost:3306/oumpsy'
+# db_url='sqlite:///oumpsy.db'
+# db_url = "sqlite:///tajma.db"
+# db_url = os.getenv('DATABASE_OUM_URL_SQLITE')
+# print("db from env", db_url)
 # check_same_thread
 # err : sqlite objects created in a thread can only be used in that same thread sqlalchemy
-engine = create_engine(db_url,connect_args={"check_same_thread": False}, echo=True)
+#For sqlite
+# engine = create_engine(db_url,connect_args={"check_same_thread": False}, echo=True)
+engine = create_engine(db_url, echo=True)
 Session = sessionmaker()
 Session.configure(bind=engine)
 session = Session()
