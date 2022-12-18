@@ -1,4 +1,4 @@
-import imp
+# import imp
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship
 from .UserRoleLinkModel import association_user_role_table
