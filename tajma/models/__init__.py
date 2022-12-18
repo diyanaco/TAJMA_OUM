@@ -30,6 +30,7 @@ from .StudentModel import Student
 from .UserRoleLinkModel import association_user_role_table
 from .CalendarEventModel import CalendarEvent
 from .UserCalendarEventModel import association_user_calendar_event_table
+from .SlotModel import Slot
 
 Base.metadata.create_all(engine)
 # db.drop_all()

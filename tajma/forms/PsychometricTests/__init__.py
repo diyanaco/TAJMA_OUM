@@ -1,4 +1,4 @@
-import imp
+# import imp
 from flask_wtf import FlaskForm
 
 class FieldsRequiredForm(FlaskForm):
