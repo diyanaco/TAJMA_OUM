@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template,  jsonify, url_for, request, redirect
 from tajma.forms.CreateCalendarEventForm import CalendarEventForm
 from tajma.models import *
-
+from datetime import datetime, timedelta
 calendar_page = Blueprint('calendar', __name__,
                           template_folder='templates',
                           url_prefix='/calendar')
@@ -107,7 +107,10 @@ def calculateEnd(startDate, slot):
     return str(startDate)
 
 def calculateStart(startDate, slot):
-    return str(startDate) 
+    # dt = datetime.strptime(startDate, '%y-%m-%d %H:%M:%S')
+    # dt = datetime(startDate)
+    sd = startDate + timedelta(hours=3)
+    return str(sd) 
 
 def generateTitle(slot):
     return str(slot)
