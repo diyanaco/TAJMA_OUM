@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
-from tajma import login_manager
+# from tajma import login_manager
 import os
 
 db_url='mysql://zaim:zaim@localhost:3306/oumpsy'
@@ -35,10 +35,10 @@ from .SlotModel import Slot
 Base.metadata.create_all(engine)
 # db.drop_all()
 
-@login_manager.user_loader
-def load_user(user_id):
-    print(f'user is : {session.query(User).get(user_id)}')
-    return session.query(User).get(user_id)
+# @login_manager.user_loader
+# def load_user(user_id):
+#     print(f'user is : {session.query(User).get(user_id)}')
+#     return session.query(User).get(user_id)
 
 def db_insert_data(model):
     try :

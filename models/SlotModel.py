@@ -9,8 +9,12 @@ class Slot(Base):
     id = Column(String(50), primary_key=True)
     # name = Column(String(50), unique=True)
     # code = Column(String(50))
+
+    #If end slot is emptied, it means a one time meeting,
+    # else it will be a recurring meeting
     start_slot = Column("start_slot", DateTime)
     end_slot = Column("end_slot", DateTime)
+    
     hours = Column("hours", Float)
     # AVAILABILITY
     # BREAK

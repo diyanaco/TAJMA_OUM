@@ -24,7 +24,10 @@ class User(Base, UserMixin):
     elearningTaken = Column(Boolean, nullable =True)
     learnerTaken = Column(Boolean, nullable =True)
     attitudeTaken = Column(Boolean, nullable =True)
-
+    salut = Column(String(50), nullable=True)
+    revision = Column(String(50), nullable=True)
+    test = Column(String(50), nullable=True)
+    
     #if s means its one to many, else one to one
     roles = relationship("Role", secondary=association_user_role_table)
     calendar_event = relationship("CalendarEvent", secondary=association_user_calendar_event_table)
@@ -50,6 +53,10 @@ class User(Base, UserMixin):
         return self.race
     def get_mobile(self):
         return self.mobile
+    def gen_full_name(self):
+        return self.firstName + self.lastName
+    # def gen_salutation(self):
+    #     return self.salut + self.gen_full_name()
 
     def __repr__(self):
         return f"User('{self.email}', '{self.password}', {self.id})"
