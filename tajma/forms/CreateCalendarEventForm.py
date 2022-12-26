@@ -15,8 +15,8 @@ def mapCounselor(counselors: List[User]):
 
 class CalendarEventForm(FlaskForm):
     # Querying from tables
-    slots: Slot = session.query(Slot).all()
-    counselors: User = session.query(User).join(association_user_role_table).join(
+    slots = session.query(Slot).all()
+    counselors = session.query(User).join(association_user_role_table).join(
         Role).filter(Role.code == RoleConstant.COUNSELOR).all()
     # List of participants
     counselor_selected: User
@@ -27,7 +27,7 @@ class CalendarEventForm(FlaskForm):
     appointmentdate = DateField(
         'Choose your appointment date', format='%Y-%m-%d')
 
-    slot = SelectField('Choose your slot', choices=slots)
+    # slot = SelectField('Choose your slot', choices=slots)
     counselor = SelectField('Choose your counselor',
                             choices=mapCounselor(counselors=counselors))
 
@@ -36,11 +36,15 @@ class CalendarEventForm(FlaskForm):
     # description = TextAreaField('Explain briefly your situation')
     submit = SubmitField('Submit')
 
-    def generateTitle(self):
-        return str(self.slot.data + " " + self.patient_selected)
+    # def generateTitle(self):
+    #     return str(self.slot.data + " " + self.patient_selected)
 
     def updateCalEvent(self):
-        self.counselor_selected: User = self.counselor.data
+        for c in self.counselors:
+            c: User
+            if c.id == self.counselor.data:
+                self.counselor_selected: User = c
+                break
         # We need to authenticate the current user first, to retrieve current_user data
         if current_user.is_authenticated:
             self.patient_selected: User = current_user
@@ -58,7 +62,8 @@ class CalendarEventForm(FlaskForm):
                               summary=self.summary.data,
                               appointment_date=self.appointmentdate.data,
                               #   participants=[patient_selected, counselor_selected],
-                              slot=self.slot.data)
+                              #   slot=self.slot.data)
+                              )
         event.participants.append(self.patient_selected)
         event.participants.append(self.counselor_selected)
         session.add(event)
