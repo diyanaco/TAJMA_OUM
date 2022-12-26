@@ -26,6 +26,7 @@ class User(Base, UserMixin):
     attitudeTaken = Column(Boolean, nullable =True)
     salut = Column(String(50), nullable=True)
     revision = Column(String(50), nullable=True)
+    #To remove
     test = Column(String(50), nullable=True)
     
     #if s means its one to many, else one to one
@@ -54,9 +55,9 @@ class User(Base, UserMixin):
     def get_mobile(self):
         return self.mobile
     def gen_full_name(self):
-        return self.firstName + self.lastName
-    # def gen_salutation(self):
-    #     return self.salut + self.gen_full_name()
+        return self.firstName +" "+ self.lastName
+    def gen_salutation(self):
+        return self.salut +" "+ self.gen_full_name()
 
     def __repr__(self):
         return f"User('{self.email}', '{self.password}', {self.id})"
