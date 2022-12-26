@@ -11,7 +11,7 @@ login_manager = LoginManager(app)
 bcrypt = Bcrypt(app)
 
 load_dotenv()
-from . import  routes, models
+from . import  routes
 # load default configuration
 app.config.from_object('tajma.settings')
 # load environment configuration

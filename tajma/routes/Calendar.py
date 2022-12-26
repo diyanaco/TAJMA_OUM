@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template,  jsonify, url_for, request, redirect
 from tajma.forms.CreateCalendarEventForm import CalendarEventForm
-from tajma.models import *
+from models import *
 from datetime import datetime, timedelta
 calendar_page = Blueprint('calendar', __name__,
                           template_folder='templates',
@@ -25,12 +25,13 @@ def calendar():
     events = []
     # Mapping of events
     for event in calendarEvents:
+        event : CalendarEvent
         events.append({
             "id": event.id,
             # "allDay": ,
-            "start": calculateStart(event.appointment_date, event.slot),
+            "start": calculateStart(event.appointment_date, getSlot(event.slot_id)),
             #End date maybe redundant, sin
-            "end": calculateEnd(event.appointment_date, event.slot),
+            "end": calculateEnd(event.appointment_date, getSlot(event.slot_id)),
             "title": event.title,
             # String. A URL that will be visited when this event is clicked by the user.
             # For more information on controlling this behavior, see the eventClick callback.
@@ -104,13 +105,23 @@ def getParticipants():
     return str("Participants")
 
 def calculateEnd(startDate, slot):
-    return str(startDate)
+    endDate = startDate 
+    return str(endDate)
 
-def calculateStart(startDate, slot):
+def calculateStart(startDate : datetime, slot):
     # dt = datetime.strptime(startDate, '%y-%m-%d %H:%M:%S')
     # dt = datetime(startDate)
-    sd = startDate + timedelta(hours=3)
+    # sd = startDate + timedelta(hours=3)
+    # sd = startDate.replace(hour=slot.hours, minute=calculateMinute(slot.hours))
+    sd = startDate.replace(hour=1, minute=30)
     return str(sd) 
 
 def generateTitle(slot):
     return str(slot)
+
+def calculateMinute(hourDuration):
+    #Logic converting hour to minute
+    return ""
+
+def getSlot(slotId):
+    return ""

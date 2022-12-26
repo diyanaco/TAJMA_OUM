@@ -1,5 +1,5 @@
 from tajma import bcrypt
-from tajma.models import session, User, Role, association_user_role_table
+from models import session, User, Role, association_user_role_table
 from flask import current_app
 from flask_wtf import FlaskForm
 from flask_login import login_user

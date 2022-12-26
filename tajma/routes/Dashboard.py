@@ -1,6 +1,6 @@
 from flask_login import login_required, current_user
 from flask import Blueprint, render_template, flash
-from tajma.models import *
+from models import *
 from flask_principal import Permission, RoleNeed
 from tajma.constants import RoleConstant
 

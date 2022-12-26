@@ -1,7 +1,7 @@
 from flask import session as localSession
 from tajma import bcrypt
 from flask_wtf import FlaskForm 
-from tajma.models import session, Student, User, db_insert_data, Role, association_user_role_table, engine
+from models import session, Student, User, db_insert_data, Role, association_user_role_table, engine
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, EqualTo, Email
 from sqlalchemy import insert

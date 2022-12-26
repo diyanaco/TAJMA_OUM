@@ -2,7 +2,7 @@
 from tokenize import String
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
-from tajma.models import User, session
+from models import User, session
 save_page = Blueprint('save', __name__,
                         template_folder='templates',
                         url_prefix='/save')

@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect, render_template, url_for
 from flask_login import login_required, current_user
 from tajma.forms import ElearningAnswer, AttitudeAnswer, LearnerAnswer
-from tajma.models import *
+from models import *
 import numpy as np
 import uuid
 

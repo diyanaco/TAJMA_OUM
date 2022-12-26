@@ -1,4 +1,4 @@
-from tajma.models import *
+from models import *
 from tajma.form import SearchForm
 from flask import Blueprint, render_template, redirect, request, url_for
 from random import randint
