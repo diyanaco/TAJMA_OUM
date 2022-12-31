@@ -1,21 +1,41 @@
 {%extends 'Profile.html' %}
+{%block head%}
+<link rel='stylesheet' href="{{ url_for('static', filename='css/profile.css')}}">
+{%endblock%}
 {%block availability%}
 <div class="container">
     <form method="POST" action="/">
-        {{ availability_form.csrf_token }}
-        {{ availability_form.name.label }}
-        {{availability_form.name(size=20)}}
-        {% for subfield in availability_form.days %}
-        <tr>
-            <td>{{ subfield }}</td>
-            <td>{{ subfield.label }}</td>
-        </tr>
-        {% endfor %}
-        {{availability_form.session_start.label}}
-        {{availability_form.session_start}}        
-        {{availability_form.session_end.label}}
-        {{availability_form.session_end}}
-        <input type="submit" value="Go" />
+        <div class="card">
+            <div class="card-body">
+                <p>Select days</p>
+                {% for subfield in availability_form.days %}
+                <div class="form-check form-check-inline">
+                    <tr>
+                        <td>{{ subfield(class="form-check-input")}}</td>
+                        <td>{{ subfield.label(class="form-check-label")}}</td>
+                    </tr>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <p>Configure the slot</p>
+                <div class="row">
+                    <div class="form-group col">
+                        <label for="exampleInputEmail1">{{ availability_form.session_start.label }}</label>
+                        {{availability_form.session_start(class="form-control")}}
+                    </div>
+                    <div class="form-group col">
+                        <label for="exampleInputEmail1">{{ availability_form.session_end.label }}</label>
+                        {{availability_form.session_end(class="form-control")}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group center">
+            {{ availability_form.submit(class="btn btn-primary") }}
+        </div>
     </form>
 </div>
 {%endblock%}
