@@ -9,7 +9,7 @@ login_page = Blueprint('login', __name__,
                         template_folder='templates',
                         url_prefix='/login')
 
-
+#Assign user roles
 @identity_loaded.connect_via(app)
 def on_identity_loaded(sender, identity):
     # Set the identity user object

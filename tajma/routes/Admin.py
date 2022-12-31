@@ -3,36 +3,42 @@ from tajma.form import SearchForm
 from flask import Blueprint, render_template, redirect, request, url_for
 from random import randint
 from flask_login import login_required, current_user
+from flask_principal import Permission, RoleNeed
+from tajma.constants import RoleEnum
+from models import session
+from tajma.FlaskPrincipalPermission import admin_permission
 
 admin_page = Blueprint('admin', __name__,
-                        template_folder='templates',
-                        url_prefix='/admin')
+                       template_folder='templates',
+                       url_prefix='/admin')
 
-def isAdmin():
-    userAdmin = session.query(User.id).filter(User.email == current_user.get_email()).scalar()
-    if userAdmin.roles and userAdmin.roles[0].name == 'Admin':
-        return True
-    else:
-        return False
+# def isAdmin():
+#     # userAdmin = session.query(User.id).filter(User.email == current_user.get_email()).scalar()
+#     # if userAdmin.roles and userAdmin.roles[0].name == 'Admin':
+#     #     return True
+#     # else:
+#     #     return False
+
 
 @admin_page.route('/', methods=["GET", "POST"])
+@admin_permission.require(http_exception=403)
 def admin():
-    if isAdmin():
-        form = SearchForm()
-        if form.validate_on_submit():
-            kwargs = {
-                form.selectfield.data: form.searchfield.data
-            }
-            userSearch = User.query.filter_by(**kwargs).all()
+    # if isAdmin():
+    form = SearchForm()
+    if form.validate_on_submit():
+        kwargs = {
+            form.selectfield.data: form.searchfield.data
+        }
+        userSearch = User.query.filter_by(**kwargs).all()
 
-            return render_template('admin.html', form=form, userSearch=userSearch)
-        # need to fix this
-        if request.args.get('type'):
-            hello = "Hello"
-            return render_template('admin.html', form=form, hello=hello)
-        return render_template("admin.html", form=form)
-    else:
-        return redirect(url_for('login'))
+        return render_template('admin.html', form=form, userSearch=userSearch)
+    # need to fix this
+    if request.args.get('type'):
+        hello = "Hello"
+        return render_template('admin.html', form=form, hello=hello)
+    return render_template("admin.html", form=form)
+    # else:
+    #     return redirect(url_for('login'))
 
 # View results
 

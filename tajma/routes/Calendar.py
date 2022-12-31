@@ -2,12 +2,14 @@ from flask import Blueprint, render_template,  jsonify, url_for, request, redire
 from tajma.forms.CreateCalendarEventForm import CalendarEventForm
 from models import *
 from datetime import datetime, timedelta
+from tajma.FlaskPrincipalPermission import user_permission
 calendar_page = Blueprint('calendar', __name__,
                           template_folder='templates',
                           url_prefix='/calendar')
 
 
 @calendar_page.route('/', methods=["GET", "POST"])
+@user_permission.require(http_exception=403)
 def calendar():
     form = CalendarEventForm()
     form.errors

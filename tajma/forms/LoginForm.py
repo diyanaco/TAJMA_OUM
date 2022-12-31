@@ -25,6 +25,8 @@ class LoginForm(FlaskForm):
                 role_codes = self.check_role(user)
                 print(f'role_codes', role_codes)
                 login_user(user, remember=False)
+                #Create identity object for flask_principal
+                # which will trigger on_identity_loaded() @Login.py
                 identity_changed.send(current_app._get_current_object(),
                             identity=Identity(user.id))
                 return True

@@ -10,6 +10,7 @@ from .Profile import profile_page
 from .Calendar import calendar_page
 from .Logout import logout_page
 from .SaveProgress import save_page
+from .ErrorHandler import handle_bad_request
 
 def init_app(app):
     app.register_blueprint(home_page)   
@@ -23,6 +24,7 @@ def init_app(app):
     app.register_blueprint(calendar_page)
     app.register_blueprint(logout_page)
     app.register_blueprint(save_page)
+    app.register_error_handler(403, handle_bad_request)
 
 
 #Save picture
