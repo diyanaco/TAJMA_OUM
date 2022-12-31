@@ -1,0 +1,10 @@
+{%extends 'Profile.html' %}
+{%block availability%}
+<div class="container">
+    <form method="POST" action="/">
+        {{ availability_form.csrf_token }}
+        {{ availability_form.name.label }} {{ availability_form.name(size=20) }}
+        <input type="submit" value="Go">
+    </form>
+</div>
+{%endblock%}

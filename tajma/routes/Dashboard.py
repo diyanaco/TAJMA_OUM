@@ -2,14 +2,14 @@ from flask_login import login_required, current_user
 from flask import Blueprint, render_template, flash
 from models import *
 from flask_principal import Permission, RoleNeed
-from tajma.constants import RoleConstant
+from tajma.constants import RoleEnum
 
 #Defining roles
-admin_permission = Permission(RoleNeed(RoleConstant.SUPER_ADMIN))
-student_permission = Permission(RoleNeed(RoleConstant.STUDENT))
-user_permission = Permission(RoleNeed(RoleConstant.STUDENT),
-                             RoleNeed(RoleConstant.ADMIN),
-                             RoleNeed(RoleConstant.SUPER_ADMIN))
+admin_permission = Permission(RoleNeed(RoleEnum.SUPER_ADMIN.value))
+student_permission = Permission(RoleNeed(RoleEnum.STUDENT.value))
+user_permission = Permission(RoleNeed(RoleEnum.STUDENT.value),
+                             RoleNeed(RoleEnum.ADMIN.value),
+                             RoleNeed(RoleEnum.SUPER_ADMIN.value))
 
 dashboard_page = Blueprint('dashboard', __name__,
                            template_folder='templates',

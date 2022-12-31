@@ -4,7 +4,9 @@ from .CreateCalendarEventForm import CalendarEventForm
 from .LoginForm import LoginForm
 from .RegistrationForm import RegistrationForm
 from .VerificationForm import VerificationForm
-from .PsychometricTests import AttitudeAnswer, ElearningAnswer, LearnerAnswer, UpdateAccountForm
+from .PsychometricTests import AttitudeAnswer, ElearningAnswer, LearnerAnswer
+from .CalendarAvailabilityForm import CalendarAvailabilityForm
+from .ProfileForm import UpdateProfileForm
 
 class ConfirmForm (FlaskForm):
     confirm = SubmitField('Yes')

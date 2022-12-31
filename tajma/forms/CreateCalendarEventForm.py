@@ -5,7 +5,7 @@ from wtforms import StringField, SubmitField, DateField, SelectField, TextAreaFi
 from wtforms.validators import DataRequired, Email
 from models import *
 from flask_login import current_user
-from tajma.constants import RoleConstant
+from tajma.constants import RoleEnum
 from typing import List
 
 
@@ -17,7 +17,7 @@ class CalendarEventForm(FlaskForm):
     # Querying from tables
     slots = session.query(Slot).all()
     counselors = session.query(User).join(association_user_role_table).join(
-        Role).filter(Role.code == RoleConstant.COUNSELOR).all()
+        Role).filter(Role.code == RoleEnum.COUNSELOR.value).all()
     # List of participants
     counselor_selected: User
     patient_selected: User

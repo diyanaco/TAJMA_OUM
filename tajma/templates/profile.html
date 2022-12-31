@@ -1,10 +1,6 @@
 {%extends 'dashboard.html' %}
 {%block body%}
 <div class="container-fluid">
-    <!-- Page Heading -->
-    <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                  <h1 class="h3 mb-0 text-gray-800">{{ title }}</h1>
-              </div> -->
     <div class="container">
       <div class="main-body">
         <div class="row gutters-sm">
@@ -23,25 +19,25 @@
             </div>
             <div class="card mt-3">
               <button id="buttonUpdate" type="button" class="btn btn-primary" style="float: right;">
-                <a class="nav-link" href="{{url_for('profile', type='mod')}}" style="color: white;">Update
+                <a class="nav-link" href="{{url_for('profile.profile', type='mod')}}" style="color: white;">Update
                   Profile</a>
               </button>
               {% if form is defined%}
               <form method="POST" action="" enctype="multipart/form-data">
-                {{form.hidden_tag()}}
+                {{profile_form.hidden_tag()}}
                 <fieldset class="form-group">
                   <div class="form-group">
-                    {{ form.picture.label(class="text-dark center") }}
-                    {{ form.picture(class="form-control-file") }}
-                    {% if form.picture.errors %}
-                    {% for error in form.picture.errors %}
+                    {{ profile_form.picture.label(class="text-dark center") }}
+                    {{ profile_form.picture(class="form-control-file") }}
+                    {% if profile_form.picture.errors %}
+                    {% for error in profile_form.picture.errors %}
                     <span class="text-danger">{{ error }}</span></br>
                     {% endfor %}
                     {% endif %}
                   </div>
 
                   <div class="form-group center">
-                    {{ form.update(class="btn btn-primary") }}
+                    {{ profile_form.update(class="btn btn-primary") }}
                   </div>
                 </fieldset>
                 <form>
@@ -123,4 +119,6 @@
       </div>
     </div>
 </div>
+{%block availability%}
+{%endblock%}
 {%endblock%}
