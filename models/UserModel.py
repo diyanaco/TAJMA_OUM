@@ -29,11 +29,12 @@ class User(Base, UserMixin):
     revision = Column(String(50), nullable=True)
     #To remove
     test = Column(String(50), nullable=True)
-    
     #if s means its one to many, else one to one
     roles = relationship("Role", secondary=association_user_role_table)
     calendar_event = relationship("CalendarEvent", secondary=association_user_calendar_event_table)
 
+    active = Column(Boolean())
+    
     #override get_id method from UserMixin
     def get_id(self):
         return self.id
