@@ -1,7 +1,8 @@
 from typing import Any
 from sqlalchemy import Column, String, DateTime, Boolean
 from sqlalchemy.orm import relationship
-from flask_login import UserMixin
+# from flask_login import UserMixin
+from flask_security import UserMixin
 from .UserRoleLinkModel import association_user_role_table
 from .UserCalendarEventModel import association_user_calendar_event_table
 from . import Base

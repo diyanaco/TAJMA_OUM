@@ -1,7 +1,9 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy.orm import scoped_session, sessionmaker
 # from tajma import login_manager
 import os
+from flask_security import SQLAlchemySessionUserDatastore
+from sqlalchemy.ext.declarative import declarative_base
 
 db_url='mysql://zaim:zaim@localhost:3306/oumpsy'
 # db_url='sqlite:///oumpsy.db'
@@ -13,10 +15,14 @@ db_url='mysql://zaim:zaim@localhost:3306/oumpsy'
 #For sqlite
 # engine = create_engine(db_url,connect_args={"check_same_thread": False}, echo=True)
 engine = create_engine(db_url, echo=True)
-Session = sessionmaker()
-Session.configure(bind=engine)
-session = Session()
+session = scoped_session(sessionmaker(autocommit=False,
+                                         autoflush=False,
+                                         bind=engine))
+# Session = sessionmaker()
+# Session.configure(bind=engine)
+# session = Session()
 Base = declarative_base()
+Base.query = session.query_property()
 
 from .AttitudeModel import Attitude
 from .LearnerModel import Learner
