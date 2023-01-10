@@ -3,7 +3,7 @@ from models import session, User, Role, association_user_role_table
 from flask import current_app
 from flask_wtf import FlaskForm
 # from flask_login import login_user
-from flask_security import login_user
+from flask_security import login_user, current_user
 from flask_principal import identity_changed, Identity
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, Email
@@ -28,6 +28,7 @@ class LoginForm(FlaskForm):
                 login_user(user, remember=False)
                 #Create identity object for flask_principal
                 # which will trigger on_identity_loaded() @Login.py
+                current_user
                 identity_changed.send(current_app._get_current_object(),
                             identity=Identity(user.id))
                 return True

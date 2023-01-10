@@ -12,12 +12,12 @@ admin_page = Blueprint('admin', __name__,
                        template_folder='templates',
                        url_prefix='/admin')
 
-# def isAdmin():
-#     # userAdmin = session.query(User.id).filter(User.email == current_user.get_email()).scalar()
-#     # if userAdmin.roles and userAdmin.roles[0].name == 'Admin':
-#     #     return True
-#     # else:
-#     #     return False
+def isAdmin():
+    userAdmin = session.query(User.id).filter(User.email == current_user.get_email()).scalar()
+    if userAdmin.roles and userAdmin.roles[0].name == 'Admin':
+        return True
+    else:
+        return False
 
 
 @admin_page.route('/', methods=["GET", "POST"])

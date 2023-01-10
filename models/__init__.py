@@ -2,7 +2,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 # from tajma import login_manager
 import os
-from flask_security import SQLAlchemySessionUserDatastore
 from sqlalchemy.ext.declarative import declarative_base
 
 db_url='mysql://zaim:zaim@localhost:3306/oumpsy'

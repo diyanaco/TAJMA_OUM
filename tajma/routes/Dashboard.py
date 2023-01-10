@@ -1,10 +1,10 @@
-from flask_login import login_required, current_user
+# from flask_login import login_required, current_user
 from flask import Blueprint, render_template, flash
 from models import *
 from flask_principal import Permission, RoleNeed
 from tajma.constants import RoleEnum
 from tajma.FlaskPrincipalPermission import user_permission, admin_permission
-
+from flask_security import current_user, login_required
 dashboard_page = Blueprint('dashboard', __name__,
                            template_folder='templates',
                            url_prefix='/dashboard')

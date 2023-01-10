@@ -1,9 +1,10 @@
-from tajma import login_manager, app
+# from tajma import login_manager, app
+from tajma import  app
 from models import User, session
 from tajma.forms import LoginForm
 from flask import redirect, flash, url_for, render_template, Blueprint
-from flask_login import current_user
 from flask_principal import identity_loaded, RoleNeed, UserNeed
+from flask_security import current_user
 
 login_page = Blueprint('login', __name__,
                         template_folder='templates',
@@ -29,16 +30,16 @@ def on_identity_loaded(sender, identity):
     except Exception as e:
         print("EXCEPTION : on_identity_loaded : " + str(e))
 
-@login_manager.user_loader
-def load_user(userid):
-    try:
-        # Return an instance of the User model
-        user = session.query(User).filter(User.id == userid).scalar()
-        return user
-    except :
-        session.rollback()
-        session.close()
-        return None
+# @login_manager.user_loader
+# def load_user(userid):
+#     try:
+#         # Return an instance of the User model
+#         user = session.query(User).filter(User.id == userid).scalar()
+#         return user
+#     except :
+#         session.rollback()
+#         session.close()
+#         return None
 
 
 @login_page.route("/", methods=["GET", "POST"])
