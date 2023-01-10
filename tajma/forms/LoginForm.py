@@ -25,10 +25,10 @@ class LoginForm(FlaskForm):
             if user and bcrypt.check_password_hash(user.password, self.password.data):
                 role_codes = self.check_role(user)
                 print(f'role_codes', role_codes)
-                login_user(user, remember=False)
+                is_login = login_user(user, remember=False)
                 #Create identity object for flask_principal
                 # which will trigger on_identity_loaded() @Login.py
-                current_user
+                # current_user
                 identity_changed.send(current_app._get_current_object(),
                             identity=Identity(user.id))
                 return True
