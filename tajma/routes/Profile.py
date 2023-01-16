@@ -24,12 +24,14 @@ def profile():
         "email": current_user.get_email(),
         "image": url_for('static', filename='assets/img/profile_pics/' + current_user.profPic)
     }
-    # Check if user is counselor
-    isCounselor = session.query(User).join(association_user_role_table).join(
-        Role).filter(Role.code == RoleEnum.COUNSELOR.value, User.id == current_user.get_id()).all()
-    if (isCounselor):
-        return render_template("ProfileCounselor.html",
-                               prof=prof,
-                               availability_form=availability_form,
-                               profile_form=profile_form)
-    return render_template("Profile.html", prof=prof, profile_form=profile_form)
+    # # Check if user is counselor
+    # isCounselor = session.query(User).join(association_user_role_table).join(
+    #     Role).filter(Role.code == RoleEnum.COUNSELOR.value, User.id == current_user.get_id()).all()
+    # if (isCounselor):
+    #     return render_template("ProfileCounselor.html",
+    #                            prof=prof,
+    #                            availability_form=availability_form,
+    #                            profile_form=profile_form)
+    return render_template("Profile.html", prof=prof,
+                           profile_form=profile_form,
+                           availability_form=availability_form)

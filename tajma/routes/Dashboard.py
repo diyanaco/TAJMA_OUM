@@ -15,7 +15,7 @@ dashboard_page = Blueprint('dashboard', __name__,
 @login_required
 def dashboard():
     print(f'current user is : {current_user}')
-    #Retrieve user information
+    # Retrieve user information
     user: User = session.query(User).filter(
         User.id == current_user.get_id()).scalar()
     testTaken = {
@@ -23,7 +23,7 @@ def dashboard():
         "learner": user.learnerTaken,
         "attitude": user.attitudeTaken,
     }
-    #Check if user is admin
+    # Check if user is admin
     isAdmin = session.query(User).join(association_user_role_table).join(
         Role).filter(Role.code == RoleEnum.ADMIN.value, User.id == current_user.get_id()).all()
     # TODO #19 Research why db and fe not sync
