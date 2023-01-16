@@ -11,7 +11,7 @@ dashboard_page = Blueprint('dashboard', __name__,
 
 
 @dashboard_page.route("/", methods=["GET", "POST"])
-@user_permission.require(http_exception=403)
+@admin_permission.require(http_exception=403)
 @login_required
 def dashboard():
     print(f'current user is : {current_user}')
