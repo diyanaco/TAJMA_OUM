@@ -33,6 +33,7 @@ def dashboard():
     #   Can test within the system whether the update is in sync. After one test, then route back to dashboard
     #   to see the test taken being in effect or not
     print(f'test taken is : {testTaken}')
+    print(current_user.has_role("ADMIN"))
     return render_template("dashboard.html", testTaken=testTaken, adminView=isAdmin)
 
 
