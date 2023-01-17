@@ -1,8 +1,7 @@
 
-from flask_login import current_user
+from flask_login import current_user, login_user
 from flask import redirect, url_for, session as localSession, Blueprint, render_template
 from tajma.forms import RegistrationForm
-
 register_page = Blueprint('register', __name__,
                         template_folder='templates',
                         url_prefix='/register')
@@ -23,7 +22,7 @@ def register():
         #after that, the user with admin role will route to admin page after login
         if localSession.get("email") == "admin@demo.com":
             form.assign_admin()
-            return redirect(url_for('admin'))
+            return redirect(url_for('admin.admin'))
         #ISSUE 3 create function first time login
         #flash("Succesfully Register, please login")
         return redirect(url_for('dashboard.dashboard'))

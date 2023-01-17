@@ -1,4 +1,4 @@
-import imp
+# import imp
 from flask_wtf import FlaskForm
 
 class FieldsRequiredForm(FlaskForm):
@@ -11,8 +11,6 @@ class FieldsRequiredForm(FlaskForm):
             render_kw.setdefault('required', True)
             return super().render_field(field, render_kw)
 
-
 from .AttitudeForm import AttitudeAnswer
 from .ElearningForm import ElearningAnswer
 from .LearnerForm import LearnerAnswer
-from .ProfileForm import UpdateAccountForm

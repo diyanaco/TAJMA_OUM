@@ -1,15 +1,16 @@
-from tajma import login_manager, app
-from tajma.models import User, session
+# from tajma import login_manager, app
+from tajma import  app
+from models import User, session
 from tajma.forms import LoginForm
 from flask import redirect, flash, url_for, render_template, Blueprint
-from flask_login import current_user
 from flask_principal import identity_loaded, RoleNeed, UserNeed
+from flask_security import current_user
 
 login_page = Blueprint('login', __name__,
                         template_folder='templates',
                         url_prefix='/login')
 
-
+#Assign user roles
 @identity_loaded.connect_via(app)
 def on_identity_loaded(sender, identity):
     # Set the identity user object
@@ -29,23 +30,25 @@ def on_identity_loaded(sender, identity):
     except Exception as e:
         print("EXCEPTION : on_identity_loaded : " + str(e))
 
-@login_manager.user_loader
-def load_user(userid):
-    try:
-        # Return an instance of the User model
-        user = session.query(User).filter(User.id == userid).scalar()
-        return user
-    except :
-        session.rollback()
-        session.close()
-        return None
+# @login_manager.user_loader
+# def load_user(userid):
+#     try:
+#         # Return an instance of the User model
+#         user = session.query(User).filter(User.id == userid).scalar()
+#         return user
+#     except :
+#         session.rollback()
+#         session.close()
+#         return None
 
 
 @login_page.route("/", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     login = form.check_login()
+    print("login is", login)
     if form.validate_on_submit():
+        print("validate true")
         if login == True:
             return redirect(url_for('dashboard.dashboard'))
             # if form.check_role() == "Admin":

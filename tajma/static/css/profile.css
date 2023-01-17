@@ -1,0 +1,11 @@
+input[type="radio"]:checked + label {
+  background-color: rgb(246, 246, 246);
+  border: 2px dashed #444;
+}
+input[type="radio"]:hover + label {
+  background-color: rgb(228, 217, 217);
+}
+input[type="radio"]:focus + label {
+  background-color: rgb(238, 234, 234);
+  border: 2px dashed #444;
+}

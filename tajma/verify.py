@@ -3,7 +3,7 @@ from tajma import bcrypt
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 # from tajma.models import Student, User
-from tajma.models.StudentModel import Student
+from models.StudentModel import Student
 from wtforms.validators import DataRequired, Email
 
 class VerificationForm(FlaskForm):

@@ -1,4 +1,4 @@
-from tajma.models import session, Student
+from models import session, Student
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Email
 from flask_wtf import FlaskForm

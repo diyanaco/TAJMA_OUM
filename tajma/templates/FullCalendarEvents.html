@@ -5,13 +5,17 @@
 />
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script>
+  var events = JSON.parse('{{events | tojson | safe}}');
+  // var events = '{{events}}';
+  // events = JSON.parse(events);
   document.addEventListener("DOMContentLoaded", function () {
+    console.log(events)
     var calendarEl = document.getElementById("calendar");
     // var calendar = new FullCalendar.Calendar(calendarEl, {
     //   initialView: "dayGridMonth",
     // });
     // calendar.render();
-
+    // var events = 
     var calendar = new FullCalendar.Calendar(calendarEl, {
       headerToolbar: {
         left: "dayGridMonth",
@@ -30,28 +34,7 @@
         },
       },
       weekends: false,
-      events: [
-        {
-          title: "Meeting with AbuDhabi",
-          start: "2022-10-03",
-          end: "2022-10-06",
-        },
-        {
-          title: "Deployment",
-          start: "2022-10-07",
-          allDay: true,
-        },
-        {
-          title: "Rest time",
-          start: "2022-10-12",
-          end: "2022-10-13",
-        },
-        {
-          title: "Coding whole day",
-          start: "2022-10-28",
-          allDay: true, // will make the time show
-        },
-      ],
+      events: events
       //   eventSources: [
       //     // your event source
       //     {
@@ -96,7 +79,7 @@
       // Get the modal
       var modal = document.getElementById("myModal");
       $(".modal-body #todaydate").val(new Date().toISOString().split("T")[0]);
-      $(".modal-body #appointmentdate").val(info.dateStr);
+      $(".modal-body #appointmentdate").val(new Date().toISOString().split("T")[0]);
       $("#myModal").modal("show");
       // alert("What do u want to do with this date? " + info.dateStr);
     });
@@ -123,6 +106,7 @@
 </script>
 
 {%endblock%} {%block body%}
+<!-- Pop Up Calendar to insert event -->
 <div
   class="modal fade"
   id="myModal"
@@ -166,6 +150,11 @@
             {{field.label(class="form-control-label")}} 
             {{field}} 
             {% endif%}
+            {% if field.type =="TextAreaField" %} 
+            {{field.label(class="form-control-label")}} 
+            <br>
+            {{field(cols="50", rows="4")}} 
+            {% endif%}
             {% if field.type =="SubmitField" %} 
             <div class="modal-footer">
               {{field(class="btn btn-primary")}} 
@@ -181,5 +170,7 @@
     </div>
   </div>
 </div>
+
+<!-- Main calendar -->
 <div id="calendar" style="margin-left: 30px"></div>
 {%endblock%}

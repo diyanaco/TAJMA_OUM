@@ -1,4 +1,4 @@
-from flask_login import current_user
+# from flask_login import current_user
 from .Admin import admin_page
 from .Dashboard import dashboard_page
 from .Home import home_page
@@ -10,6 +10,8 @@ from .Profile import profile_page
 from .Calendar import calendar_page
 from .Logout import logout_page
 from .SaveProgress import save_page
+from .ErrorHandler import handle_bad_request
+from .GoogleSignUp import google_sign_up_page
 
 def init_app(app):
     app.register_blueprint(home_page)   
@@ -23,7 +25,8 @@ def init_app(app):
     app.register_blueprint(calendar_page)
     app.register_blueprint(logout_page)
     app.register_blueprint(save_page)
-
+    app.register_error_handler(403, handle_bad_request)
+    app.register_blueprint(google_sign_up_page)
 
 #Save picture
 # def save_picture(form_picture):

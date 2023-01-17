@@ -79,11 +79,11 @@
         OUM Psychometric Test
       </div>
 
-      <li class="nav-item " id="menu1">
+      <!-- <li class="nav-item " id="menu1">
         <a class="nav-link collapsed" href="{{url_for('dashboard.dashboard')}}">
           <p>Take Test</p>
         </a>
-      </li>
+      </li> -->
       <li class="nav-item " id="menu1">
         <a class="nav-link collapsed" href="{{url_for('admin.result_user')}}">
           <p>My Result</p>
@@ -94,11 +94,21 @@
           <p>My Appointment</p>
         </a>
       </li>
+      {% if current_user.has_role('Admin') %}
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      <div class="sidebar-heading">
+        Admin View
+      </div>
+      <li class="nav-item">
+        <a class="nav-link" href="{{url_for('admin.admin')}}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Search Results</span></a>
+        </li>
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+      {%endif%}
       {%endblock%}
-
-
-
-
     </ul>
     <!-- End of Sidebar -->
 

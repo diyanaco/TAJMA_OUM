@@ -1,10 +1,10 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from flask_login import current_user
+# from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField, SelectField
 from wtforms.validators import DataRequired, Email, EqualTo
 from flask_login import login_user
-from tajma.models import *
+from models import *
 from tajma import bcrypt
 from flask import session as localSession, current_app
 import uuid

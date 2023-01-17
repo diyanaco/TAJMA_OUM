@@ -1,20 +1,5 @@
 {%extends 'dashboard.html' %}
-
-{%block sidebar%}
-<!-- Nav Item - Dashboard -->
-<li class="nav-item">
-    <a class="nav-link" href="{{url_for('admin')}}">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Search Results</span></a>
-    </li>
-    
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-    
-{%endblock%}
 {%block body%}
-
-
 <form method="POST" action="">
 {{form.hidden_tag()}}
     <div>
@@ -83,5 +68,4 @@
 <section id = "result">
     <h1>{{hello}}</h1>
 </section>
-
 {%endblock%}
