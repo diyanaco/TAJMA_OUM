@@ -13,7 +13,7 @@ db_url='mysql://zaim:zaim@localhost:3306/oumpsy'
 # err : sqlite objects created in a thread can only be used in that same thread sqlalchemy
 #For sqlite
 # engine = create_engine(db_url,connect_args={"check_same_thread": False}, echo=True)
-engine = create_engine(db_url, echo=True)
+engine = create_engine(db_url, echo=True, pool_size=10, max_overflow=20)
 session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))

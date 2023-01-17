@@ -7,11 +7,6 @@ from .VerificationForm import VerificationForm
 from .PsychometricTests import AttitudeAnswer, ElearningAnswer, LearnerAnswer
 from .CalendarAvailabilityForm import CalendarAvailabilityForm
 from .ProfileForm import UpdateProfileForm
+from .SearchForm import SearchForm
+from .ConfirmForm import ConfirmForm
 
-class ConfirmForm (FlaskForm):
-    confirm = SubmitField('Yes')
-
-class SearchForm(FlaskForm):
-    selectfield = SelectField('Type', choices=[('id', 'User ID'), ('firstName', 'First Name'), ('email','Email')])
-    searchfield = StringField('Search')
-    search = SubmitField('Search')
