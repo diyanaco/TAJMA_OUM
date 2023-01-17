@@ -46,15 +46,10 @@ def on_identity_loaded(sender, identity):
 def login():
     form = LoginForm()
     login = form.check_login()
-    print("login is", login)
     if form.validate_on_submit():
         print("validate true")
         if login == True:
             return redirect(url_for('dashboard.dashboard'))
-            # if form.check_role() == "Admin":
-            #     return redirect(url_for('admin'))
-            # else :
-            #     return redirect(url_for('dashboard.dashboard'))
         elif login == False:
             flash("Your credentials are wrong")
         elif form.check_registered() == False:

@@ -1,21 +1,12 @@
-{%extends 'dashboard.html' %} {%block head%}
-<link
-  href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css"
-  rel="stylesheet"
-/>
+{%extends 'dashboard.html' %}
+{%block head%}
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
 <script>
   var events = JSON.parse('{{events | tojson | safe}}');
-  // var events = '{{events}}';
-  // events = JSON.parse(events);
   document.addEventListener("DOMContentLoaded", function () {
     console.log(events)
     var calendarEl = document.getElementById("calendar");
-    // var calendar = new FullCalendar.Calendar(calendarEl, {
-    //   initialView: "dayGridMonth",
-    // });
-    // calendar.render();
-    // var events = 
     var calendar = new FullCalendar.Calendar(calendarEl, {
       headerToolbar: {
         left: "dayGridMonth",
@@ -35,129 +26,68 @@
       },
       weekends: false,
       events: events
-      //   eventSources: [
-      //     // your event source
-      //     {
-      //       events: [
-      //         // put the array in the `events` property
-      //         {
-      //           title: "event1",
-      //           start: "2022-6-10",
-      //         },
-      //         {
-      //           title: "event2",
-      //           start: "2010-01-05",
-      //           end: "2010-01-07",
-      //         },
-      //         {
-      //           title: "event3",
-      //           start: "2010-01-09T12:30:00",
-      //         },
-      //       ],
-      //       color: "black", // an option!
-      //       textColor: "yellow", // an option!
-      //     },
-
-      //     // any other event sources...
-      //   ],
-      //Static handler
-      //   dateClick: function () {
-      //     alert("a day has been clicked!");
-      //   },
-      //   initialView : this.changeView( 'dayGridMonth')
     });
     calendar.render();
     //Setting the options, options can be set after the calendar is initialize
     calendar.setOption("locale", "fr");
     calendar.setOption("private", "myr");
     calendar.setOption("locale", "btc");
-    console.log("locale is : ", calendar.getOption("private"));
 
     //can obtain list of info in dateClickevent
     calendar.on("dateClick", function (info) {
-      console.log("OnClick");
       // Get the modal
       var modal = document.getElementById("myModal");
       $(".modal-body #todaydate").val(new Date().toISOString().split("T")[0]);
       $(".modal-body #appointmentdate").val(new Date().toISOString().split("T")[0]);
       $("#myModal").modal("show");
-      // alert("What do u want to do with this date? " + info.dateStr);
     });
-    // var calendar = new Calendar(calendarEl, {
-    //   views: {
-    //     dayGrid: {
-    //       // options apply to dayGridMonth, dayGridWeek, and dayGridDay views
-    //     },
-    //     timeGrid: {
-    //       // options apply to timeGridWeek and timeGridDay views
-    //     },
-    //     week: {
-    //       // options apply to dayGridWeek and timeGridWeek views
-    //     },
-    //     day: {
-    //       // options apply to dayGridDay and timeGridDay views
-    //     },
-    //   },
-    // });
   });
   $(document).ready(function () {
     $("#appointmentdate").datepicker({ dateFormat: 'yy-mm-dd' });
   });
 </script>
 
-{%endblock%} {%block body%}
+{%endblock%}
+{%block body%}
 <!-- Pop Up Calendar to insert event -->
-<div
-  class="modal fade"
-  id="myModal"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">
           Choose date for your appointment
         </h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form method="POST" action="">
-          {{form.hidden_tag()}} 
+          {{form.hidden_tag()}}
           {% for field in form %}
           <div class="form-group">
             {% if field.type=="DateField" %}
-            {{field.label(class="form-control-label")}} 
+            {{field.label(class="form-control-label")}}
             <div class="input-group">
               <div class="input-group-prepend">
-                <span class="material-symbols-outlined input-group-text"
-                  >event
+                <span class="material-symbols-outlined input-group-text">event
                 </span>
               </div>
               {{ field(style="border: none") }}
             </div>
-            {% endif %} 
-            {% if field.type =="SelectField" %} 
-            {{field.label(class="form-control-label")}} 
-            {{field}} 
+            {% endif %}
+            {% if field.type =="SelectField" %}
+            {{field.label(class="form-control-label")}}
+            {{field}}
             {% endif%}
-            {% if field.type =="TextAreaField" %} 
-            {{field.label(class="form-control-label")}} 
+            {% if field.type =="TextAreaField" %}
+            {{field.label(class="form-control-label")}}
             <br>
-            {{field(cols="50", rows="4")}} 
+            {{field(cols="50", rows="4")}}
             {% endif%}
-            {% if field.type =="SubmitField" %} 
+            {% if field.type =="SubmitField" %}
             <div class="modal-footer">
-              {{field(class="btn btn-primary")}} 
+              {{field(class="btn btn-primary")}}
               <button type="button" class="btn btn-secondary" data-dismiss="modal">
                 Close
               </button>
