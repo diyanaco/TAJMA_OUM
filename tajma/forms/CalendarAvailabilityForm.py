@@ -5,7 +5,6 @@ from wtforms.fields.html5 import TimeField
 
 
 class CalendarAvailabilityForm(FlaskForm):
-    # name = StringField('name', validators=[DataRequired()])
     days = RadioField(
         'days', choices=["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], validators=[DataRequired()])
     session_start = TimeField("Start", format='%H:%M')
