@@ -6,10 +6,10 @@ from tajma.forms import CalendarAvailabilityForm, UpdateProfileForm
 
 profile_page = Blueprint('profile', __name__,
                          template_folder='templates',
-                         url_prefix='/login')
+                         url_prefix='/profile')
 
 
-@profile_page.route("/profile", methods=["GET", "POST"])
+@profile_page.route("/", methods=["GET", "POST"])
 @login_required
 def profile():
     availability_form = CalendarAvailabilityForm()
@@ -24,14 +24,6 @@ def profile():
         "email": current_user.get_email(),
         "image": url_for('static', filename='assets/img/profile_pics/' + current_user.profPic)
     }
-    # # Check if user is counselor
-    # isCounselor = session.query(User).join(association_user_role_table).join(
-    #     Role).filter(Role.code == RoleEnum.COUNSELOR.value, User.id == current_user.get_id()).all()
-    # if (isCounselor):
-    #     return render_template("ProfileCounselor.html",
-    #                            prof=prof,
-    #                            availability_form=availability_form,
-    #                            profile_form=profile_form)
-    return render_template("Profile.html", prof=prof,
+    return render_template("profile.html", prof=prof,
                            profile_form=profile_form,
                            availability_form=availability_form)

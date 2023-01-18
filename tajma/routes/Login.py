@@ -30,24 +30,11 @@ def on_identity_loaded(sender, identity):
     except Exception as e:
         print("EXCEPTION : on_identity_loaded : " + str(e))
 
-# @login_manager.user_loader
-# def load_user(userid):
-#     try:
-#         # Return an instance of the User model
-#         user = session.query(User).filter(User.id == userid).scalar()
-#         return user
-#     except :
-#         session.rollback()
-#         session.close()
-#         return None
-
-
 @login_page.route("/", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     login = form.check_login()
     if form.validate_on_submit():
-        print("validate true")
         if login == True:
             return redirect(url_for('dashboard.dashboard'))
         elif login == False:

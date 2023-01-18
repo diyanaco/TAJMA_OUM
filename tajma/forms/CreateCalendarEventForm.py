@@ -27,7 +27,7 @@ class CalendarEventForm(FlaskForm):
     todaydate = DateField('Today Date', render_kw={
                           'readonly': True}, format='%Y-%m-%d')
     appointmentdate = DateField(
-        'Choose your appointment date', format='%Y-%m-%d')
+        'Your appointment date', format='%Y-%m-%d')
 
 
     summary = TextAreaField('Can you give a brief summary', validators=[

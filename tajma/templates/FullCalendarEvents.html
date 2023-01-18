@@ -8,18 +8,20 @@
     console.log(events)
     var calendarEl = document.getElementById("calendar");
     var calendar = new FullCalendar.Calendar(calendarEl, {
+      timeZone: 'local',
+      height: 500,
+      width : 400,
       headerToolbar: {
-        left: "dayGridMonth",
-        center: "dayGridMonth,timeGridWeek",
-        right: "timeGridWeek",
+        start: 'dayGridMonth,timeGridWeek,timeGridDay',
+        center: 'title',
+        end: 'prevYear,prev,next,nextYear'
       }, // buttons for switching between views
       views: {
         dayGridMonth: {
           // name of view
           titleFormat: {
             year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
+            month: 'long',
           },
           // other view-specific options here
         },
@@ -29,16 +31,17 @@
     });
     calendar.render();
     //Setting the options, options can be set after the calendar is initialize
-    calendar.setOption("locale", "fr");
-    calendar.setOption("private", "myr");
-    calendar.setOption("locale", "btc");
+    //calendar.setOption("locale", "fr");
+    //calendar.setOption("private", "myr");
+    //calendar.setOption("locale", "btc");
 
     //can obtain list of info in dateClickevent
     calendar.on("dateClick", function (info) {
+      console.log("info is ", info)
       // Get the modal
       var modal = document.getElementById("myModal");
       $(".modal-body #todaydate").val(new Date().toISOString().split("T")[0]);
-      $(".modal-body #appointmentdate").val(new Date().toISOString().split("T")[0]);
+      $(".modal-body #appointmentdate").val(new Date(info.dateStr).toISOString().split("T")[0]);
       $("#myModal").modal("show");
     });
   });
