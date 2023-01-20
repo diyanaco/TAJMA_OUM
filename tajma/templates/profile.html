@@ -36,7 +36,7 @@
                   {{ profile_form.picture(class="form-control-file") }}
                   {% if profile_form.picture.errors %}
                   {% for error in profile_form.picture.errors %}
-                  <span class="text-danger">{{ error }}</span></br>
+                  <span class="text-danger">{{ error }}</span>
                   {% endfor %}
                   {% endif %}
                 </div>
@@ -142,18 +142,13 @@
                   </tr>
                 </div>
                 {% endfor %}
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-body">
-                <p>Configure the slot</p>
                 <div class="row">
                   <div class="form-group col">
-                    <label for="exampleInputEmail1">{{ availability_form.session_start.label }}</label>
+                    <label>{{ availability_form.session_start.label }}</label>
                     {{availability_form.session_start(class="form-control")}}
                   </div>
                   <div class="form-group col">
-                    <label for="exampleInputEmail1">{{ availability_form.session_end.label }}</label>
+                    <label>{{ availability_form.session_end.label }}</label>
                     {{availability_form.session_end(class="form-control")}}
                   </div>
                 </div>

@@ -9,5 +9,5 @@ class CalendarAvailabilityForm(FlaskForm):
         'days', choices=["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], validators=[DataRequired()])
     session_start = TimeField("Start", format='%H:%M')
     session_end = TimeField("End", format='%H:%M')
-    submit = SubmitField('Update')
+    submit = SubmitField('Add')
 
