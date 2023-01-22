@@ -1,8 +1,10 @@
 {%extends 'dashboard.html' %}
 {%block head%}
 <link rel='stylesheet' href="{{ url_for('static', filename='css/profile.css')}}">
+<script src="{{url_for('static', filename='js/Profile.js')}}"></script>
 {%endblock%}
 {%block body%}
+<div id="output"></div>
 <div class="container-fluid">
   <div class="container">
     <div class="main-body">
@@ -130,7 +132,8 @@
       {% if current_user.has_role('Counselor') %}
       <div class="row gutters-sm">
         <div class="container">
-          <form method="POST" action="/">
+          <form id="form" method="POST">
+            {{availability_form.hidden_tag()}}
             <div class="card">
               <div class="card-body">
                 <p>Select days</p>
@@ -142,6 +145,8 @@
                   </tr>
                 </div>
                 {% endfor %}
+                <!-- {{availability_form.days.label}}
+                {{availability_form.days(rows="3", multiple="True")}}  -->
                 <div class="row">
                   <div class="form-group col">
                     <label>{{ availability_form.session_start.label }}</label>
@@ -157,6 +162,7 @@
             <div class="form-group center">
               {{ availability_form.submit(class="btn btn-primary") }}
             </div>
+            <!-- <button onclick="submit_availability_form()"></button> -->
           </form>
         </div>
       </div>

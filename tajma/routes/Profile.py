@@ -1,4 +1,4 @@
-from flask import Blueprint, request, url_for, render_template
+from flask import Blueprint, request, url_for, render_template, jsonify, make_response
 from flask_login import login_required, current_user
 from models import *
 from tajma.constants import RoleEnum
@@ -24,6 +24,16 @@ def profile():
         "email": current_user.get_email(),
         "image": url_for('static', filename='assets/img/profile_pics/' + current_user.profPic)
     }
+    # if availability_form.validate_on_submit():
+    #     return jsonify({'output':'You choose this day right?'})
+
     return render_template("profile.html", prof=prof,
                            profile_form=profile_form,
                            availability_form=availability_form)
+
+@profile_page.route("/create-slot", methods=["POST"])
+def create_slot():
+    req = request.get_json()
+    print("request is : ", req)
+    res = make_response(jsonify(req), 200)
+    return res
