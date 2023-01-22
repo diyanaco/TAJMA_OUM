@@ -4,7 +4,6 @@
 <script src="{{url_for('static', filename='js/Profile.js')}}"></script>
 {%endblock%}
 {%block body%}
-<div id="output">Hello World</div>
 <div class="container-fluid">
   <div class="container">
     <div class="main-body">
@@ -132,38 +131,71 @@
       {% if current_user.has_role('Counselor') %}
       <div class="row gutters-sm">
         <div class="container">
-          <form id="form" method="POST">
-            {{availability_form.hidden_tag()}}
-            <div class="card">
-              <div class="card-body">
-                <p>Select days</p>
-                {% for subfield in availability_form.days %}
-                <div class="form-check form-check-inline">
-                  <tr>
-                    <td>{{ subfield(class="form-check-input")}}</td>
-                    <td>{{ subfield.label(class="form-check-label")}}</td>
-                  </tr>
-                </div>
-                {% endfor %}
-                <!-- {{availability_form.days.label}}
-                {{availability_form.days(rows="3", multiple="True")}}  -->
-                <div class="row">
-                  <div class="form-group col">
-                    <label>{{ availability_form.session_start.label }}</label>
-                    {{availability_form.session_start(class="form-control")}}
+          <div class="row">
+            <div class="col-md-6">
+              <form id="form" method="POST">
+                {{availability_form.hidden_tag()}}
+                <div class="card">
+                  <div class="card-body">
+                    <p>Select days</p>
+                    {% for subfield in availability_form.days %}
+                    <div class="form-check form-check-inline">
+                      <tr>
+                        <td>{{ subfield(class="form-check-input")}}</td>
+                        <td>{{ subfield.label(class="form-check-label")}}</td>
+                      </tr>
+                    </div>
+                    {% endfor %}
+                    <!-- {{availability_form.days.label}}
+                  {{availability_form.days(rows="3", multiple="True")}}  -->
+                    <div class="row">
+                      <div class="form-group col">
+                        <label>{{ availability_form.session_start.label }}</label>
+                        {{availability_form.session_start(class="form-control")}}
+                      </div>
+                      <div class="form-group col">
+                        <label>{{ availability_form.session_end.label }}</label>
+                        {{availability_form.session_end(class="form-control")}}
+                      </div>
+                    </div>
                   </div>
-                  <div class="form-group col">
-                    <label>{{ availability_form.session_end.label }}</label>
-                    {{availability_form.session_end(class="form-control")}}
-                  </div>
                 </div>
+                <div class="form-group center">
+                  {{ availability_form.submit(class="btn btn-primary") }}
+                </div>
+                <!-- <button onclick="submit_availability_form()"></button> -->
+              </form>
+            </div>
+            <div class="col-md-6">
+              <div class="card mb-3">
+                {%for slot in slots %}
+                <div class="card-body">
+                  <!-- Slots configured -->
+                  <h4>Slot {{loop.index}}</h4>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      Days
+                    </div>
+                    <div class="col-sm-9 text-secondary" id="selected_days">{{slot.days}}</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      Start Slot
+                    </div>
+                    <div class="col-sm-9 text-secondary" id="start_slot">{{slot.start_slot}}</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      End Slot
+                    </div>
+                    <div class="col-sm-9 text-secondary" id="end_slot">{{slot.end_slot}}</div>
+                  </div>
+                  <hr>
+                </div>
+                {%endfor%}
               </div>
             </div>
-            <div class="form-group center">
-              {{ availability_form.submit(class="btn btn-primary") }}
-            </div>
-            <!-- <button onclick="submit_availability_form()"></button> -->
-          </form>
+          </div>
         </div>
       </div>
       {%endif%}

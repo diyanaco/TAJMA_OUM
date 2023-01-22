@@ -25,18 +25,69 @@ def profile():
         "email": current_user.get_email(),
         "image": url_for('static', filename='assets/img/profile_pics/' + current_user.profPic)
     }
+    slots: Slot = session.query(Slot).filter(
+        Slot.counselor_id == current_user.get_id()).all()
+    slots_deserialized = [
+        {
+            "days": ', '.join(days_deserializers(x.days)),
+            "start_slot": x.start_slot,
+            "end_slot": x.end_slot
+        }
+        for x in slots]
 
     return render_template("profile.html", prof=prof,
                            profile_form=profile_form,
-                           availability_form=availability_form)
+                           availability_form=availability_form,
+                           slots=slots_deserialized)
 
 
 @profile_page.route("/create-slot", methods=["POST"])
 def create_slot():
     req = request.get_json()
-    print(f'reques is {req}')
+    days_serialized = days_serializers(req["selected_days"])
+
     slot = Slot(id=str(uuid.uuid4()), start_slot=req["slot_start"],
-                end_slot=req["slot_end"])
+                end_slot=req["slot_end"], days=days_serialized)
     db_insert_data(slot)
-    res = make_response(jsonify(req), 200)
+    slots = session.query(Slot).filter(
+        Slot.counselor_id == current_user.get_id()).scalar()
+    res = make_response(jsonify(slots), 200)
     return res
+
+def days_deserializers(days):
+    days_deserialized = []
+    for index, day in enumerate(days):
+        if(day=="1" and index==0):
+            days_deserialized.append("Monday")
+        if(day=="1" and index==1):
+            days_deserialized.append("Tuesday")
+        if(day=="1" and index==2):
+            days_deserialized.append("Wednesday")
+        if(day=="1" and index==3):
+            days_deserialized.append("Thursday")
+        if(day=="1" and index==4):
+            days_deserialized.append("Friday")
+        if(day=="1" and index==5):
+            days_deserialized.append("Saturday")
+        if(day=="1" and index==6):
+            days_deserialized.append("Sunday")
+    return days_deserialized
+
+def days_serializers(days):
+    day_serialized = ""
+    for day in days:
+        if day == 'Monday':
+            day_serialized = "1000000"
+        if day == 'Tuesday':
+            day_serialized += "0100000"
+        if day == 'Wednesday':
+            day_serialized += "0010000"
+        if day == 'Thursday':
+            day_serialized += "0001000"
+        if day == 'Friday':
+            day_serialized += "0000100"
+        if day == 'Saturday':
+            day_serialized += "0000010"
+        if day == 'Sunday':
+            day_serialized += "0000001"
+    return day_serialized

@@ -24,7 +24,9 @@ $(document).ready(function () {
       .then((res) => res.json())
       .then((res) => {
         console.log(res);
-        $("#output").text(res).show();
+        $("#selected_days").text(res.selected_days).show();
+        $("#start_slot").text(res.slot_start).show();
+        $("#end_slot").text(res.slot_end).show();
       })
       .catch((e) => console.log(e));
     e.preventDefault();
