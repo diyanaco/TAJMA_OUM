@@ -1,0 +1,91 @@
+{%extends 'dashboard.html' %}
+{%block head%}
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+<script>
+  var events = null;
+  document.addEventListener("DOMContentLoaded", function () {
+    var calendarEl = document.getElementById("calendar");
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      headerToolbar: {
+        left: "dayGridMonth",
+        center: "dayGridMonth,timeGridWeek",
+        right: "timeGridWeek",
+      }, // buttons for switching between views
+      views: {
+        dayGridMonth: {
+          // name of view
+          titleFormat: {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          },
+          // other view-specific options here
+        },
+      },
+      weekends: false,
+      events: events
+    });
+    calendar.render();
+    //Setting the options, options can be set after the calendar is initialize
+    calendar.setOption("locale", "fr");
+    calendar.setOption("private", "myr");
+    calendar.setOption("locale", "btc");
+
+    //can obtain list of info in dateClickevent
+    calendar.on("dateClick", function (info) {
+      // Get the modal
+      var modal = document.getElementById("myModal");
+      $(".modal-body #todaydate").val(new Date().toISOString().split("T")[0]);
+      $(".modal-body #appointmentdate").val(new Date().toISOString().split("T")[0]);
+      $("#myModal").modal("show");
+    });
+  });
+  $(document).ready(function () {
+    $("#appointmentdate").datepicker({ dateFormat: 'yy-mm-dd' });
+  });
+</script>
+
+{%endblock%}
+{%block body%}
+<div class="row gutters-sm">
+    <div class="container">
+        <form method="POST" action="">
+            {{form.hidden_tag()}}
+            {% for field in form %}
+            <div class="form-group">
+                {% if field.type =="SelectField" %}
+                {{field.label(class="form-control-label")}}
+                {{field}}
+                {% endif%}
+                {% if field.type=="DateField" %}
+                {{field.label(class="form-control-label")}}
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="material-symbols-outlined input-group-text">event
+                        </span>
+                    </div>
+                    {{ field(style="border: none") }}
+                </div>
+                {% endif %}
+                {% if field.type =="TextAreaField" %}
+                {{field.label(class="form-control-label")}}
+                <br>
+                {{field(cols="50", rows="4")}}
+                {% endif%}
+                {% if field.type =="SubmitField" %}
+                <div class="modal-footer">
+                    {{field(class="btn btn-primary")}}
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+                {% endif%}
+            </div>
+            {% endfor %}
+            <!-- Main calendar -->
+            <div id="calendar" style="margin-left: 30px"></div>
+        </form>
+    </div>
+</div>
+{%endblock%}

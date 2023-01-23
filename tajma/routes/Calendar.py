@@ -30,14 +30,12 @@ def calendar():
         event : CalendarEvent
         events.append({
             "id": event.id,
-            # "allDay": ,
             "start": calculateStart(event.appointment_date, getSlot(event.slot_id)),
             #End date maybe redundant, sin
             "end": calculateEnd(event.appointment_date, getSlot(event.slot_id)),
             "title": event.title,
             # String. A URL that will be visited when this event is clicked by the user.
             # For more information on controlling this behavior, see the eventClick callback.
-            # "url",
             "editable" : True,
             "backgroundColor" : "rgb(252,186,3)",
             "textColor":"rgb(227, 223, 213)",
@@ -50,9 +48,6 @@ def calendar():
                 "summary": event.summary
             }
         })
-    # events = [
-    #     {
-    # ]
     return render_template('FullCalendarEvents.html', form=form, events=events)
 
 

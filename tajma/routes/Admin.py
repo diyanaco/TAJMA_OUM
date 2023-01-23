@@ -1,5 +1,5 @@
 from models import *
-from tajma.form import SearchForm
+from tajma.forms import SearchForm
 from flask import Blueprint, render_template, redirect, request, url_for
 from random import randint
 from flask_login import login_required, current_user
