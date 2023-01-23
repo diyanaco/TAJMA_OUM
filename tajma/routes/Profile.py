@@ -4,7 +4,7 @@ from models import *
 from tajma.constants import RoleEnum
 from tajma.forms import CalendarAvailabilityForm, UpdateProfileForm
 import uuid
-
+from operator import add
 profile_page = Blueprint('profile', __name__,
                          template_folder='templates',
                          url_prefix='/profile')
@@ -50,9 +50,17 @@ def create_slot():
                 end_slot=req["slot_end"], days=days_serialized)
     db_insert_data(slot)
     slots = session.query(Slot).filter(
-        Slot.counselor_id == current_user.get_id()).scalar()
-    res = make_response(jsonify(slots), 200)
+        Slot.counselor_id == current_user.get_id()).all()
+    slots_deserialized = [
+        {
+            "days": ', '.join(days_deserializers(x.days)),
+            "start_slot": x.start_slot,
+            "end_slot": x.end_slot
+        }
+        for x in slots]
+    res = make_response(jsonify(slots_deserialized), 200)
     return res
+    
 
 def days_deserializers(days):
     days_deserialized = []
@@ -74,20 +82,20 @@ def days_deserializers(days):
     return days_deserialized
 
 def days_serializers(days):
-    day_serialized = ""
+    day_serialized = [0,0,0,0,0,0,0]
     for day in days:
         if day == 'Monday':
-            day_serialized = "1000000"
+            day_serialized = list( map (add, day_serialized, [1,0,0,0,0,0,0]))        
         if day == 'Tuesday':
-            day_serialized += "0100000"
+            day_serialized = list( map (add, day_serialized, [0,1,0,0,0,0,0]))
         if day == 'Wednesday':
-            day_serialized += "0010000"
+            day_serialized = list( map (add, day_serialized, [0,0,1,0,0,0,0]))
         if day == 'Thursday':
-            day_serialized += "0001000"
+            day_serialized = list( map (add, day_serialized, [0,0,0,1,0,0,0]))
         if day == 'Friday':
-            day_serialized += "0000100"
+            day_serialized = list( map (add, day_serialized, [0,0,0,0,1,0,0]))
         if day == 'Saturday':
-            day_serialized += "0000010"
+            day_serialized = list( map (add, day_serialized, [0,0,0,0,0,1,0]))
         if day == 'Sunday':
-            day_serialized += "0000001"
+            day_serialized += list( map (add, day_serialized, [0,0,0,0,0,0,1]))
     return day_serialized
